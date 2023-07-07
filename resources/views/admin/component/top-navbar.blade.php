@@ -7,7 +7,7 @@
             <div
                 class="navbar-brand flex h-[70px] shrink items-center justify-between border-r border-r-gray-50 bg-slate-50 px-5 dark:border-zinc-700 dark:bg-zinc-800">
                 <a href="#" class="flex items-center text-lg font-bold dark:text-white">
-                    <img src="assets/images/logo-sm.svg" alt="" class="mt-1 inline-block h-6 ltr:mr-2 rtl:ml-2" />
+                    <img src="{{asset('mania/images/logo-sm.svg')}}" alt="" class="mt-1 inline-block h-6 ltr:mr-2 rtl:ml-2" />
                     <span class="hidden align-middle xl:block">Juna POS</span>
                 </a>
             </div>
