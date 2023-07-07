@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="id" dir="ltr">
 <head>
+
     <meta charset="utf-8" />
     <title>@yield('page_title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -16,8 +17,9 @@
 
     <link rel="stylesheet" href="{{asset('mania/css/icons.css')}}" />
     <link rel="stylesheet" href="{{asset('mania/css/tailwind.css')}}" />
-    @livewireStyles
     @yield('page_css')
+    @livewireStyles
+
 </head>
 
 <body data-mode="light" data-sidebar-size="lg">

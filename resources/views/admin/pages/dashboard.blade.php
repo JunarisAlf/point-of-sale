@@ -1,4 +1,4 @@
-@extends('admin.layout.app')
+@extends('admin.layout.APP_PANEL')
 @section('page_title', 'HOME')
 @section('menu_title', 'Dashboard')
 
