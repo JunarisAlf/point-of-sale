@@ -18,5 +18,6 @@
     <script src="{{asset('mania/js/pages/login.init.js')}}"></script>
     <script src="{{asset('mania/js/app.js')}}"></script>
     @yield('page_script')
+    @livewireScripts
 </body>
 </html>

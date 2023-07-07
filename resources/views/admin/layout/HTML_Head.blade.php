@@ -16,6 +16,7 @@
 
     <link rel="stylesheet" href="{{asset('mania/css/icons.css')}}" />
     <link rel="stylesheet" href="{{asset('mania/css/tailwind.css')}}" />
+    @livewireStyles
     @yield('page_css')
 </head>
 
