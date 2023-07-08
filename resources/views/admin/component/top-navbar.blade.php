@@ -52,8 +52,8 @@
                         id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="true">
                         <img class="h-8 w-8 rounded-full ltr:xl:mr-2 rtl:xl:ml-2"
-                            src="{{asset('mania/images/users/avatar-1.jpg')}}" alt="Header Avatar">
-                        <span class="fw-medium hidden xl:block">Junaris Alf</span>
+                            src="{{asset('storage/profile/' . $user->profile_image)}}" alt="Header Avatar">
+                        <span class="fw-medium hidden xl:block">{{$user->full_name}}</span>
                         <i class="mdi mdi-chevron-down hidden align-bottom xl:block"></i>
                     </button>
                     <div class="dropdown-menu absolute top-0 z-50 hidden w-40 list-none rounded bg-white shadow ltr:-left-3 rtl:-right-3 dark:bg-zinc-800"
@@ -73,7 +73,7 @@
                             </div>
                             <hr class="border-gray-50 dark:border-gray-700">
                             <div class="dropdown-item dark:text-gray-100">
-                                <a class="block p-3 hover:bg-gray-50/50 dark:hover:bg-zinc-700/50" href="logout.html">
+                                <a class="block p-3 hover:bg-gray-50/50 dark:hover:bg-zinc-700/50" href="{{route('logout')}}">
                                     <i class="mdi mdi-logout text-16 mr-1 align-middle"></i> Logout
                                 </a>
                             </div>

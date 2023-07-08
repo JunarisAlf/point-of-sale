@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class DashboardController extends Controller {
-    public function index(){
+class UserController extends Controller{
+    public function profile(){
         $user = Auth::user();
-        return view('admin.pages.dashboard', compact('user'));
+        return view('admin.pages.account.profile', compact('user'));
     }
-   
-
 }

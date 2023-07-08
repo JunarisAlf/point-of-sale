@@ -1,4 +1,4 @@
-<div class="main-content ">
+<div class="main-content dark:bg-zinc-700 min-h-screen">
     <div class="page-content dark:bg-zinc-700">
         <div class="container-fluid px-[0.625rem]">
             <div class="grid grid-cols-1 mb-5">

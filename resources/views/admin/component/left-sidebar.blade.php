@@ -8,20 +8,26 @@
             <ul class="metismenu" id="side-menu">
                 <li class="menu-heading px-4 py-3.5 text-xs font-medium text-gray-500 cursor-default" data-key="t-menu">Menu</li>
                 <li >
-                    <a href="/" class="pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+                    <a href="{{route('admin.dashboard')}}" class="pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
                         <i data-feather="home"></i>
-                        <span data-key="t-dashboard"> Dashboard</span>
+                        <span data-key="t-dashboard">Dashboard</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="javascript: void(0);" aria-expanded="false" class="nav-menu pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
-                        <i data-feather="grid"></i>
-                        <span data-key="t-apps"> Apps</span>
+                        <i data-feather="user"></i>
+                        <span data-key="t-apps">Akun</span>
                     </a>
                     <ul>
-                        <li >
-                            <a href="dfsd" class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Chat</a>
+                        <li>
+                            <a href="{{route('profile')}}" class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Profile</a>
+                        </li>
+                        <li>
+                            <a href="{{route('changePassword')}}" class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Ubah Password</a>
+                        </li>
+                        <li>
+                            <a href="{{route('logout')}}" class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Logout</a>
                         </li>
 
                     </ul>

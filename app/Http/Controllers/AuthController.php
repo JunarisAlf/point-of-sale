@@ -15,5 +15,10 @@ class AuthController extends Controller{
         $req->session()->regenerateToken();
         return to_route('login_page');
     }
+    public function changePassword(){
+        $user = Auth::user();
+        return view('admin.pages.auth.change-password', compact('user'));
+    }
+    
 }
 

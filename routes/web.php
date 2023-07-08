@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,9 @@ Route::middleware('guest')->group(function(){
 
 Route::middleware('auth')->group(function(){
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/ubah-password', [AuthController::class, 'changePassword'])->name('changePassword');
+    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+
 
     Route::get('/dashboard',  [DashboardController::class, 'index'])->name('admin.dashboard');
 });

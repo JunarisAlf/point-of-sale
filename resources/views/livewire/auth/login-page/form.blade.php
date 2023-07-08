@@ -36,5 +36,10 @@
             <p>{{session('error')}}</p>
         </div>
     @endif
+    @if (session()->has('success'))
+        <div class="relative px-5 py-3 border-2 bg-green-50 text-green-700 border-green-100 rounded mb-3">
+            <p>{{session('success')}}</p>
+        </div>
+    @endif
     
 </div>
