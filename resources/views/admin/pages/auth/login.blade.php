@@ -5,6 +5,7 @@
 @endsection
 
 @section('page_script')
+    <script src="//unpkg.com/alpinejs" defer></script>
 @endsection
 
 @section('HTML_Main')
@@ -20,49 +21,7 @@
                             </a>
                         </div>
 
-                        <div class="my-auto">
-                            <div class="text-center">
-                                <h5 class="text-gray-600 dark:text-gray-100">Welcome Back !</h5>
-                                <p class="text-gray-500 dark:text-gray-100/60 mt-1">Sign in to continue to Dashboard.</p>
-                            </div>
-
-                            <form class="mt-4 pt-2" action="index.html">
-                                <div class="mb-4">
-                                    <label class="text-gray-600 dark:text-gray-100 font-medium mb-2 block">Username</label>
-                                    <input type="text" class="w-full rounded placeholder:text-sm py-2 border-gray-100 dark:bg-zinc-700/50 dark:border-zinc-600 dark:text-gray-100 dark:placeholder:text-zinc-100/60" id="username" placeholder="Enter username">
-                                </div>
-                                <div class="mb-3">
-                                    <div class="flex">
-                                        <div class="flex-grow-1">
-                                            <label class="text-gray-600 dark:text-gray-100 font-medium mb-2 block">Password</label>
-                                        </div>
-                                        {{-- <div class="ltr:ml-auto rtl:mr-auto">
-                                            <a href="#" class="text-gray-500 dark:text-gray-100">Forgot password?</a>
-                                        </div> --}}
-                                    </div>
-                                    
-                                    <div class="flex">
-                                        <input type="password" class="w-full rounded ltr:rounded-r-none rtl:rounded-l-none placeholder:text-sm py-2 border-gray-100 dark:bg-zinc-700/50 dark:border-zinc-600 dark:text-gray-100 dark:placeholder:text-zinc-100/60" placeholder="Enter password" aria-label="Password" aria-describedby="password-addon">
-                                        <button class="bg-gray-50 px-4 rounded ltr:rounded-l-none rtl:rounded-r-none border border-gray-100 ltr:border-l-0 rtl:border-r-0 dark:bg-zinc-700 dark:border-zinc-600 dark:text-gray-100" type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
-                                    </div>
-                                </div>
-                                {{-- <div class="row mb-6">
-                                    <div class="col">
-                                        <div >
-                                            <input type="checkbox" class="h-4 w-4 border border-gray-300 rounded bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain ltr:float-left rtl:float-right ltr:mr-2 rtl:ml-2 cursor-pointer focus:ring-offset-0" checked id="exampleCheck1">
-                                            <label class="align-middle text-gray-600 dark:text-gray-100 font-medium">
-                                                Remember me
-                                            </label>
-                                        </div>  
-                                    </div>
-                                    
-                                </div> --}}
-                                <div class="mb-3">
-                                    <button class="btn border-transparent bg-violet-500 w-full py-2.5 text-white w-100 waves-effect waves-light shadow-md shadow-violet-200 dark:shadow-zinc-600" type="submit">Log In</button>
-                                </div>
-                            </form>
-
-                        </div>
+                        @livewire('auth.login-page.form')
 
                         
                         <div class=" text-center">
@@ -96,7 +55,7 @@
                                         <i class="bx bxs-quote-alt-left text-green-600 text-5xl"></i>
                                             <h3 class="mt-4 text-white text-22">“I feel confident imposing change on myself. It's a lot more progressing fun than looking back. That's why I ultricies enim at malesuada nibh diam on tortor neaded to throw curve balls.”</h3>
                                             <div class="flex mt-6 mb-10 pt-4">
-                                                <img src="assets/images/users/avatar-1.jpg" class="h-12 w-12 rounded-full" alt="...">
+                                                <img src="{{asset('mania/images/users/avatar-1.jpg')}}" class="h-12 w-12 rounded-full" alt="...">
                                                 <div class="flex-1 ltr:ml-3 rtl:mr-2 mb-4">
                                                     <h5 class="font-size-18 text-white">Ilse R. Eaton</h5>
                                                     <p class="mb-0 text-white/50">Manager

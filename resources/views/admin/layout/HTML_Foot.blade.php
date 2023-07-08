@@ -14,7 +14,7 @@
     <!-- dashboard init -->
     <script src="{{asset('mania/js/pages/dashboard.init.js')}}"></script>
     <script src="{{asset('mania/js/pages/nav&tabs.js')}}"></script>
-    <script src="{{asset('mania/libs/swiper/swiper-bundle.min.js')}}./"></script>
+    <script src="{{asset('mania/libs/swiper/swiper-bundle.min.js')}}"></script>
     <script src="{{asset('mania/js/pages/login.init.js')}}"></script>
     <script src="{{asset('mania/js/app.js')}}"></script>
     @yield('page_script')
