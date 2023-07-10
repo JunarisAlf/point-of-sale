@@ -17,6 +17,7 @@
     <script src="{{asset('mania/libs/swiper/swiper-bundle.min.js')}}"></script>
     <script src="{{asset('mania/js/pages/login.init.js')}}"></script>
     <script src="{{asset('mania/js/app.js')}}"></script>
+    <script src="{{asset('js/custome.js')}}"></script>
     @yield('page_script')
     @livewireScripts
 </body>

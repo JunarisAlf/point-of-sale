@@ -14,6 +14,39 @@
                     </a>
                 </li>
 
+                 {{-- START MASTER DATA --}}
+                 <li >
+                    <a href="javascript: void(0);" class="pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+                        <i data-feather="list"></i>
+                        <span >Data Master</span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="/sdfdfs"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Data Toko</a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.master.cabang')}}" class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Data Cabang</a>
+                        </li>
+                    </ul>
+                </li>
+                {{-- END MASTER DATA --}}
+
+                {{-- START USER --}}
+                <li >
+                    <a href="javascript: void(0);" class="pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+                        <i data-feather="users"></i>
+                        <span data-key="t-dashboard">Penguna</span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="{{route('admin.manageUser')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Daftar Pengguna</a>
+                        </li>
+                        <li>
+                            <a href="/dsfdsfsd" class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">User Log</a>
+                        </li>
+                    </ul>
+                </li>
+                {{-- END USER --}}
                 <li>
                     <a href="javascript: void(0);" aria-expanded="false" class="nav-menu pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
                         <i data-feather="user"></i>
@@ -34,7 +67,7 @@
                 </li>
             </ul>
 
-            <div class="sidebar-alert text-center mx-5 my-12">
+            {{-- <div class="sidebar-alert text-center mx-5 my-12">
                 <div class="card-body bg-primary rounded bg-violet-50/50 dark:bg-zinc-700/60">
                     <img src="assets/images/giftbox.png" alt="" class="block mx-auto">
                     <div class="mt-4">
@@ -43,7 +76,7 @@
                         <a href="#!" class="btn bg-violet-500 text-white border-transparent mt-6">Upgrade Now</a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         <!-- Sidebar -->
     </div>

@@ -1,0 +1,13 @@
+.simple-alert{
+    display: hidden;
+    right: -300px;
+    min-width: 200px;
+    max-width: 500px;
+    z-index: 1000;
+    transition: all .5s ease;
+}
+
+.simple-alert-show{
+    display: block;
+    right: 8px;
+}
