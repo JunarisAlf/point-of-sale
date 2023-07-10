@@ -1,5 +1,7 @@
 .simple-alert{
-    display: hidden;
+    /* display: none !important; */
+    opacity: 1;
+    position: absolute !important;
     right: -300px;
     min-width: 200px;
     max-width: 500px;
@@ -8,6 +10,15 @@
 }
 
 .simple-alert-show{
-    display: block;
+    /* display: flex !important; */
+    opacity: 1;
     right: 8px;
+}
+
+.alert-container{
+    display: block;
+    width: 100vw;
+    height: 200px;
+    overflow-x: hidden;
+    height: auto;
 }

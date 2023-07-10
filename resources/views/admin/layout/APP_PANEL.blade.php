@@ -1,12 +1,5 @@
 @include('admin.layout.HTML_Head')
 
-
-@livewire('utils.alert.success-alert')
-@livewire('utils.alert.danger-alert')
-@livewire('utils.alert.warning-alert')
-@livewire('utils.alert.info-alert')
-
-
 @include('admin.component.top-navbar')
 @include('admin.component.left-sidebar')
 
@@ -19,6 +12,10 @@
                 </div>
             </div>
             
+            @livewire('utils.alert.success-alert')
+            @livewire('utils.alert.danger-alert')
+            @livewire('utils.alert.warning-alert')
+            @livewire('utils.alert.info-alert')
             @yield('HTML_Main')
 
         </div>

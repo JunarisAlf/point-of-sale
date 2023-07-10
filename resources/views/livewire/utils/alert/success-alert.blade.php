@@ -6,4 +6,14 @@
     </div>
     <p class="text-green-700 ltr:ml-4 rtl:mr-4">{{$message}}</p> 
     <button class="alert-close ltr:ml-auto rtl:mr-auto text-zinc-500 text-lg ltr:pr-5 rtl:pl-5"><i class="mdi mdi-close"></i></button>
+    @if ($show)
+        <script>
+            setTimeout(() => {
+                let activeAlert = document.getElementsByClassName('simple-alert-show');
+                activeAlert.forEach(element => {
+                    element.classList.remove('simple-alert-show');
+                });
+            }, 2500);
+        </script>
+    @endif
 </div>
