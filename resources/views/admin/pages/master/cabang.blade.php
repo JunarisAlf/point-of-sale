@@ -5,7 +5,8 @@
 @section('HTML_Main')
    @livewire('master.cabang.cabang-table', ['user' => $user])
    @livewire('master.cabang.create-cabang-modal')
-
+   @livewire('master.cabang.delete-cabang-modal')
+   @livewire('master.cabang.edit-cabang-modal')
 @endsection
 
 {{-- @section('page_css')

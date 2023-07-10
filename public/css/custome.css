@@ -22,3 +22,9 @@
     overflow-x: hidden;
     height: auto;
 }
+.scale-80{
+    transform: scale(.8);
+}
+.scale-80:hover{
+    transform: scale(.9);
+}

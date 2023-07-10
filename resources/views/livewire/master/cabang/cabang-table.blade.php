@@ -6,57 +6,51 @@
         </button>
 
     </div>
-    <div class="col-span-12">
+     <div class="col-span-12">
         <div class="card dark:bg-zinc-800 dark:border-zinc-600">
             <div class="card-body pb-0">
                 <h6 class="mb-1 text-15 text-gray-700 dark:text-gray-100">Daftar Cabang</h6>
             </div>
             <div class="card-body">
                 <div class="relative overflow-x-auto">
-                    <table class="w-full text-sm text-left text-gray-500">
+                    <table class="w-full text-sm text-left text-gray-500" style="min-width: max-content">
                         <thead class="text-xs text-gray-700 dark:text-gray-100 uppercase bg-gray-50/50 dark:bg-zinc-700">
                             <tr>
                                 <th scope="col" class="p-4">
                                     Nomor
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Name
+                                    Nama
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Position
+                                    Alamat
                                 </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Status
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Action
+                                <th scope="col" class="px-6 py-3" style="width: 350px">
+                                    Aksi
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="bg-white border-b border-gray-50 hover:bg-gray-50/50 dark:bg-zinc-700/50 dark:border-zinc-600">
-                                <td class="w-4 p-4">
-                                   1
-                                </td>
-                                <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
-                                <img class="w-10 h-10 rounded-full" src="{{asset('mania/images/users/avatar-1.jpg')}}" alt="Jese image">
-                                    <div class="ltr:pl-3 rtl:pr-3 ltr:text-left rtl:text-right">
-                                        <div class="text-base font-semibold dark:text-gray-100">Mark</div>
-                                        <div class="font-normal text-gray-500 dark:text-zinc-100/80">mark@snowball.com</div>
-                                    </div>  
-                                </th>
-                                <td class="px-6 py-4 dark:text-zinc-100/80">
-                                    React Developer
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="flex items-center dark:text-zinc-100/80">
-                                        <div class="h-2.5 w-2.5 rounded-full bg-green-500 ltr:mr-2 rtl:ml-2"></div> Online
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="#" class="font-medium text-blue-600 hover:underline">Edit user</a>
-                                </td>
-                            </tr>
+                            @foreach ($cabangs as $key => $cb)
+                                <tr class="bg-white border-b border-gray-50 hover:bg-gray-50/50 dark:bg-zinc-700/50 dark:border-zinc-600">
+                                    <td class="w-4 p-4">
+                                        {{$key+1}}
+                                    </td>
+                                    <td class="px-6 py-4 dark:text-zinc-100/80">
+                                        {{$cb->name}}
+                                    </td>
+                                    <td class="px-6 py-4 dark:text-zinc-100/80">
+                                        {{$cb->address}}
+                                    </td>
+                                    <td class="px-6 py-4" >
+                                        <button wire:click="$emit('openEditModal', {{$cb->id}})" type="button" class="btn border-0 bg-yellow-500 p-0 align-middle text-white focus:ring-2 focus:ring-yellow-500/30 hover:bg-yellow-600 scale-80"><i class="bx bx-edit bg-white bg-opacity-20 w-10 h-full text-16 py-3 align-middle rounded-l"></i><span class="px-3 leading-[2.8]">Edit</span></button>
+
+                                        <button wire:click="$emit('openDeleteModal', {{$cb->id}})" type="button" class="btn border-0 bg-red-500 p-0 align-middle text-white focus:ring-2 focus:ring-red-500/30 hover:bg-red-600 scale-80" ><i class="bx bx-trash bg-white bg-opacity-20 w-10  h-full  text-16 py-3 align-middle rounded-l "></i><span class="px-3 leading-[2.8]">Hapus</span></button>
+
+                                    </td>
+                                </tr>
+                            @endforeach
+                            
                            
                         </tbody>
                     </table>
