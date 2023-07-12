@@ -10,5 +10,9 @@ class Cabang extends Model{
     protected $table = 'cabangs';
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
+    public function users(){
+        return $this->hasMany(User::class, 'cabang_id', 'id');
+    }
+
 
 }

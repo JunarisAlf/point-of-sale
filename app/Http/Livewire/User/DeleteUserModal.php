@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Livewire\Master\Cabang;
+namespace App\Http\Livewire\User;
 
-use App\Models\Cabang;
+use App\Models\User;
 use Exception;
 use Livewire\Component;
 
-class DeleteCabangModal extends Component {
+class DeleteUserModal extends Component {
     public $show = false;
     public $data_id, $data_name;
     protected $listeners = ['openDeleteModal' => 'openModal'];
     public function openModal($id){
         try {
-            $cabang = Cabang::find($id);
-            $this->data_id = $cabang->id;
-            $this->data_name = $cabang->name;
+            $user = User::find($id);
+            $this->data_id = $user->id;
+            $this->data_name = $user->username;
             $this->show = true;
         } catch (Exception $e) {
             $this->emit('showDangerAlert', 'Server ERROR!');
@@ -22,16 +22,16 @@ class DeleteCabangModal extends Component {
     }
     public function destroy($id){
         try {
-            Cabang::destroy($id);
+            User::destroy($id);
             $this->show = false;
             $this->emit('showSuccessAlert', 'Data Berhasil Dihapus!');
-            $this->emit('refresh_cabang_table');
+            $this->emit('refresh_user_table');
 
         } catch (Exception $e) {
             $this->emit('showDangerAlert', 'Server ERROR!');
         }
     }
     public function render() {
-        return view('livewire.master.cabang.delete-cabang-modal');
+        return view('livewire.user.delete-user-modal');
     }
 }

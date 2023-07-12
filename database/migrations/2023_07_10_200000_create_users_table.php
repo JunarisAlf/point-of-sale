@@ -18,6 +18,11 @@ return new class extends Migration
             $table->enum('role', ['master', 'admin', 'gudang', 'general']);
             $table->string('password');
             $table->string('profile_image');
+            $table->foreignId('cabang_id') 
+                  ->nullable()
+                  ->constrained(table: 'cabangs', column: 'id',indexName: 'users_cabang')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
             $table->timestamps();
         });
     }

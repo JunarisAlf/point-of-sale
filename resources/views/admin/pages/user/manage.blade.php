@@ -3,8 +3,12 @@
 @section('menu_title', 'Pengguna dan Hak Akses')
 
 @section('HTML_Main')
-   @livewire('user.user-table', ['user' => $user])
+   @livewire('user.user-table')
    @livewire('user.create-user-modal')
+   @livewire('user.delete-user-modal')
+   @livewire('user.edit-user-modal')
+
+
 
 @endsection
 

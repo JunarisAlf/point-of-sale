@@ -19,7 +19,7 @@
             </button>
 
             {{-- START SEARCH --}}
-            <form class="app-search hidden px-5 xl:block">
+            {{-- <form class="app-search hidden px-5 xl:block">
                 <div class="relative inline-block">
                     <input type="text"
                         class="rounded border-0 bg-gray-50/30 px-4 placeholder:text-sm focus:ring-0 dark:border-zinc-700 dark:bg-zinc-700/50 dark:text-gray-100 dark:placeholder:text-gray-200"
@@ -28,7 +28,7 @@
                         class="absolute top-1 inline-block rounded bg-violet-500 py-1.5 px-2.5 text-white shadow shadow-violet-100 ltr:right-1 rtl:left-1 rtl:right-auto dark:shadow-gray-900"
                         type="button"><i class="bx bx-search-alt align-middle"></i></button>
                 </div>
-            </form>
+            </form> --}}
             {{-- END SEARCH --}}
         </div>
         {{-- END And Search --}}

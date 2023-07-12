@@ -25,6 +25,7 @@ class UserSeeder extends Seeder
             'full_name'     => 'Akun Admin',
             'password'      => '123123',
             'role'          => 'admin',
+            'cabang_id'     => 1,
             'profile_image' => 'default_profile_img.png'
 
         ]);
@@ -33,6 +34,7 @@ class UserSeeder extends Seeder
             'full_name'     => 'Akun Gudang',
             'password'      => '123123',
             'role'          => 'gudang',
+            'cabang_id'     => 1,
             'profile_image' => 'default_profile_img.png'
 
         ]);
@@ -41,6 +43,7 @@ class UserSeeder extends Seeder
             'full_name'     => 'Akun General',
             'password'      => '123123',
             'role'          => 'general',
+            'cabang_id'     => 1,
             'profile_image' => 'default_profile_img.png'
 
         ]);
