@@ -1,5 +1,5 @@
  <!-- ========== Left Sidebar Start ========== -->
- <div class="vertical-menu rtl:right-0 fixed ltr:left-0 bottom-0 top-16 h-screen border-r bg-slate-50 border-gray-50 print:hidden dark:bg-zinc-800 dark:border-neutral-700 z-10">
+ <div class="vertical-menu rtl:right-0 fixed ltr:left-0 bottom-0 top-16 h-screen border-r bg-sider border-gray-50 print:hidden dark:bg-zinc-800 dark:border-neutral-700 z-10" >
     
     <div data-simplebar class="h-full">
         <!--- Sidemenu -->
@@ -26,6 +26,9 @@
                         </li>
                         <li>
                             <a href="{{route('admin.master.cabang')}}" class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Data Cabang</a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.master.category')}}" class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Data Category</a>
                         </li>
                     </ul>
                 </li>

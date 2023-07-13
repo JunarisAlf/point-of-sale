@@ -18,6 +18,20 @@
 
     <link rel="stylesheet" href="{{asset('mania/css/icons.css')}}" />
     <link rel="stylesheet" href="{{asset('mania/css/tailwind.css')}}" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+          theme: {
+            extend: {
+                colors: {
+
+                    'sider': '#fbfaff',
+                }
+            }
+          }
+        }
+      </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{asset('css/custome.css')}}" />
 
