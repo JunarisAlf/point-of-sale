@@ -38,7 +38,7 @@
                             @else
                                 @foreach ($cabangs as $key => $cb)
                                     <tr class="bg-white border-b border-gray-50 hover:bg-gray-50/50 dark:bg-zinc-700/50 dark:border-zinc-600">
-                                        <td class="w-4 p-4">
+                                        <td class="w-4 p-4 text-center">
                                             {{$key+1}}
                                         </td>
                                         <td class="px-6 py-4 dark:text-zinc-100/80">

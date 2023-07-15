@@ -6,7 +6,7 @@
                 <div class="bg-white dark:bg-zinc-600">
                      <div class="sm:flex sm:items-start p-5">
                         <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-50 sm:mx-0 sm:h-10 sm:w-10">
-                            <i class="mdi mdi-alert-outline me-2 text-xl text-red-500"></i>
+                            <i class="mdi mdi-alert-outline text-xl text-red-500"></i>
                         </div>
                         <div class="mt-3 text-center sm:mt-0 ltr:sm:ml-4 rtl:sm:mr-4 ltr:sm:text-left rtl:sm:text-right">
                             <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-100" id="modal-title">Konfirmasi Penghapusan Data!</h3>

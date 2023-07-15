@@ -69,7 +69,7 @@
                         <div class="mb-4">
                             <div class="mb-3">
                                 <label class="block font-medium text-gray-700 dark:text-zinc-100 mb-2 ">Role</label>
-                                <select name="role" class="dark:bg-zinc-800 dark:border-zinc-700 w-full rounded border-gray-100  @error('role') border-red-500 @enderror py-2.5 text-sm text-gray-500 focus:border focus:border-violet-500 focus:ring-0 dark:bg-zinc-700/50 dark:text-zinc-100" wire:model="role">
+                                <select name="role" class="dark:bg-zinc-800 dark:border-zinc-700 w-full rounded border-gray-100  @error('role') border-red-500 @enderror p-2.5 text-sm text-gray-500 focus:border focus:border-violet-500 focus:ring-0 dark:bg-zinc-700/50 dark:text-zinc-100" wire:model="role">
                                     <option  selected>Pilih Role</option>
                                     @foreach ($roleSelect as $role)
                                         <option value="{{$role['value']}}">{{$role['label']}}</option>
@@ -84,7 +84,7 @@
                         <div class="mb-4">
                             <div class="mb-3">
                                 <label class="block font-medium text-gray-700 dark:text-zinc-100 mb-2 ">Cabang</label>
-                                <select name="cabang_id" class="dark:bg-zinc-800 dark:border-zinc-700 w-full rounded border-gray-100  @error('cabang_id') border-red-500 @enderror py-2.5 text-sm text-gray-500 focus:border focus:border-violet-500 focus:ring-0 dark:bg-zinc-700/50 dark:text-zinc-100" wire:model="cabang_id">
+                                <select name="cabang_id" class="dark:bg-zinc-800 dark:border-zinc-700 w-full rounded border-gray-100  @error('cabang_id') border-red-500 @enderror p-2.5 text-sm text-gray-500 focus:border focus:border-violet-500 focus:ring-0 dark:bg-zinc-700/50 dark:text-zinc-100" wire:model="cabang_id">
                                     <option  selected>Pilih Cabang</option>
                                     @foreach ($cabangSelect as $cabang)
                                         <option value="{{$cabang->id}}">{{$cabang->name}}</option>

@@ -11,11 +11,15 @@
 
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{asset('favicon.ico')}}" />
-
+ 
     <link href="{{asset('mania/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css')}}" rel="stylesheet"
         type="text/css">
     <link rel="stylesheet" href="{{asset('mania/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css')}}">
-
+    <!-- choices css -->
+    <link href="{{asset('mania/libs/choices.js/public/assets/styles/choices.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('mania/libs/simple-select/dist/css/nice-select2.css')}}" rel="stylesheet" type="text/css" />
+    
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{asset('mania/css/icons.css')}}" />
     <link rel="stylesheet" href="{{asset('mania/css/tailwind.css')}}" />
     <script src="https://cdn.tailwindcss.com"></script>

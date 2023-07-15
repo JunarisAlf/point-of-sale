@@ -1,5 +1,8 @@
 // new MetisMenu("#side-menu");
+
+
 window.onload = function(){
+ 
     // Alert
     let simpleAlert = document.getElementsByClassName('simple-alert');
     let closeBtn = document.getElementsByClassName('alert-close');
