@@ -11,14 +11,21 @@ class CategorySeeder extends Seeder{
      * Run the database seeds.
      */
     public function run(): void{
-        Category::create([
-            'name'  => 'Bahan Dasar'
-        ]);
-        Category::create([
-            'name'  => 'Toping'
-        ]);
-        Category::create([
-            'name'  => 'Wadah'
-        ]);
+        $categories = [
+            ['name' => 'Alat Pemanggang'],
+            ['name' => 'Alat Pengaduk'],
+            ['name' => 'Alat Pengukur'],
+            ['name' => 'Alat Pencampur'],
+            ['name' => 'Bahan Kue Dasar'],
+            ['name' => 'Bahan Kue Manis'],
+            ['name' => 'Bahan Kue Gurih'],
+            ['name' => 'Perangkat Penyajian'],
+            ['name' => 'Pewarna Kue'],
+            ['name' => 'Pewangi Kue'],
+        ];
+
+        foreach ($categories as $category) {
+            Category::create($category);
+        }
     }
 }
