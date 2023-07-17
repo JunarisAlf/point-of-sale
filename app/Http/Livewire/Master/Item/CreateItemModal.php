@@ -16,14 +16,14 @@ class CreateItemModal extends Component{
         $this->categoriesSelect = Category::orderBy('name', 'DESC')->get();
     }
   
-    protected $listeners = ['openCreateModal' => 'openModal', 'categoryChange', 'sellingPriceChange'];
+    protected $listeners = ['openCreateModal' => 'openModal', 'categoryChange', 'createSellingPriceChange'];
     public function openModal(){
         $this->show = true;
     }
     public function categoryChange($val){
         $this->category_id = $val;
     }
-    public function sellingPriceChange($val){
+    public function createSellingPriceChange($val){
         $this->selling_price = $val;
     }
     public function rules(){

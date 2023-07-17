@@ -15,7 +15,7 @@ class EditItemModal extends Component {
     public function mount(){
         $this->categoriesSelect = Category::orderBy('name', 'DESC')->get();
     }
-    protected $listeners = ['openEditModal' => 'openModal', 'categoryChange', 'sellingPriceChange'];
+    protected $listeners = ['openEditModal' => 'openModal', 'categoryChange', 'editSellingPriceChange'];
     public function openModal($id){
         try {
             $item = Item::find($id);
@@ -29,7 +29,7 @@ class EditItemModal extends Component {
     public function categoryChange($val){
         $this->category_id = $val;
     }
-    public function sellingPriceChange($val){
+    public function editSellingPriceChange($val){
         $this->selling_price = $val;
     }
     public function rules(){

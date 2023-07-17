@@ -6,7 +6,7 @@
     @livewire('master.item.item-table')
     @livewire('master.item.create-item-modal')
     @livewire('master.item.delete-item-modal')
-   @livewire('master.item.edit-item-modal')
+    @livewire('master.item.edit-item-modal')
 @endsection
 
 @section('page_css')
@@ -24,18 +24,38 @@
                     }
                 },
                 imaskObj: '',
-                inputVal: '',
-                handleChange(){
+                handleChange(event){
                     let val = this.imaskObj.unmaskedValue
                     console.log(val);
-                    Livewire.emit('sellingPriceChange', val)
+                    Livewire.emit(event, val)
                 },
-                initVal: 0,
                 updateVal(val){
                     console.log('updated val',val)
                     this.imaskObj.unmaskedValue = '' + val;
-                }
+                },
+                inputTimeOut: null,
+                
             }))
+            Alpine.data('overscroll', () => ({
+                enableHorizontalScroll(element) {
+                    function handleHorizontalScroll(event) {
+                        event.preventDefault();
+                        const scrollAmount = event.deltaY || event.deltaX;
+                        // Adjust the scroll speed as desired
+                        event.currentTarget.scrollLeft += scrollAmount/2;
+                    }
+
+                    if (element.scrollWidth > element.clientWidth) {
+                        element.addEventListener('wheel', handleHorizontalScroll, { passive: false });
+                    }
+                },
+               
+                disableHorizontalScroll(element) {
+                    element.removeEventListener('wheel', this.handleHorizontalScroll);
+                },
+                
+            }))
+            
         })
     </script>
 @endsection

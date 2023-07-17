@@ -1,4 +1,4 @@
-<div class="modal {{ $show ? '' : 'hidden' }} relative z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div id="create" class="modal {{ $show ? '' : 'hidden' }} relative z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <div class="fixed inset-0 z-50 overflow-y-auto">
         <div class="modal-overlay absolute inset-0 bg-black bg-opacity-50 transition-opacity"></div>
         <div class="animate-translate mx-auto p-4 sm:max-w-4xl">
@@ -82,7 +82,7 @@
                                     <div class="relative rounded  @error('selling_price') border-red-500 border-[0.5px]  @enderror">
                                         <input name="selling_price" type="text"  wire:ignore
                                             class="w-full rounded border-gray-100 placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:border-zinc-600 dark:bg-zinc-700/50 dark:text-zinc-100 dark:placeholder:text-zinc-100 "
-                                            id="selling_price_mask" value="{{ $selling_price }}"  x-data x-init="imaskObj = new IMask($el, imaskOpt)" x-on:input="handleChange" >
+                                            id="selling_price_mask" value="{{ $selling_price }}"  x-data x-init="imaskObj = new IMask($el, imaskOpt)" x-on:input="$wire.set('selling_price', imaskObj.unmaskedValue)" >
                                             @error('selling_price')
                                                 <i class='bx bx-error-circle absolute top-2 text-xl text-red-500 ltr:right-2 rtl:left-2'></i>
                                             @enderror

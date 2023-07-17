@@ -76,7 +76,7 @@
                                         <label class="mb-2 block font-medium text-gray-700 dark:text-zinc-100">Harga Jual</label>
                                         <div class="relative" >
                                             <input name="selling_price" type="text" wire:ignore
-                                            class=" w-full rounded border-gray-100 placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:border-zinc-600 dark:bg-zinc-700/50 dark:text-zinc-100 dark:placeholder:text-zinc-100" value="{{ $selling_price }}" x-data x-init="imaskObj = new IMask($el, imaskOpt)" value="0" x-on:input="$wire.set('selling_price', imaskObj.unmaskedValue)">
+                                            class=" w-full rounded border-gray-100 placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:border-zinc-600 dark:bg-zinc-700/50 dark:text-zinc-100 dark:placeholder:text-zinc-100" value="{{ $selling_price }}" x-data x-init="imaskObj = new IMask($el, imaskOpt)" value="0" x-on:input="clearTimeout(inputTimeOut); inputTimeOut = setTimeout(() => {$wire.set('selling_price', imaskObj.unmaskedValue)}, 500)">
                                             @error('selling_price')
                                                 <i class='bx bx-error-circle absolute top-2 text-xl text-red-500 ltr:right-2 rtl:left-2'></i>
                                             @enderror

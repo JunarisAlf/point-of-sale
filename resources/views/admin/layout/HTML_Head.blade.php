@@ -24,6 +24,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            important: true,
             darkMode: 'class',
           theme: {
             extend: {
