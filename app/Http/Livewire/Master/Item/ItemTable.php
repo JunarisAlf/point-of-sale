@@ -18,7 +18,8 @@ class ItemTable extends Component{
     public $searchQuery;
     public $searchField = 0;
     public $searchableField = [
-        ['value' => 'name', 'label' => 'Nama'],
+        ['value' => 'name',     'label' => 'Nama'],
+        ['value' => 'barcode',  'label' => 'Barode'],
     ];
 
     public function mount(){
@@ -49,7 +50,7 @@ class ItemTable extends Component{
         $this->resetPage();
     }
     public function searchFieldChange($key){
-        $this->searchField = $this->searchableField[$key];
+        $this->searchField = $key;
         $this->searchQuery = '';
     }
    

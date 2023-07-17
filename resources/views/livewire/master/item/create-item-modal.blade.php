@@ -17,6 +17,32 @@
                     </div>
                     <div class="space-y-6 p-6 ltr:text-left rtl:text-right">
                         <div class="relative overflow-x-auto overflow-y-auto">
+
+                            <div class="mb-4 flex flex-row items-end justify-between">
+                                <div class="flex flex-col w-[80%]">
+                                    <label for="example-text-input"
+                                    class="mb-2 block font-medium text-gray-700 dark:text-gray-100">Barcode Number</label>
+                                    <div class="relative">
+                                        <input name="barcode"
+                                            class="@error('barcode') border-red-500 @enderror w-full rounded border-gray-100 placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:border-zinc-600 dark:bg-zinc-700/50 dark:text-zinc-100 dark:placeholder:text-zinc-100"
+                                            wire:model="barcode" type="text" maxlength="13" minlength="13">
+                                        @error('barcode')
+                                            <i class='bx bx-error-circle absolute top-2 text-xl text-red-500 ltr:right-2 rtl:left-2'></i>
+                                        @enderror
+                                    </div>
+                                    @error('barcode')
+                                        <div class="mt-2 text-xs text-red-500">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="w-20% ">
+                                    <button wire:click="generateBarcode" type="button" class="btn inline-flex w-full justify-center border-0 bg-violet-500 p-0 align-middle text-white hover:bg-violet-600 focus:ring-2 focus:ring-violet-500/30">
+                                        <i class="mdi mdi-numeric bg-white bg-opacity-20 w-8 h-full text-16 py-3 align-middle rounded-l "></i>
+                                        <span class="px-3 leading-[2.8]">Generate</span>
+                                    </button>
+                                </div>
+                               
+                            </div>
+
                             <div class="mb-4">
                                 <label for="example-text-input"
                                     class="mb-2 block font-medium text-gray-700 dark:text-gray-100">Nama Barang</label>
@@ -100,8 +126,7 @@
                         class="flex items-center gap-3 space-x-2 rounded-b border-t border-gray-50 p-5 dark:border-zinc-600">
                         <button wire:click="store" type="submit"
                             class="btn inline-flex w-full justify-center border-0 bg-violet-500 p-0 align-middle text-white hover:bg-violet-600 focus:ring-2 focus:ring-violet-500/30">
-                            <i
-                                class="bx bx-subdirectory-right text-16 h-full w-10 rounded-l bg-opacity-20 py-3 align-middle"></i>
+                            <i  class="bx bx-subdirectory-right text-16 h-full w-10 rounded-l bg-opacity-20 py-3 align-middle"></i>
                             <span class="px-3 leading-[2.8]">Simpan</span>
                         </button>
                         <button type="button"
