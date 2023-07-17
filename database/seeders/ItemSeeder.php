@@ -24,12 +24,12 @@ class ItemSeeder extends Seeder{
                 // Generate item name based on category name
                 $itemName = $faker->unique()->words(3, true);
                 $itemName .= ' ' . $category->name;
-
+                $hasExpired = $faker->boolean;
                 // Create the item
                 Item::create([
                     'name' => $itemName,
                     'category_id' => $category->id,
-                    'has_expired' => $faker->boolean,
+                    'has_expired' => $hasExpired,
                     'selling_price' => $faker->numberBetween(5000, 20000)
                 ]);
             }

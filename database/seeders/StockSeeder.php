@@ -22,13 +22,15 @@ class StockSeeder extends Seeder{
     
         foreach ($items as $item) {
             foreach ($cabangs as $cb) {
-                $currentDateLoop = $currentDate->copy();
-                $randomTimestamp = rand($minDate, $maxDate);
-                $randomDate = Carbon::createFromTimestamp($randomTimestamp);
-                $cb->stocks()->attach($item->id, [
-                    'expired_date' => $randomDate->format('Y-m-d'),
-                    'quantity' => rand(0, 100)
-                ]);
+                for ($i=0; $i < 2 ; $i++) { 
+                    $currentDateLoop = $currentDate->copy();
+                    $randomTimestamp = rand($minDate, $maxDate);
+                    $randomDate = Carbon::createFromTimestamp($randomTimestamp);
+                    $cb->stocks()->attach($item->id, [
+                        'expired_date' => $randomDate->format('Y-m-d'),
+                        'quantity' => rand(0, 100)
+                    ]);
+                }
             }
         }
     }

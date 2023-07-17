@@ -82,7 +82,7 @@
                                     <div class="relative rounded  @error('selling_price') border-red-500 border-[0.5px]  @enderror">
                                         <input name="selling_price" type="text"  wire:ignore
                                             class="w-full rounded border-gray-100 placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:border-zinc-600 dark:bg-zinc-700/50 dark:text-zinc-100 dark:placeholder:text-zinc-100 "
-                                            id="selling_price_mask" value="{{ $selling_price }}"  x-data x-init="imaskObj = new IMask($el, imaskOpt)" x-on:input="handleChange " >
+                                            id="selling_price_mask" value="{{ $selling_price }}"  x-data x-init="imaskObj = new IMask($el, imaskOpt)" x-on:input="handleChange" >
                                             @error('selling_price')
                                                 <i class='bx bx-error-circle absolute top-2 text-xl text-red-500 ltr:right-2 rtl:left-2'></i>
                                             @enderror

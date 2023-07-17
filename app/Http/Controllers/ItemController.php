@@ -10,4 +10,8 @@ class ItemController extends Controller{
         $user = Auth::user();
         return view('admin.pages.master.item', compact('user'));
     }
+    public function stock(){
+        $user = Auth::user();
+        return view('admin.pages.gudang.stock', compact('user'));
+    }
 }

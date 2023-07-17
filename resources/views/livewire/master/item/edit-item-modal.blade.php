@@ -70,32 +70,31 @@
                                         @enderror
                                     </div>
                                 </div>
-
-                                <div class="mb-4" x-data='opt'>
-                                    <div class="mb-3">
+                                {{-- x-effect use to change the value depan on item every modal open --}}
+                                <div class="mb-4" x-data='opt' x-effect="updateVal({{$selling_price}}) ">
+                                    <div class="mb-3" >
                                         <label class="mb-2 block font-medium text-gray-700 dark:text-zinc-100">Harga Jual</label>
-                                        <div class="relative ">
-                                            @if($selling_price)
-                                                <input name="selling_price" type="text" wire:ignore
-                                                class=" w-full rounded border-gray-100 placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:border-zinc-600 dark:bg-zinc-700/50 dark:text-zinc-100 dark:placeholder:text-zinc-100 @error('selling_price') border-red-500 @enderror"
-                                                id="selling_price_mask_edit" value="{{$selling_price}}" x-init="imaskObj = new IMask($el, imaskOpt)" x-on:input="handleChange">
-                                                @error('selling_price')
-                                                    <i class='bx bx-error-circle absolute top-2 text-xl text-red-500 ltr:right-2 rtl:left-2'></i>
-                                                @enderror
-                                            @endif
+                                        <div class="relative" >
+                                            <input name="selling_price" type="text" wire:ignore
+                                            class=" w-full rounded border-gray-100 placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:border-zinc-600 dark:bg-zinc-700/50 dark:text-zinc-100 dark:placeholder:text-zinc-100" value="{{ $selling_price }}" x-data x-init="imaskObj = new IMask($el, imaskOpt)" value="0" x-on:input="$wire.set('selling_price', imaskObj.unmaskedValue)">
+                                            @error('selling_price')
+                                                <i class='bx bx-error-circle absolute top-2 text-xl text-red-500 ltr:right-2 rtl:left-2'></i>
+                                            @enderror
                                         </div>
                                         @error('selling_price')
                                             <div class="mt-2 text-xs text-red-500">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
+
+
                             </div>
 
                         </div>
                    </div>
                    <!-- Modal footer -->
                    <div class="flex items-center p-5 gap-3 space-x-2 border-t rounded-b border-gray-50 dark:border-zinc-600">
-                        <button wire:click="update({{$data_id}})" type="submit" class="btn inline-flex w-full justify-center border-0 bg-violet-500 p-0 align-middle text-white focus:ring-2 focus:ring-violet-500/30 hover:bg-violet-600">
+                        <button x-on:click="$wire.emit('some-event', 'foo', 'bar')" wire:click="update({{$data_id}})" type="submit" class="btn inline-flex w-full justify-center border-0 bg-violet-500 p-0 align-middle text-white focus:ring-2 focus:ring-violet-500/30 hover:bg-violet-600">
                             <i class="bx bx-subdirectory-right  bg-opacity-20 w-10 h-full text-16 py-3 align-middle rounded-l"></i>
                             <span class="px-3 leading-[2.8]">Simpan</span>
                         </button>

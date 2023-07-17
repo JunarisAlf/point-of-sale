@@ -46,7 +46,7 @@
                                            
                                         </td>
                                         <td class="px-6 py-4 dark:text-zinc-100/80 text-center">
-                                            12
+                                            {{$category->items_count}}
                                         </td>
                                         <td class="px-6 py-4 text-center" >
                                             <button wire:click="$emit('openEditModal', {{$category->id}})" type="button" class="btn border-0 bg-yellow-500 p-0 align-middle text-white focus:ring-2 focus:ring-yellow-500/30 hover:bg-yellow-600 scale-80"><i class="bx bx-edit bg-white bg-opacity-20 w-10 h-full text-16 py-3 align-middle rounded-l"></i><span class="px-3 leading-[2.8]">Edit</span></button>

@@ -26,10 +26,13 @@
                                     Kategori
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
-                                    Jenis
+                                    Tanggal Expired
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
-                                    Harga Jual
+                                    Countdown
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-center">
+                                    Stock
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center" style="width: 350px">
                                     Aksi
@@ -57,9 +60,9 @@
                                         </td>
                                         <td class="px-6 py-4 dark:text-zinc-100/80 text-center">
                                             @if ($item->has_expired)
-                                                <button type="button" class="btn text-green-500 bg-green-50 border-green-50 hover:text-white hover:bg-green-600 hover:border-green-600 focus:text-white focus:bg-green-600 focus:border-green-600 focus:ring focus:ring-green-500/30 active:bg-green-600 active:border-green-600 dark:focus:ring-green-500/10 dark:bg-green-500/20 dark:border-transparent w-full">Expiredable</button>
+                                                <button type="button" class="btn text-green-500 bg-green-50 border-green-50 hover:text-white hover:bg-green-600 hover:border-green-600 focus:text-white focus:bg-green-600 focus:border-green-600 focus:ring focus:ring-green-500/30 active:bg-green-600 active:border-green-600 dark:focus:ring-green-500/10 dark:bg-green-500/20 dark:border-transparent w-full">Expired</button>
                                             @else
-                                                <button type="button" class="btn text-sky-500 bg-sky-50 border-sky-50 hover:text-white hover:bg-sky-600 hover:border-sky-600 focus:text-white focus:bg-sky-600 focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 dark:focus:ring-sky-500/10 dark:bg-sky-500/20 dark:border-transparent">Non-Expiredable</button>
+                                                <button type="button" class="btn text-sky-500 bg-sky-50 border-sky-50 hover:text-white hover:bg-sky-600 hover:border-sky-600 focus:text-white focus:bg-sky-600 focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 dark:focus:ring-sky-500/10 dark:bg-sky-500/20 dark:border-transparent">Non-Expired</button>
                                             @endif
                                         </td>
                                         <td class="px-6 py-4 dark:text-zinc-100/80 text-center">

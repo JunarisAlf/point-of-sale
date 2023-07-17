@@ -36,6 +36,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/cabang',  [CabangController::class, 'index'])->name('admin.master.cabang');
         Route::get('/kategory',  [CategoryController::class, 'index'])->name('admin.master.category');
         Route::get('/barang',  [ItemController::class, 'index'])->name('admin.master.item');
-
+    });
+    Route::prefix('/gudang')->group(function(){
+        Route::get('/stok-barang',  [ItemController::class, 'stock'])->name('admin.gudang.stock');
     });
 });

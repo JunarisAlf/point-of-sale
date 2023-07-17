@@ -57,8 +57,8 @@
                                             <div class="flex mt-6 mb-10 pt-4">
                                                 <img src="{{asset('mania/images/users/avatar-1.jpg')}}" class="h-12 w-12 rounded-full" alt="...">
                                                 <div class="flex-1 ltr:ml-3 rtl:mr-2 mb-4">
-                                                    <h5 class="font-size-18 text-white">Ilse R. Eaton</h5>
-                                                    <p class="mb-0 text-white/50">Manager
+                                                    <h5 class="font-size-18 text-white">Pemilik Toko</h5>
+                                                    <p class="mb-0 text-white/50">Owner
                                                     </p>
                                                 </div>
                                             </div>

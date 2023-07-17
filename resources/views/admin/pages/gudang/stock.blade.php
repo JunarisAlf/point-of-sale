@@ -1,17 +1,17 @@
 @extends('admin.layout.APP_PANEL')
-@section('page_title', 'MASTER | Data Barang')
-@section('menu_title', 'Barang')
+@section('page_title', 'Gudang | Stok Barang')
+@section('menu_title', 'Stok Barang')
 
 @section('HTML_Main')
-    @livewire('master.item.item-table')
-    @livewire('master.item.create-item-modal')
-    @livewire('master.item.delete-item-modal')
-   @livewire('master.item.edit-item-modal')
+    @livewire('gudang.stock.stock-table')
+    {{-- @livewire('gudang.stock.create-stock-modal') --}}
+    {{-- @livewire('gudang.stock.delete-stock-modal') --}}
+   {{-- @livewire('gudang.stock.edit-stock-modal') --}}
 @endsection
 
 @section('page_css')
     <script src="//unpkg.com/alpinejs" defer></script>
-    <script>
+    {{-- <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('opt', () => ({
                 imaskOpt: {
@@ -29,17 +29,13 @@
                     let val = this.imaskObj.unmaskedValue
                     console.log(val);
                     Livewire.emit('sellingPriceChange', val)
-                },
-                initVal: 0,
-                updateVal(val){
-                    console.log('updated val',val)
-                    this.imaskObj.unmaskedValue = '' + val;
+                    // this.imaskObj.updateValue(val)
                 }
             }))
         })
-    </script>
+    </script> --}}
 @endsection
-@section('page_script')
+{{-- @section('page_script')
     <!-- form mask -->
     <script src="{{asset('mania/libs/imask/imask.min.js')}}"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>
@@ -69,4 +65,4 @@
         });
       
     </script>
-@endsection
+@endsection --}}
