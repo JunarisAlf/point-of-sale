@@ -67,6 +67,8 @@
             }))
             
         })
+
+        
     </script>
 @endsection
 @section('page_script')
@@ -98,6 +100,6 @@
             let selectedValue = $(this).val();
             Livewire.emit('categoryChange', selectedValue)
         });
-      
+       
     </script>
 @endsection

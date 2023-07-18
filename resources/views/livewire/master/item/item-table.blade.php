@@ -42,7 +42,7 @@
                         <div class="col-span-1 items-center ">
                             <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Kategori</label>
                             <select id="countries" class="bg-zinc-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" wire:model="category">
-                                <option selected>Semua Kategori</option>
+                                <option value="all" selected>Semua Kategori</option>
                                 @foreach ($categorySelect as  $category)
                                     <option value="{{$category->id}}">{{$category->name}}</option>
                                 @endforeach
@@ -121,7 +121,7 @@
                                             {{$tableNumber}}
                                         </td>
                                         <td class="px-6 py-4 dark:text-zinc-100/80 text-center flex flex-col items-center" x-data="barcode">
-                                            <img x-init="initBarcode($el, '{{$item->barcode}}')" width="200px" class="hidden sm:block" >
+                                            <img x-init="initBarcode($el, '{{$item->barcode}}')"  @generate-barcode.window="initBarcode($el, '{{$item->barcode}}')" width="200px" class="hidden sm:block" >
                                             <button type="button" class="btn text-gray-500 hover:text-white border-gray-500 hover:bg-gray-600 hover:border-gray-600 focus:bg-gray-600 focus:text-white focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600">{{$item->barcode}}</button>
                                         </td>
                                         <td class="px-6 py-4 dark:text-zinc-100/80  w-[350px]">

@@ -21,15 +21,24 @@ class ItemTable extends Component{
         ['value' => 'name',     'label' => 'Nama'],
         ['value' => 'barcode',  'label' => 'Barode'],
     ];
+    public function searchFieldChange($key){
+        $this->searchField = $key;
+        $this->searchQuery = '';
+        $this->dispatchBrowserEvent('generate-barcode'); 
 
+    }
+   
     public function mount(){
         $this->resetPage();
         $this->data = $this->getData();
         $this->categorySelect = Category::all();
+        $this->dispatchBrowserEvent('generate-barcode'); 
     }
+
     // category
     public $category;
     public $categorySelect;
+    
     // expiredable
     public $has_expired;
     
@@ -49,14 +58,7 @@ class ItemTable extends Component{
     public function updatingPaginateCount() {
         $this->resetPage();
     }
-    public function searchFieldChange($key){
-        $this->searchField = $key;
-        $this->searchQuery = '';
-    }
    
-    // public function updated(){
-       
-    // }
     
     public function getData(){
         $items = Item::query();
@@ -66,7 +68,7 @@ class ItemTable extends Component{
         if($this->has_expired !== null && $this->has_expired !== 'all'){
             $items->where('has_expired', $this->has_expired);
         }
-        if($this->category !== null){
+        if($this->category !== null && $this->category !== 'all'){
             $items->where('category_id', $this->category);
         }
         // ORDER
