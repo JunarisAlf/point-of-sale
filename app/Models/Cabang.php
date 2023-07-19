@@ -13,9 +13,9 @@ class Cabang extends Model{
     public function users(){
         return $this->hasMany(User::class, 'cabang_id', 'id');
     }
-    public function stocks(){
+    public function barang(){
         return $this->belongsToMany(Item::class, 'cabang_items', 'cabang_id', 'item_id')
                     ->as('stocks')->withPivot('expired_date', 'quantity')->withTimestamps();
     }
-
+    
 }

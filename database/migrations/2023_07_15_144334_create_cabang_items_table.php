@@ -22,8 +22,8 @@ return new class extends Migration
                   ->onUpdate('cascade');
             $table->date('expired_date');
             $table->unsignedInteger('quantity');
+            $table->unsignedInteger('buying_price');
             $table->timestamps();
-
             $table->primary(['cabang_id', 'item_id', 'expired_date']);
         });
     }

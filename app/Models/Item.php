@@ -13,9 +13,13 @@ class Item extends Model{
     public function category(){
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
-    public function stocks(){
+    public function barang(){
         return $this->belongsToMany(Cabang::class, 'cabang_items', 'item_id', 'cabang_id')
                     ->as('stocks')->withPivot('expired_date', 'quantity')->withTimestamps();
+    }
+
+    public function stocks(){
+        return $this->hasMany(StockItem::class, 'item_id', 'id');
     }
 }
 

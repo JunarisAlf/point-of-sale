@@ -10,7 +10,7 @@ use Livewire\WithPagination;
 class ItemTable extends Component{
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
-    protected $listeners = ['refresh_item_table' => 'mount'];
+    protected $listeners = ['refresh_item_table' => 'mount', 'categoryChange'];
 
     public $paginate_count = 50, $data_count;
     public $page = 1; // for page number
@@ -38,7 +38,10 @@ class ItemTable extends Component{
     // category
     public $category;
     public $categorySelect;
-    
+    public function categoryChange($id){
+        $this->category = $id;
+        $this->mount();
+    }
     // expiredable
     public $has_expired;
     
