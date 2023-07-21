@@ -14,4 +14,8 @@ class ItemController extends Controller{
         $user = Auth::user();
         return view('admin.pages.gudang.stock', compact('user'));
     }
+    public function expired(){
+        $user = Auth::user();
+        return view('admin.pages.gudang.expired', compact('user'));
+    }
 }
