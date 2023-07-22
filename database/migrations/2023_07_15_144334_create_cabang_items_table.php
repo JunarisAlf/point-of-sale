@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cabang_items', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('cabang_id')
                   ->constrained(table: 'cabangs', column: 'id', indexName: 'stock_cabang')
                   ->onDelete('cascade')
@@ -24,7 +25,7 @@ return new class extends Migration
             $table->unsignedInteger('quantity');
             $table->unsignedInteger('buying_price');
             $table->timestamps();
-            $table->primary(['cabang_id', 'item_id', 'expired_date']);
+            $table->unique(['cabang_id', 'item_id', 'expired_date']);
         });
     }
 

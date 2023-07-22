@@ -18,4 +18,8 @@ class ItemController extends Controller{
         $user = Auth::user();
         return view('admin.pages.gudang.expired', compact('user'));
     }
+    public function stockOpname(){
+        $user = Auth::user();
+        return view('admin.pages.gudang.stock-opname', compact('user'));
+    }
 }
