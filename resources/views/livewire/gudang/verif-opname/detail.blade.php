@@ -2,7 +2,7 @@
     <div class="col-span-12">
        <div class="card dark:bg-zinc-800 dark:border-zinc-600">
             <div class="card-body pb-0">
-                <h6 class="mb-1 text-15 text-gray-700 dark:text-gray-100 font-bold">Barang Sudah Diperiksa</h6>
+                <h6 class="mb-1 text-15 text-gray-700 dark:text-gray-100 font-bold">Daftar Stock Opname: {{ $show ? Carbon\Carbon::parse($opname_date)->format('d/m/Y') : ''}}</h6>
             </div>
            <div class="card-body">
                <div class="w-full overflow-x-auto">
@@ -15,7 +15,7 @@
                            </div>
                        </div>
 
-                       <div class="col-span-1 sm:col-span-2 items-center ">
+                       <div class="col-span-1 sm:col-span-3 items-center ">
                            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Urutkan</label>
                            <select id="countries" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" wire:model="shortField">
                                @foreach ($shortableField as $key => $short)
@@ -24,7 +24,7 @@
                            </select>
                        </div>
 
-                       <div class="col-span-1 sm:col-span-2 ">
+                       <div class="col-span-1 sm:col-span-3 ">
                            <div class="flex">
                                <button  style="z-index: 0 !important" id="dropdown-button" data-dropdown-toggle="dropdown" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button">{{$searchableField[$searchField]['label']}}<svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/> </svg>
@@ -49,21 +49,14 @@
                                </div>
                            </div>
                        </div>
-
-                       <div class="col-span-1 items-center sm:col-span-2  ">
-                           <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Cabang</label>
-                           <select id="countries" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" wire:model="cabang_id">
-                               @foreach ($cabangSelect as $cabang)
-                                   <option  value="{{$cabang->id}}">{{$cabang->name}}</option>
-                               @endforeach
-                           </select>
-                       </div>
-
                    </div>
                </div>
 
 
                <div class="relative overflow-x-auto overscroll-x-auto" x-data='overscroll' x-on:mouseover="enableHorizontalScroll($el)" x-on:mouseout="disableHorizontalScroll($el)">
+
+                    <button wire:click="accChecked" type="button" class="mb-4 btn text-white bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 focus:bg-green-600 focus:border-green-600 focus:ring focus:ring-green-500/30 active:bg-green-600 active:border-green-600"><i class="bx bx-check-double text-16 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">ACC Yang Ditandai</span></button>
+
                    <table class="w-full text-sm text-left text-gray-500 " style="min-width: max-content">
                        <thead class="text-xs text-gray-700 dark:text-gray-100 uppercase bg-gray-50/50 dark:bg-zinc-700">
                            <tr>
@@ -77,30 +70,41 @@
                                    Expired Date
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
-                                   Stock Lama
+                                   Stock
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
                                     Stock Opname
-                                 </th>
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-center">
+                                    Checker
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-center">
+                                    <div class="flex items-center">
+                                        <input wire:click="toggleAll" type="checkbox" class="w-4 h-4 focus:ring-0 focus:outline-0 border-gray-100 focus:ring-offset-0 rounded dark:bg-zinc-700 dark:border-zinc-500 dark:checked:bg-violet-500">
+                                        <label  class="sr-only">checkbox</label>
+                                    </div>
+                                </th>
                                 <th scope="col" class="px-6 py-3 text-center">
                                     Aksi
                                 </th>
-                               
+                                <th scope="col" class="px-6 py-3 text-center">
+                                    Status
+                                </th>
                            </tr>
                        </thead>
                        <tbody>
                            @if ($items->isEmpty())
                                <tr class="bg-white border-b border-zinc-100 hover:bg-zinc-100/50 dark:bg-zinc-700/50 dark:border-zinc-600">
-                                   <td colspan="6" class="w-4 p-4 text-center">Tidak ada data</td>
+                                   <td colspan="9" class="w-4 p-4 text-center">Tidak ada data</td>
                                </tr>
                            @else
-                               
                                @foreach ($items as $key => $item)
                                    @php
                                        $tableNumber = ($page - 1) * $items->perPage() + $loop->index + 1;
                                        $stocks_count = $item->stocks->count()
                                    @endphp
                                     <tr >
+                                        
                                         <td class="w-4 p-4 text-center border-[1px] " rowspan="{{$item->stocks->count()}}">
                                             {{$tableNumber}}
                                         </td>
@@ -121,7 +125,22 @@
                                             <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
                                                 <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full">{{$item->stocks[0]->opname->quantity}}</button>
                                             </td>
-
+                                            <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
+                                                <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full">{{$item->stocks[0]->opname->user->full_name}}</button>
+                                            </td>
+                                            <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
+                                                <div class="flex items-center">
+                                                    <input wire:click="toggle({{$item->stocks[0]->opname->id}})" {{array_search($item->stocks[0]->opname->id, $checks) !== false ? 'checked' : ''}} type="checkbox" class="w-4 h-4 focus:ring-0 focus:outline-0 border-gray-100 focus:ring-offset-0 rounded dark:bg-zinc-700 dark:border-zinc-500 dark:checked:bg-violet-500">
+                                                    <label  class="sr-only">checkbox</label>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
+                                                @if ($item->stocks[0]->opname->is_acc)
+                                                    <button disabled type="button" class="btn text-white bg-gray-500 border-gray-500 hover:bg-green-600 hover:border-green-600 focus:bg-gray-500 focus:border-green-600 focus:ring focus:ring-gray-500/30 active:bg-green-600 active:border-green-600"><i class="bx bx-check-double text-16 align-middle "></i></button>
+                                                @else
+                                                    <button wire:click="accOpname({{$item->stocks[0]->opname->id}})" type="button" class="btn text-white bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 focus:bg-green-600 focus:border-green-600 focus:ring focus:ring-green-500/30 active:bg-green-600 active:border-green-600"><i class="bx bx-check-double text-16 align-middle "></i></button>
+                                                @endif
+                                            </td>
                                             <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
                                                 @if ($item->stocks[0]->opname->is_acc)
                                                     <button type="button" class="btn text-violet-500 hover:text-white border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:text-white focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600">Sudah Disetujui</button>
@@ -130,8 +149,6 @@
                                                 @endif
                                             </td>
                                         @endif
-
-                                        
 
                                         @if($stocks_count > 1)
                                             @for($i = 1; $i < $stocks_count; $i++)
@@ -146,12 +163,29 @@
                                                         <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full">{{$item->stocks[$i]->opname->quantity}}</button>
                                                     </td>
                                                     <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
+                                                        <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full">{{$item->stocks[$i]->opname->user->full_name}}</button>
+                                                    </td>
+                                                    <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
+                                                        <div class="flex items-center">
+                                                            <input wire:click="toggle({{$item->stocks[$i]->opname->id}})" {{array_search($item->stocks[$i]->opname->id, $checks) !== false ? 'checked' : ''}} type="checkbox" class="w-4 h-4 focus:ring-0 focus:outline-0 border-gray-100 focus:ring-offset-0 rounded dark:bg-zinc-700 dark:border-zinc-500 dark:checked:bg-violet-500">
+                                                            <label  class="sr-only">checkbox</label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
+                                                        @if ($item->stocks[$i]->opname->is_acc)
+                                                            <button disabled type="button" class="btn text-white bg-gray-500 border-gray-500 hover:bg-green-600 hover:border-green-600 focus:bg-gray-500 focus:border-green-600 focus:ring focus:ring-gray-500/30 active:bg-green-600 active:border-green-600"><i class="bx bx-check-double text-16 align-middle "></i></button>
+                                                        @else
+                                                            <button wire:click="accOpname({{$item->stocks[$i]->opname->id}})" type="button" class="btn text-white bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 focus:bg-green-600 focus:border-green-600 focus:ring focus:ring-green-500/30 active:bg-green-600 active:border-green-600"><i class="bx bx-check-double text-16 align-middle "></i></button>
+                                                        @endif
+                                                    </td>
+                                                    <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
                                                         @if ($item->stocks[$i]->opname->is_acc)
                                                             <button type="button" class="btn text-violet-500 hover:text-white border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:text-white focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600">Sudah Disetujui</button>
                                                         @else
                                                             <button type="button" class="btn text-red-500 hover:text-white border-red-500 hover:bg-red-600 hover:border-red-600 focus:bg-red-600 focus:text-white focus:border-red-600 focus:ring focus:ring-red-500/30 active:bg-red-600 active:border-red-600">Belum Disetujui</button>
                                                         @endif
                                                     </td>
+                                                    
                                                 </tr>
                                             @endfor
                                         @endif

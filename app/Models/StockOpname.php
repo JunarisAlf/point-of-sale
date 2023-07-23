@@ -14,5 +14,8 @@ class StockOpname extends Model{
     public function stockItem(){
         return $this->belongsTo(StockItem::class, 'stock_item_id', 'id');
     }
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 
 }

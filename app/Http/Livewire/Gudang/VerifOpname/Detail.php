@@ -1,18 +1,21 @@
 <?php
 
-namespace App\Http\Livewire\Gudang\Opname;
+namespace App\Http\Livewire\Gudang\VerifOpname;
 
 use App\Models\Cabang;
 use App\Models\Category;
 use App\Models\Item;
+use App\Models\StockOpname;
 use Carbon\Carbon;
+use Exception;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class OpnameDone extends Component{
+class Detail extends Component{
     use WithPagination;
+    public $show = false;
     protected $paginationTheme = 'bootstrap';
-    protected $listeners = ['refresh_item_table' => 'mount', 'categoryChange', 'dateChanged'];
+    protected $listeners = ['refresh_item_table' => 'mount', 'show_opnames_detail' => 'showDetail'];
 
     public $paginate_count = 20, $data_count;
     public $page = 1; // for page number
@@ -32,8 +35,6 @@ class OpnameDone extends Component{
     public function mount(){
         $this->resetPage();
         $this->data = $this->getData();
-        $this->categorySelect = Category::all();
-        $this->cabangSelect =  Cabang::all();
         // $this->opname_date = Carbon::now()->format('Y-m-d');
         // dd($this->data->get());
     }
@@ -41,17 +42,7 @@ class OpnameDone extends Component{
         $this->resetPage();
         $this->data = $this->getData();
     }
-    // category
-    public $category;
-    public $categorySelect;
-    public function categoryChange($id){
-        $this->category = $id;
-        $this->mount();
-    }
-    // cabang
-    public $cabang_id = 1;
-    public $cabangSelect;
-    
+  
     // sort
     public $shortField = 0;
     public $shortableField = [
@@ -68,13 +59,68 @@ class OpnameDone extends Component{
     }
 
     public $opname_date;
-    public function dateChanged($date){
+    public $cabang_id;
+    public function showDetail($cabang_id, $date){
+        $this->cabang_id = $cabang_id;
         $this->opname_date = $date;
+        $this->show = true;
+    }
+
+    public $checks = [];
+    public function toggle($id){
+        $index = array_search($id, $this->checks);
+        if ($index !== false) {
+            unset($this->checks[$index]);
+        }else {
+            array_push($this->checks, $id);
+        }
+    }
+    public $checked = false;
+    public function toggleAll(){
+        $datas = $this->getData()->get();
+        if($this->checked == true){
+            $this->checks = [];
+            $this->checked = false;
+        }else{
+            foreach ($datas as $data) {
+                foreach ($data->stocks as $stocks) {
+                    foreach ($stocks->opnames as $opname) {
+                        array_push($this->checks, $opname->id);
+                    }
+                }
+            }
+            $this->checked = true;
+
+        }
+    }
+    public function accChecked(){
+        try{
+            StockOpname::whereIn('id', $this->checks)->update(['is_acc' => true]);
+            $this->checks = [];
+            $this->emit('showSuccessAlert', 'Aksi Berhasil!');
+            $this->emit('refresh_item_table');
+        }catch(Exception $e){
+            $this->emit('showDangerAlert', 'Server ERROR!');
+        }
+    }
+    public function accOpname($id){
+        try{
+            $opname = StockOpname::find($id);
+            $opname->is_acc = true;
+            $opname->stockItem->quantity = $opname->quantity;
+            $opname->stockItem->save(); 
+            $opname->save();
+            $this->emit('showSuccessAlert', 'Aksi Berhasil!');
+            $this->emit('refresh_item_table');
+
+        }catch(Exception $e){
+            $this->emit('showDangerAlert', 'Server ERROR!');
+        }
     }
     public function getData(){
         $items = Item::query();
         $cabangId = $this->cabang_id;
-        $opname_date = Carbon::parse($this->opname_date)->format('Y-m-d');
+        $opname_date = $this->opname_date;
 
         $items = 
         Item::
@@ -103,9 +149,6 @@ class OpnameDone extends Component{
             $items->where($this->searchableField[$this->searchField]['value'], 'like', "%$this->searchQuery%");
         }
        
-        if($this->category !== null && $this->category !== 'all'){
-            $items->where('category_id', $this->category);
-        }
         // ORDER
         $shortRule = $this->shortableField[$this->shortField];
         $items->orderBy($shortRule['field'], $shortRule['short']);
@@ -114,7 +157,7 @@ class OpnameDone extends Component{
     }
     public function render(){
         $this->data = $this->getData();
-        return view('livewire.gudang.opname.opname-done', [
+        return view('livewire.gudang.verif-opname.detail', [
             'items' => $this->data->paginate($this->paginate_count)
         ]);
     }

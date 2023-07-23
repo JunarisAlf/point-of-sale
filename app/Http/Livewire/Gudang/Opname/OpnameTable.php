@@ -93,8 +93,7 @@ class OpnameTable extends Component{
 
         $items = 
         Item::
-            where('has_expired', true)
-            ->whereHas('stocks', function($query) use ($cabangId, $opname_date){
+            whereHas('stocks', function($query) use ($cabangId, $opname_date){
                 $query->where('cabang_id', $cabangId);
                 $query->whereDoesntHave('opnames', function($subQuery) use ( $opname_date){
                     $subQuery->where('date', $opname_date);
@@ -109,7 +108,7 @@ class OpnameTable extends Component{
             }])
             ->withSum(['stocks as quantity_sum' => function ($query) use ($cabangId) {
                 $query->where('cabang_id', $cabangId);
-            }], 'quantity')->where('has_expired', true);
+            }], 'quantity');
                     
         if($this->searchQuery !== null && $this->searchField !== null){
             $items->where($this->searchableField[$this->searchField]['value'], 'like', "%$this->searchQuery%");

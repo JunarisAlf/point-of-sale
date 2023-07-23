@@ -27,11 +27,21 @@ class StockSeeder extends Seeder{
                     $currentDateLoop = $currentDate->copy();
                     $randomTimestamp = rand($minDate, $maxDate);
                     $randomDate = Carbon::createFromTimestamp($randomTimestamp);
-                    $cb->barang()->attach($item->id, [
-                        'expired_date' => $randomDate->format('Y-m-d'),
-                        'buying_price' => $buying_price,
-                        'quantity' => rand(0, 100)
-                    ]);
+                    if($item->has_expired){
+                        $cb->barang()->attach($item->id, [
+                            'expired_date' => $randomDate->format('Y-m-d'),
+                            'buying_price' => $buying_price,
+                            'quantity' => rand(0, 100)
+                        ]);
+                    }else{
+                        $cb->barang()->attach($item->id, [
+                            'expired_date' => null,
+                            'buying_price' => $buying_price,
+                            'quantity' => rand(0, 200)
+                        ]);
+                        break;
+                    }
+                    
                 }
             }
         }

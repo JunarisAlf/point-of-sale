@@ -18,6 +18,7 @@ class StockOpnameSeeder extends Seeder {
         foreach ($items as $key => $item) {
             $item->opnames()->create([
                 'date'      => $dateNow,
+                'old_quantity'  => $item->quantity,
                 'quantity'  => $item->quantity + rand(0, 3),
                 'user_id'   => 3
             ]);

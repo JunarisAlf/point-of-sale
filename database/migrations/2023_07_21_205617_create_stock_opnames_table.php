@@ -21,6 +21,7 @@ return new class extends Migration
                   ->constrained(table: 'users', column: 'id', indexName: 'user_stock_opname')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
+            $table->integer('old_quantity');
             $table->integer('quantity');
             $table->boolean('is_acc')->default(false);
             $table->timestamps();

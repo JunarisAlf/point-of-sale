@@ -21,7 +21,7 @@ return new class extends Migration
                   ->constrained(table: 'items', column: 'id', indexName: 'stock_item')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
-            $table->date('expired_date');
+            $table->date('expired_date')->nullable();
             $table->unsignedInteger('quantity');
             $table->unsignedInteger('buying_price');
             $table->timestamps();
