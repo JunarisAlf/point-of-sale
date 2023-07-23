@@ -24,6 +24,7 @@ class Date extends Component{
     }
     public function updated(){
         $this->resetPage();
+        $this->emit('cabang_change');
         $this->data = $this->getData();
     }
    

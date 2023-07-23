@@ -15,7 +15,7 @@ class Detail extends Component{
     use WithPagination;
     public $show = false;
     protected $paginationTheme = 'bootstrap';
-    protected $listeners = ['refresh_item_table' => 'mount', 'show_opnames_detail' => 'showDetail'];
+    protected $listeners = ['refresh_detail_table' => 'mount', 'show_opnames_detail' => 'showDetail', 'cabang_change' => 'cabangChange'];
 
     public $paginate_count = 20, $data_count;
     public $page = 1; // for page number
@@ -31,7 +31,10 @@ class Detail extends Component{
         $this->searchQuery = '';
         $this->mount();
     }
-   
+    public function cabangChange(){
+        $this->cabang_id = null;
+        $this->opname_date = null;
+    }
     public function mount(){
         $this->resetPage();
         $this->data = $this->getData();
@@ -95,7 +98,14 @@ class Detail extends Component{
     }
     public function accChecked(){
         try{
-            StockOpname::whereIn('id', $this->checks)->update(['is_acc' => true]);
+            foreach ($this->checks as $id) {
+                $opname = StockOpname::find($id);
+                $opname->is_acc = true;
+                $opname->stockItem->quantity = $opname->stockItem->quantity + $opname->quantity - $opname->old_quantity;
+                $opname->stockItem->save(); 
+                $opname->save();
+            }
+           
             $this->checks = [];
             $this->emit('showSuccessAlert', 'Aksi Berhasil!');
             $this->emit('refresh_item_table');
@@ -107,7 +117,7 @@ class Detail extends Component{
         try{
             $opname = StockOpname::find($id);
             $opname->is_acc = true;
-            $opname->stockItem->quantity = $opname->quantity;
+            $opname->stockItem->quantity = $opname->stockItem->quantity + $opname->quantity - $opname->old_quantity;
             $opname->stockItem->save(); 
             $opname->save();
             $this->emit('showSuccessAlert', 'Aksi Berhasil!');

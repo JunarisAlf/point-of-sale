@@ -12,7 +12,7 @@ use Livewire\WithPagination;
 class OpnameDone extends Component{
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
-    protected $listeners = ['refresh_item_table' => 'mount', 'categoryChange', 'dateChanged'];
+    protected $listeners = ['refresh_item_table' => 'mount', 'categoryChange', 'dateChanged', 'cabangChange'];
 
     public $paginate_count = 20, $data_count;
     public $page = 1; // for page number
@@ -33,7 +33,6 @@ class OpnameDone extends Component{
         $this->resetPage();
         $this->data = $this->getData();
         $this->categorySelect = Category::all();
-        $this->cabangSelect =  Cabang::all();
         // $this->opname_date = Carbon::now()->format('Y-m-d');
         // dd($this->data->get());
     }
@@ -48,9 +47,7 @@ class OpnameDone extends Component{
         $this->category = $id;
         $this->mount();
     }
-    // cabang
-    public $cabang_id = 1;
-    public $cabangSelect;
+    
     
     // sort
     public $shortField = 0;
@@ -70,6 +67,10 @@ class OpnameDone extends Component{
     public $opname_date;
     public function dateChanged($date){
         $this->opname_date = $date;
+    }
+    public $cabang_id;
+    public function cabangChange($id){
+        $this->cabang_id = $id;
     }
     public function getData(){
         $items = Item::query();

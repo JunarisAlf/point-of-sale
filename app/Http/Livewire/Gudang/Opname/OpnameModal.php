@@ -37,18 +37,15 @@ class OpnameModal extends Component{
         $validated = $this->validate();
         try{
             $user = auth()->user();
-            try{
-                $stockItem = StockItem::find($id);
-                $stockItem->opnames()->create([
-                    'date'      => $this->opname_date,
-                    'user_id'   => $user->id,
-                    'quantity'  => $validated['quantity']
-                ]);
-                $this->emit('refresh_item_table');
-                $this->emit('showSuccessAlert', 'Aksi Berhasil Dilakukan!');
-            }catch(Exception $e){
-                $this->emit('showDangerAlert', 'Server ERROR!');
-            }
+            $stockItem = StockItem::find($id);
+            $stockItem->opnames()->create([
+                'date'          => $this->opname_date,
+                'user_id'       => $user->id,
+                'old_quantity'  => $stockItem->quantity,
+                'quantity'      => $validated['quantity']
+            ]);
+            $this->emit('refresh_item_table');
+            $this->emit('showSuccessAlert', 'Aksi Berhasil Dilakukan!');
             $this->show = false;
 
         }catch(Exception $e){

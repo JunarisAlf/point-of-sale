@@ -14,7 +14,7 @@ use Livewire\WithPagination;
 class OpnameTable extends Component{
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
-    protected $listeners = ['refresh_item_table' => 'mount', 'categoryChange', 'dateChanged'];
+    protected $listeners = ['refresh_item_table' => 'mount', 'categoryChange', 'dateChanged', 'cabangChange'];
 
     public $paginate_count = 10, $data_count;
     public $page = 1; // for page number
@@ -34,7 +34,6 @@ class OpnameTable extends Component{
     public function mount(){
         $this->resetPage();
         $this->data = $this->getData();
-        $this->cabangSelect =  Cabang::all();
         // $this->opname_date = Carbon::now()->format('Y-m-d');
         // dd($this->data->get());
     }
@@ -44,8 +43,10 @@ class OpnameTable extends Component{
     }
    
     // cabang
-    public $cabang_id = 1;
-    public $cabangSelect;
+    public $cabang_id;
+    public function cabangChange($id){
+        $this->cabang_id = $id;
+    }
     
     // sort
     public $shortField = 0;
@@ -74,6 +75,7 @@ class OpnameTable extends Component{
             $stockItem->opnames()->create([
                 'date'      => $this->opname_date,
                 'user_id'   => $user->id,
+                'old_quantity'  => $stockItem->quantity,
                 'quantity'  => $stockItem->quantity
             ]);
             $this->emit('refresh_item_table');
