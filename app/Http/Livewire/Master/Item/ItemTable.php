@@ -62,7 +62,6 @@ class ItemTable extends Component{
         $this->resetPage();
     }
    
-    
     public function getData(){
         $items = Item::query();
         if($this->searchQuery !== null && $this->searchField !== null){

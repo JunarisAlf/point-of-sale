@@ -5,6 +5,7 @@ use App\Http\Controllers\CabangController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +37,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/cabang',  [CabangController::class, 'index'])->name('admin.master.cabang');
         Route::get('/kategory',  [CategoryController::class, 'index'])->name('admin.master.category');
         Route::get('/barang',  [ItemController::class, 'index'])->name('admin.master.item');
+        Route::get('/supplier',  [SupplierController::class, 'index'])->name('admin.master.supplier');
     });
     Route::prefix('/gudang')->group(function(){
         Route::get('/stok-barang',  [ItemController::class, 'stock'])->name('admin.gudang.stock');
