@@ -18,4 +18,7 @@ class Cabang extends Model{
                     ->as('stocks')->withPivot('expired_date', 'quantity')->withTimestamps();
     }
     
+    public function buys(){
+        return $this->hasMany(Buy::class, 'cabang_id', 'id');
+    }
 }

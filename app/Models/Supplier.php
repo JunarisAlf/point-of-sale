@@ -10,4 +10,8 @@ class Supplier extends Model{
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
     use HasFactory;
+
+    public function buys(){
+        return $this->hasMany(Buy::class, 'buy_id', 'id');
+    }
 }

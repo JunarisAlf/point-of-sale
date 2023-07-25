@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BuyController;
 use App\Http\Controllers\CabangController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
@@ -33,6 +34,11 @@ Route::middleware('auth')->group(function(){
     Route::get('/dashboard',  [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/atur-pengguna',  [UserController::class, 'manageUserPage'])->name('admin.manageUser');
     
+    Route::prefix('/transaksi')->group(function(){
+        Route::get('/tambah-pembelian',  [BuyController::class, 'entryBuy'])->name('admin.trx.buyEntry');
+        Route::get('/daftar-pembelian',  [BuyController::class, 'buyList'])->name('admin.trx.buyList');
+    });
+
     Route::prefix('/master-data')->group(function(){
         Route::get('/cabang',  [CabangController::class, 'index'])->name('admin.master.cabang');
         Route::get('/kategory',  [CategoryController::class, 'index'])->name('admin.master.category');
