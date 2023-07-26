@@ -6,5 +6,5 @@
    @livewire('trx.buy-list.buy-list-table')
    @livewire('trx.buy-list.mark-paid-modal')
    @livewire('trx.buy-list.mark-arrived-modal')
-
+   @livewire('trx.buy-list.detail-modal')
 @endsection
