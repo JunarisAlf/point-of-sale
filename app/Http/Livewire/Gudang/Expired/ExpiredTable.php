@@ -67,13 +67,18 @@ class ExpiredTable extends Component{
     public function getData(){
         $items = Item::query();
         $cabangId = $this->cabang_id;
-        $items = Item::with(['stocks' => function($query) use ($cabangId){
-            $query->where('cabang_id', $cabangId);
-            $query->where('quantity', '>', 0);
-        }])->withSum(['stocks as quantity_sum' => function ($query) use ($cabangId) {
-            $query->where('cabang_id', $cabangId);
-        }], 'quantity')->where('has_expired', true);
-        
+        $items = 
+            Item::
+                with(['stocks' => function($query) use ($cabangId){
+                    $query->where('cabang_id', $cabangId);
+                    $query->where('quantity', '>', 0);
+                }])
+                ->whereHas('stocks', function($query) use ($cabangId){
+                    $query->where('cabang_id', $cabangId);
+                })
+                ->withSum(['stocks as quantity_sum' => function ($query) use ($cabangId) {
+                    $query->where('cabang_id', $cabangId);
+                }], 'quantity')->where('has_expired', true);
         if($this->searchQuery !== null && $this->searchField !== null){
             $items->where($this->searchableField[$this->searchField]['value'], 'like', "%$this->searchQuery%");
         }

@@ -18,8 +18,8 @@
                     <div class="space-y-6 p-6 ltr:text-left rtl:text-right">
                         <div class="relative overflow-x-auto overflow-y-auto">
 
-                            <div class="mb-4 flex flex-row items-end justify-between">
-                                <div class="flex flex-col w-[80%]">
+                            <div class="mb-4 flex flex-row items-end gap-4 ">
+                                <div class="flex flex-col w-auto">
                                     <label for="example-text-input"
                                     class="mb-2 block font-medium text-gray-700 dark:text-gray-100">Barcode Number</label>
                                     <div class="relative">
@@ -34,10 +34,9 @@
                                         <div class="mt-2 text-xs text-red-500">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="w-20% ">
+                                <div>
                                     <button wire:click="generateBarcode" type="button" class="btn inline-flex w-full justify-center border-0 bg-violet-500 p-0 align-middle text-white hover:bg-violet-600 focus:ring-2 focus:ring-violet-500/30">
-                                        <i class="mdi mdi-numeric bg-white bg-opacity-20 w-8 h-full text-16 py-3 align-middle rounded-l "></i>
-                                        <span class="px-3 leading-[2.8]">Generate</span>
+                                        <span class="px-3 leading-[3.2]">Generate Barcode</span>
                                     </button>
                                 </div>
                                
@@ -59,30 +58,28 @@
                                 @enderror
                             </div>
 
-                            <div class="mb-4">
+                            <div class="mb-4" >
                                 <div class="mb-3">
                                     <div class="mb-2">
-                                        <label
-                                            class="mb-2 block font-medium text-gray-700 dark:text-zinc-100">Kategori</label>
+                                        <label class="block font-medium text-gray-700 dark:text-zinc-100 mb-2 ">Kategori</label>
                                     </div>
-                                    <div class="@error('category_id') border-red-500 border-[0.5px] @enderror rounded">
+                                    <div class="rounded @error('category_id') border-red-500 border-[0.5px] @enderror">
                                         <div wire:ignore>
-                                            <select class="" data-trigger name="category_id"
-                                                placeholder="This is a search placeholder" id="category-select"
-                                                wire:model="category_id">
-                                                <option selected>Pilih Kategori</option>
+                                            <select  data-trigger name="category_id"   placeholder="This is a search placeholder" id="category-select-create" wire:model="category_id"> 
+                                                <option  selected>Pilih Kategori</option>
                                                 @foreach ($categoriesSelect as $category)
-                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                    <option  value="{{$category->id}}">{{$category->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
-
+                                
                                     @error('category_id')
                                         <div class="mt-2 text-xs text-red-500">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
+
 
                             <div class="mb-4">
                                 <div class="mb-3">

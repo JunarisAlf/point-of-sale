@@ -40,13 +40,12 @@
                                         <div class="rounded @error('category_id') border-red-500 border-[0.5px] @enderror">
                                             <div wire:ignore>
                                                 <select  class="" data-trigger name="category_id"   placeholder="This is a search placeholder" id="category-select-edit" wire:model="category_id"> 
-                                                    <option  selected>Pilih Kategori</option>
                                                     @foreach ($categoriesSelect as $category)
                                                         <option  value="{{$category->id}}">{{$category->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div>  
                                     
                                         @error('category_id')
                                             <div class="mt-2 text-xs text-red-500">{{ $message }}</div>

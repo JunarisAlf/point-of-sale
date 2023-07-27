@@ -43,8 +43,8 @@
                             <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Kategori</label>
                             <div wire:ignore>
                                 <select  class="" data-trigger name="category_id"   placeholder="This is a search placeholder" id="category-select" wire:model="category_id"> 
-                                    <option  selected>Pilih Kategori</option>
-                                    <option  value="all">Semua Kategori</option>
+                                    <option  >Pilih Kategori</option>
+                                    <option  selected value="all">Semua Kategori</option>
                                     @foreach ($categorySelect as $category)
                                         <option  value="{{$category->id}}">{{$category->name}}</option>
                                     @endforeach
@@ -62,7 +62,7 @@
                                         @foreach ($searchableField as $key => $field)
                                             <li>
                                                 <button wire:click="searchFieldChange('{{$key}}')" type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{$field['label']}}</button>
-                                            </li>
+                                            </li>   
                                         @endforeach
                                     </ul>
                                 </div>

@@ -79,13 +79,23 @@
     <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
-        // create
         $(document).ready(function() {
             $('#category-select').select2({
                 width: '100%'
             });
         });
         $('#category-select').on('change', function() {
+            let selectedValue = $(this).val();
+            Livewire.emit('categoryFilterChange', selectedValue)
+        });
+
+        // create
+        $(document).ready(function() {
+            $('#category-select-create').select2({
+                width: '100%'
+            });
+        });
+        $('#category-select-create').on('change', function() {
             let selectedValue = $(this).val();
             Livewire.emit('categoryChange', selectedValue)
         });
@@ -100,6 +110,9 @@
             let selectedValue = $(this).val();
             Livewire.emit('categoryChange', selectedValue)
         });
+        window.addEventListener('changeCategoryVal', event => {
+            $('#category-select-edit').val(event.detail.category_id).trigger('change');
+        })
        
     </script>
 @endsection

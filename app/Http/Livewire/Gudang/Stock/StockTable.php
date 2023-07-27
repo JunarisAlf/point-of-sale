@@ -75,11 +75,17 @@ class StockTable extends Component{
     public function getData(){
         $items = Item::query();
         $cabangId = $this->cabang_id;
-        $items = Item::with(['stocks' => function($query) use ($cabangId){
-            $query->where('cabang_id', $cabangId);
-        }])->withSum(['stocks as quantity_sum' => function ($query) use ($cabangId) {
-            $query->where('cabang_id', $cabangId);
-        }], 'quantity');
+        $items = 
+            Item::
+                with(['stocks' => function($query) use ($cabangId){
+                    $query->where('cabang_id', $cabangId);
+                }])
+                ->whereHas('stocks', function($query) use ($cabangId){
+                    $query->where('cabang_id', $cabangId);
+                })
+                ->withSum(['stocks as quantity_sum' => function ($query) use ($cabangId) {
+                    $query->where('cabang_id', $cabangId);
+                }], 'quantity');
         
         if($this->searchQuery !== null && $this->searchField !== null){
             $items->where($this->searchableField[$this->searchField]['value'], 'like', "%$this->searchQuery%");

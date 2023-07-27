@@ -22,6 +22,7 @@ class EditItemModal extends Component {
             $this->data_id = $item->id;
             $this->fill($item);
             $this->show = true;
+            $this->dispatchBrowserEvent('changeCategoryVal', ['category_id' => $item->category_id]);
         } catch (Exception $e) {
             $this->emit('showDangerAlert', 'Server ERROR!');
         }
