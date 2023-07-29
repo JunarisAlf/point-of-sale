@@ -4,9 +4,9 @@
 
 @section('HTML_Main')
     @livewire('master.item.item-table')
-    @livewire('master.item.create-item-modal')
     @livewire('master.item.delete-item-modal')
     @livewire('master.item.edit-item-modal')
+    @livewire('master.item.create-item-modal')
 @endsection
 
 @section('page_css')

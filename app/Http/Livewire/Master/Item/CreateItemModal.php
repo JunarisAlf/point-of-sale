@@ -6,7 +6,6 @@ use App\Models\Category;
 use App\Models\Item;
 use Exception;
 use Livewire\Component;
-use Ramsey\Uuid\Type\Integer;
 
 class CreateItemModal extends Component{
     public $show = false;

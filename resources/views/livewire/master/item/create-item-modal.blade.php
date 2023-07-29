@@ -9,7 +9,7 @@
                         <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">
                             Tambah Data Barang
                         </h3>
-                        <button
+                        <button wire:click="$set('show', false)"
                             class="btn inline-flex items-center rounded-lg border-transparent px-2 py-1 text-sm text-gray-400 hover:bg-gray-50/50 hover:text-gray-900 ltr:ml-auto rtl:mr-auto dark:text-gray-100 dark:hover:bg-zinc-600"
                             type="button" data-tw-dismiss="modal">
                             <i class="mdi mdi-close text-xl text-gray-500 dark:text-zinc-100/60"></i>
@@ -126,7 +126,7 @@
                             <i  class="bx bx-subdirectory-right text-16 h-full w-10 rounded-l bg-opacity-20 py-3 align-middle"></i>
                             <span class="px-3 leading-[2.8]">Simpan</span>
                         </button>
-                        <button type="button"
+                        <button type="button" wire:click="$set('show', false)"
                             class="btn inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50/50 focus:outline-none focus:ring-2 focus:ring-gray-500/30 dark:border-zinc-600 dark:bg-zinc-700 dark:text-gray-100 dark:hover:bg-zinc-600 dark:focus:bg-zinc-600 dark:focus:ring-zinc-700 dark:focus:ring-gray-500/20 sm:mt-0 sm:w-auto sm:text-sm"
                             data-tw-dismiss="modal">Cancel</button>
                     </div>
