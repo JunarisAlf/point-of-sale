@@ -13,11 +13,11 @@ class BuyListTable extends Component{
     protected $paginationTheme = 'bootstrap';
     protected $listeners = ['refresh_buy_table' => 'mount'];
 
+    
     public $paginate_count = 50, $data_count;
     public $page = 1; // for page number
     // search
     public $searchQuery;
-   
    
     public function mount(){
         $this->resetPage();
@@ -47,8 +47,6 @@ class BuyListTable extends Component{
         ['field' => 'date',             'short' => 'DESC',  'label'  => 'Tanggal Pembelian - Terlama'],
         ['field' => 'date',             'short' => 'ASC',   'label'  => 'Tanggal Pembelian - Terbaru'],
     ];
-
-    
     
     // pagging
     protected $data;

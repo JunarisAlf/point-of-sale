@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 class BuyController extends Controller{
     public function entryBuy(){
         $user = Auth::user();
-        return view('admin.pages.master.cabang', compact('user'));
+        return view('admin.pages.trx.buy-entri', compact('user'));
     }
     public function buyList(){
         $user = Auth::user();
