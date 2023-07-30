@@ -82,6 +82,8 @@
             $('#item-select').val(null).trigger('change');
         })
 
+        
+        
     </script>
 @endsection
 

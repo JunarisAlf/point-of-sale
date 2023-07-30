@@ -27,7 +27,7 @@ class OpnameModal extends Component{
         ];
     }
     public function mount(){
-        // $this->opname_date = Carbon::now()->format('Y-m-d');
+        $this->opname_date = Carbon::now()->format('Y-m-d');
     }
     public $opname_date;
     public function dateChanged($date){

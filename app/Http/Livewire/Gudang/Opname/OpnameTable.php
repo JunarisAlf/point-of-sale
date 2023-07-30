@@ -34,7 +34,7 @@ class OpnameTable extends Component{
     public function mount(){
         $this->resetPage();
         $this->data = $this->getData();
-        // $this->opname_date = Carbon::now()->format('Y-m-d');
+        $this->opname_date = Carbon::now()->format('Y-m-d');
         // dd($this->data->get());
     }
     public function updated(){
@@ -81,6 +81,7 @@ class OpnameTable extends Component{
             $this->emit('refresh_item_table');
             $this->emit('showSuccessAlert', 'Aksi Berhasil Dilakukan!');
         }catch(Exception $e){
+            // dd($e);
             $this->emit('showDangerAlert', 'Server ERROR!');
         }
     }

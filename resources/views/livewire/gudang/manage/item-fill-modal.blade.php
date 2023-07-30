@@ -38,12 +38,12 @@
                                 @enderror
                             </div>
  
-                            <div class="mb-3" x-data='opt'>
+                            <div class="mb-3" >
                                 <label class="mb-2 block font-medium text-gray-700 dark:text-zinc-100">Harga Beli/Modal</label>
                                 <div class="relative rounded  @error('buying_price') border-red-500 border-[0.5px]  @enderror">
                                     <input name="buying_price" type="text"  wire:ignore
                                         class="w-full rounded border-gray-100 placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:border-zinc-600 dark:bg-zinc-700/50 dark:text-zinc-100 dark:placeholder:text-zinc-100 "
-                                        id="buying_price_mask" value="{{ $buying_price }}"  x-data x-init="imaskObj = new IMask($el, imaskOpt)" x-on:input="$wire.set('buying_price', imaskObj.unmaskedValue)" >
+                                        id="fill_buying_price_mask" value="{{ $buying_price }}"  >
                                         @error('buying_price')
                                             <i class='bx bx-error-circle absolute top-2 text-xl text-red-500 ltr:right-2 rtl:left-2'></i>
                                         @enderror
@@ -67,4 +67,27 @@
            </div>
        </div>
    </div>
+   <script>
+        document.addEventListener('livewire:load', function () {
+            const fillMask = document.getElementById('fill_buying_price_mask');
+            let imaskObj = new IMask(fillMask, 
+                {
+                    mask: 'Rp.  num',
+                    blocks: {
+                        num: {
+                            mask: Number,
+                            thousandsSeparator: '.',
+                        }
+                    }
+                });
+            let inputTimeOut = null;
+            fillMask.addEventListener('input', function(){
+                clearTimeout(inputTimeOut); 
+                inputTimeOut = setTimeout(() => {@this.buying_price = imaskObj.unmaskedValue}, 200)
+            });
+            window.addEventListener('empty-fill-mask', event => {
+                imaskObj.unmaskedValue = '' + @this.buying_price;
+            })
+        })
+    </script>
 </div>

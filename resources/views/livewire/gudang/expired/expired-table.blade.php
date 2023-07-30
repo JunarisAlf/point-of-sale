@@ -147,7 +147,7 @@
                                                     <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
                                                         <div class="flex items-center dark:text-zinc-100/80">
                                                             @php
-                                                                $diffMonth = Carbon\Carbon::parse($item->stocks[0]->expired_date)->diffInMonths()
+                                                                $diffMonth = Carbon\Carbon::parse($item->stocks[$i]->expired_date)->diffInMonths()
                                                             @endphp
                                                             @if ($diffMonth <= 1)
                                                                 <div class="h-2.5 w-2.5 rounded-full bg-red-500 ltr:mr-2 rtl:ml-2"></div> 
@@ -156,7 +156,7 @@
                                                             @elseif($diffMonth >= 3)
                                                                 <div class="h-2.5 w-2.5 rounded-full bg-green-500 ltr:mr-2 rtl:ml-2"></div> 
                                                             @endif
-                                                            {{Carbon\Carbon::parse($item->stocks[0]->expired_date)->diffForHumans() }}
+                                                            {{Carbon\Carbon::parse($item->stocks[$i]->expired_date)->diffForHumans() }}
                                                         </div>
                                                     </td>
                                                     <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">

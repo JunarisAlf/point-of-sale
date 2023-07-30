@@ -14,6 +14,7 @@ class ItemEditModal extends Component {
     protected $listeners = ['openEditModal' => 'openModal'];
     public function openModal($id){
         try {
+            $this->dispatchBrowserEvent('empty-edit-mask');
             $stockItem = StockItem::find($id);
             $this->data_id = $stockItem->id;
             $this->has_expired = $stockItem->item->has_expired;

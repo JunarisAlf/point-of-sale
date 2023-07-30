@@ -18,6 +18,7 @@ class ItemFillModal extends Component {
 
     }
     public function openModal($id){
+        $this->dispatchBrowserEvent('empty-fill-mask');
         $this->item_id = $id;
         $item = Item::find($id);
         $this->has_expired = $item->has_expired;
@@ -44,7 +45,7 @@ class ItemFillModal extends Component {
             dd($e);
             $this->emit('showDangerAlert', 'Server ERROR!');
         }
-        // $this->resetExcept('cabang_id');
+        $this->resetExcept('cabang_id');
     }
     public function render() {
         return view('livewire.gudang.manage.item-fill-modal');
