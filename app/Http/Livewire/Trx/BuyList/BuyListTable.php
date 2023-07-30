@@ -38,14 +38,14 @@ class BuyListTable extends Component{
     public $is_paid = 'all';
 
     // sort
-    public $shortField = 0;
+    public $shortField = 4;
     public $shortableField = [
         ['field' => 'suppliers.name',    'short' => 'ASC',   'label'     => 'Nama Supplier - Menaik'],
         ['field' => 'suppliers.name',    'short' => 'DESC',  'label'     => 'Nama Supplier - Menurun'],
         ['field' => 'price_sum',        'short' => 'ASC',   'label'  => 'Harga - Menaik'],
         ['field' => 'price_sum',        'short' => 'DESC',  'label'  => 'Harga - Menurun'],
-        ['field' => 'date',             'short' => 'DESC',  'label'  => 'Tanggal Pembelian - Terlama'],
-        ['field' => 'date',             'short' => 'ASC',   'label'  => 'Tanggal Pembelian - Terbaru'],
+        ['field' => 'date',             'short' => 'DESC',  'label'  => 'Tanggal Pembelian - Terbaru'],
+        ['field' => 'date',             'short' => 'ASC',   'label'  => 'Tanggal Pembelian - Terlama'],
     ];
     
     // pagging

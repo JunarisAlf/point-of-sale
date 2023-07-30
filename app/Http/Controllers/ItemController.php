@@ -26,4 +26,8 @@ class ItemController extends Controller{
         $user = Auth::user();
         return view('admin.pages.gudang.verif-stock-opname', compact('user'));
     }
+    public function manageItem(){
+        $user = Auth::user();
+        return view('admin.pages.gudang.manage-item', compact('user'));
+    }
 }

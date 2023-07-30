@@ -1,5 +1,12 @@
 <div class="grid grid-cols-12 gap-5 ">
     <div class="col-span-12">
+        <button wire:click="openCreateModal" type="button" class="btn border-0 bg-green-500 p-0 align-middle text-white focus:ring-2 focus:ring-green-500/30 hover:bg-green-600">
+            <i class="bx bx-plus bg-white bg-opacity-20 w-10 h-full text-16 py-3 align-middle rounded-l"></i>
+            <span class="px-3 leading-[2.8]">Tambah Stok Expired</span>
+        </button>
+
+    </div>
+    <div class="col-span-12">
        <div class="card dark:bg-zinc-800 dark:border-zinc-600">
            <div class="card-body">
                <div class="w-full overflow-x-auto">
@@ -24,18 +31,8 @@
 
                        <div class="col-span-1 sm:col-span-2 ">
                            <div class="flex">
-                               <button  style="z-index: 0 !important" id="dropdown-button" data-dropdown-toggle="dropdown" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button">{{$searchableField[$searchField]['label']}}<svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/> </svg>
-                               </button>
-                               <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                                   <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-button">
-                                       @foreach ($searchableField as $key => $field)
-                                           <li>
-                                               <button wire:click="searchFieldChange('{{$key}}')" type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{$field['label']}}</button>
-                                           </li>
-                                       @endforeach
-                                   </ul>
-                               </div>
+                               <button  style="z-index: 0 !important" id="dropdown-button" data-dropdown-toggle="dropdown" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button">Cari</button>
+                              
                                <div class="relative w-full">
                                    <input wire:model="searchQuery" type="search" id="search-dropdown" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-white rounded-r-lg border-l-zinc-100 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-zinc-500 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Pencarian" required>
                                    <button type="button" class="absolute top-0 right-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -75,13 +72,13 @@
                                    Expired Date
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
-                                    Hitung Mundur
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-center">
                                    Stock
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
-                                    Total Stock
+                                    Modal
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-center">
+                                    Aksi
                                 </th>
                            </tr>
                        </thead>
@@ -95,76 +92,73 @@
                                @foreach ($items as $key => $item)
                                    @php
                                        $tableNumber = ($page - 1) * $items->perPage() + $loop->index + 1;
-                                       $stocks_count = $item->stocks->count()
+                                       $stocks_count = $item->stocks->count() == 0 ? 1 : $item->stocks->count();
+                                       $has_stock = $item->stocks->count() == 0 ? false : true;
                                    @endphp
                                     <tr >
-                                        <td class="w-4 p-4 text-center border-[1px] " rowspan="{{$item->stocks->count()}}">
+                                        <td class="w-4 p-4 text-center border-[1px] " rowspan="{{$stocks_count}}">
                                             {{$tableNumber}}
                                         </td>
-                                        <td class="px-6 py-4 dark:text-zinc-100/80  w-[350px] border-[1px]" rowspan="{{$item->stocks->count()}}">
+                                        <td class="px-6 py-4 dark:text-zinc-100/80  w-[350px] border-[1px]" rowspan=" {{$stocks_count}}">
                                             <button type="button" class="btn text-gray-500 hover:text-white border-gray-500 hover:bg-gray-600 hover:border-gray-600 focus:bg-gray-600 focus:text-white focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 w-full text-start">{{$item->barcode}} - {{$item->name}}</button>
                                         </td>
-                                        @if($stocks_count > 0)
+                                        @if ($has_stock == false)
+                                            <td class="px-6 py-4 dark:text-zinc-100/80  w-[350px] border-[1px] text-center">-</td>
                                             <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
-                                                {{Carbon\Carbon::parse($item->stocks[0]->expired_date)->format('d/m/Y ') }}
+                                                <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full">-</button>
                                             </td>
                                             <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
-                                                <div class="flex items-center dark:text-zinc-100/80">
-                                                    @php
-                                                        $diffMonth = Carbon\Carbon::parse($item->stocks[0]->expired_date)->diffInMonths()
-                                                    @endphp
-                                                    @if ($diffMonth <= 1)
-                                                        <div class="h-2.5 w-2.5 rounded-full bg-red-500 ltr:mr-2 rtl:ml-2"></div> 
-                                                    @elseif($diffMonth > 1 && $diffMonth < 3)
-                                                        <div class="h-2.5 w-2.5 rounded-full bg-yellow-500 ltr:mr-2 rtl:ml-2"></div> 
-                                                    @elseif($diffMonth >= 3)
-                                                        <div class="h-2.5 w-2.5 rounded-full bg-green-500 ltr:mr-2 rtl:ml-2"></div> 
-                                                    @endif
-                                                    {{Carbon\Carbon::parse($item->stocks[0]->expired_date)->diffForHumans() }}
+                                                <button type="button" class="btn text-sky-500 hover:text-white border-sky-500 hover:bg-sky-600 hover:border-sky-600 focus:bg-sky-600 focus:text-white focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 w-full">-</button>
+                                            </td>
+                                            <td class="w-4 p-4 text-center border-[1px] min-w-max">
+                                                <div class="flex flex-row justify-center min-w-[300px]">
+                                                    <button wire:click="openFillModal({{$item->id}})" type="button" class="btn border-0 bg-violet-500 p-0 align-middle text-white focus:ring-2 focus:ring-violet-500/30 hover:bg-violet-600 scale-80"><i class="bx bx-pen bg-white bg-opacity-20 w-10 h-full text-16 py-3 align-middle rounded-l"></i><span class="px-3 leading-[2.8]">Isi Stok</span></button>
                                                 </div>
+                                            </td>
+                                           
+                                        @endif
+                                        @if ($has_stock == true && $stocks_count > 0)
+                                            <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
+                                                @if ($item->stocks[0]->expired_date == null)
+                                                    <button type="button" class="btn text-sky-500 bg-sky-50 border-sky-50 hover:text-white hover:bg-sky-600 hover:border-sky-600 focus:text-white focus:bg-sky-600 focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 dark:focus:ring-sky-500/10 dark:bg-sky-500/20 dark:border-transparent">Non-Expiredable</button>
+                                                @else
+                                                    {{Carbon\Carbon::parse($item->stocks[0]->expired_date)->format('d/m/Y') }}
+                                                @endif
                                             </td>
                                             <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
                                                 <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full">{{$item->stocks[0]->quantity}}</button>
                                             </td>
+                                            <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]" rowspan="{{$stocks_count}}">
+                                                <button type="button" class="btn text-sky-500 hover:text-white border-sky-500 hover:bg-sky-600 hover:border-sky-600 focus:bg-sky-600 focus:text-white focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 w-full">Rp. {{number_format($item->stocks->avg('buying_price'), 0, ',', '.')}}</button>
+                                            </td>
+                                            <td class="w-4 p-4 text-center border-[1px] min-w-max">
+                                                <div class="flex flex-row justify-center min-w-[300px]">
+                                                    <button wire:click="openEditModal({{$item->stocks[0]->id}})" type="button" class="btn border-0 bg-yellow-500 p-0 align-middle text-white focus:ring-2 focus:ring-yellow-500/30 hover:bg-yellow-600 scale-80"><i class="bx bx-edit bg-white bg-opacity-20 w-10 h-full text-16 py-3 align-middle rounded-l"></i><span class="px-3 leading-[2.8]">Edit</span></button>
+                                                </div>
+                                            </td>
                                         @endif
-                                        <td class="px-6 py-4 dark:text-zinc-100/80  border-[1px]" rowspan="{{$item->stocks->count()}}">
-                                            @if ($item->quantity_sum <= 10)
-                                                <button type="button" class="btn text-red-500 hover:text-white border-red-500 hover:bg-red-600 hover:border-red-600 focus:bg-red-600 focus:text-white focus:border-red-600 focus:ring focus:ring-red-500/30 active:bg-red-600 active:border-red-600 w-full text-center">{{$item->quantity_sum}}</button>
-                                            @elseif($item->quantity_sum > 10 && $item->quantity_sum < 50 )
-                                                <button type="button" class="btn text-yellow-500 hover:text-white border-yellow-500 hover:bg-yellow-600 hover:border-yellow-600 focus:bg-yellow-600 focus:text-white focus:border-yellow-600 focus:ring focus:ring-yellow-500/30 active:bg-yellow-600 active:border-yellow-600 w-full text-center">{{$item->quantity_sum}}</button>
-                                            @elseif($item->quantity_sum >= 50)
-                                                <button type="button" class="btn text-sky-500 hover:text-white border-sky-500 hover:bg-sky-600 hover:border-sky-600 focus:bg-sky-600 focus:text-white focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 w-full text-center">{{$item->quantity_sum}}</button>
-                                            @endif
-                                           
-                                        </td>
+                                        
                                     </tr>
-                                        @if($stocks_count > 1)
-                                            @for($i = 1; $i < $stocks_count; $i++)
-                                                </tr>
-                                                    <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
-                                                        {{Carbon\Carbon::parse($item->stocks[$i]->expired_date)->format('d-m-Y ') }}
-                                                    </td>
-                                                    <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
-                                                        <div class="flex items-center dark:text-zinc-100/80">
-                                                            @php
-                                                                $diffMonth = Carbon\Carbon::parse($item->stocks[0]->expired_date)->diffInMonths()
-                                                            @endphp
-                                                            @if ($diffMonth <= 1)
-                                                                <div class="h-2.5 w-2.5 rounded-full bg-red-500 ltr:mr-2 rtl:ml-2"></div> 
-                                                            @elseif($diffMonth > 1 && $diffMonth < 3)
-                                                                <div class="h-2.5 w-2.5 rounded-full bg-yellow-500 ltr:mr-2 rtl:ml-2"></div> 
-                                                            @elseif($diffMonth >= 3)
-                                                                <div class="h-2.5 w-2.5 rounded-full bg-green-500 ltr:mr-2 rtl:ml-2"></div> 
-                                                            @endif
-                                                            {{Carbon\Carbon::parse($item->stocks[0]->expired_date)->diffForHumans() }}
-                                                        </div>
-                                                    </td>
-                                                    <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
-                                                        <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full">{{$item->stocks[$i]->quantity}}</button>
-                                                    </td>
-                                                </tr>
-                                            @endfor
-                                        @endif
+                                   
+                                    @if ($has_stock == true && $stocks_count > 1)
+                                        @for($i = 1; $i < $stocks_count; $i++)
+                                            <tr>
+                                                <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
+                                                    {{Carbon\Carbon::parse($item->stocks[$i]->expired_date)->format('d/m/Y ') }}
+                                                </td>
+                                                <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
+                                                    <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full">{{$item->stocks[$i]->quantity}}</button>
+                                                </td>
+                                              
+                                                <td class="w-4 p-4 text-center border-[1px] min-w-max">
+                                                    <div class="flex flex-row justify-center min-w-[300px]">
+                                                        <button wire:click="openEditModal({{$item->stocks[$i]->id}})" type="button" class="btn border-0 bg-yellow-500 p-0 align-middle text-white focus:ring-2 focus:ring-yellow-500/30 hover:bg-yellow-600 scale-80"><i class="bx bx-edit bg-white bg-opacity-20 w-10 h-full text-16 py-3 align-middle rounded-l"></i><span class="px-3 leading-[2.8]">Edit</span></button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endfor
+                                    @endif
+                                    
                                @endforeach
                            @endif
                           
@@ -177,7 +171,4 @@
            </div>
        </div>
    </div>
-   
-
- 
 </div>
