@@ -48,6 +48,7 @@ class BuyListTable extends Component{
         ['field' => 'date',             'short' => 'ASC',   'label'  => 'Tanggal Pembelian - Terlama'],
     ];
     
+ 
     // pagging
     protected $data;
     public function updatingPaginateCount() {

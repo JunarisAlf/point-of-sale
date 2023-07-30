@@ -134,10 +134,15 @@
                                             Rp. {{number_format($buy->price_sum, 0, ',', '.')}}
                                         </td>
                                         <td class="w-4 p-4 text-center border-[1px] ">
-                                            <div class="flex flex-row justify-center gap-2 min-w-max">
+                                            <div class="flex flex-row gap-2 min-w-max">
                                                 <button wire:click="$emit('openDetailModal', {{$buy->id}})" type="button" class="btn text-white bg-violet-500 border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600"><i class="mdi mdi-eye-outline text-22 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Detail</span></button>
-                                                <button {{$buy->is_paid ? 'disabled' : ''}} wire:click="$emit('openMarkPaidModal', {{$buy->id}})" type="button" class="btn text-white bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 focus:bg-green-600 focus:border-green-600 focus:ring focus:ring-green-500/30 active:bg-green-600 active:border-green-600"><i class="mdi mdi-cash-check text-22 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Tandai Lunas</span></button>
-                                                <button {{$buy->is_arrived ? 'disabled' : ''}} wire:click="$emit('openMarkArrivedModal', {{$buy->id}})" type="button" class="btn text-white bg-yellow-500 border-yellow-500 hover:bg-yellow-600 hover:border-yellow-600 focus:bg-yellow-600 focus:border-yellow-600 focus:ring focus:ring-yellow-500/30 active:bg-yellow-600 active:border-yellow-600"><i class="mdi mdi-package-variant-closed-check text-22 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Tandai Tiba</span></button>
+                                                @if (!$buy->is_paid)
+                                                    <button {{$buy->is_paid ? 'disabled' : ''}} wire:click="$emit('openMarkPaidModal', {{$buy->id}})" type="button" class="btn text-white bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 focus:bg-green-600 focus:border-green-600 focus:ring focus:ring-green-500/30 active:bg-green-600 active:border-green-600"><i class="mdi mdi-cash-check text-22 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Tandai Lunas</span></button>
+                                                @endif
+                                                @if (!$buy->is_arrived)
+                                                    <button {{$buy->is_arrived ? 'disabled' : ''}} wire:click="$emit('openExpiredModal', {{$buy->id}})" type="button" class="btn text-white bg-yellow-500 border-yellow-500 hover:bg-yellow-600 hover:border-yellow-600 focus:bg-yellow-600 focus:border-yellow-600 focus:ring focus:ring-yellow-500/30 active:bg-yellow-600 active:border-yellow-600"><i class="mdi mdi-package-variant-closed-check text-22 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Tandai Tiba</span></button>
+                                                @endif
+                                                
                                             </div>
                                            
                                         </td>
