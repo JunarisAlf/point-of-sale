@@ -14,4 +14,8 @@ class BuyController extends Controller{
         $user = Auth::user();
         return view('admin.pages.trx.buy-list', compact('user'));
     }
+    public function debtList(){
+        $user = Auth::user();
+        return view('admin.pages.trx.debt-list', compact('user'));
+    }
 }
