@@ -63,6 +63,7 @@ class ExpiredModal extends Component {
                         where('item_id', $detail->item_id)->where('cabang_id', $detail->buy->cabang_id)
                         ->where('expired_date', $expired_date)->first();
     
+                    //if null make new one
                     if($stockItem == null){
                         $detail->item->barang()->attach($detail->buy->cabang_id, [
                             'expired_date' => $expired_date,
@@ -70,10 +71,12 @@ class ExpiredModal extends Component {
                             'quantity' => $detail->quantity
                         ]);
                     }else{
+                        //else update exists
                         $stockItem->quantity += $detail->quantity;
                         $stockItem->buying_price = $newPrice;
                         $stockItem->save();
                     }
+                    //update price for same item with different expired date
                     $detail->item->barang()->where('cabang_id', $detail->buy->cabang_id)->update(['buying_price' => $newPrice]);
                 }else{
                     $stockItem =StockItem::where('item_id', $detail->item_id)->where('cabang_id', $detail->buy->cabang_id)->where('expired_date', null)->first();

@@ -53,6 +53,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/stock-opname',  [ItemController::class, 'stockOpname'])->name('admin.gudang.stockOpname');
         Route::get('/verifikasi-stock-opname',  [ItemController::class, 'verifStockOpname'])->name('admin.gudang.verifStockOpname');
         Route::get('/atur-barang',  [ItemController::class, 'manageItem'])->name('admin.gudang.manageItem');
+        Route::get('/transfer-stok',  [ItemController::class, 'transfer'])->name('admin.gudang.transferStock');
 
     });
 });

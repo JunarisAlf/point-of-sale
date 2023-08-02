@@ -30,4 +30,8 @@ class ItemController extends Controller{
         $user = Auth::user();
         return view('admin.pages.gudang.manage-item', compact('user'));
     }
+    public function transfer(){
+        $user = Auth::user();
+        return view('admin.pages.gudang.transfer', compact('user'));
+    }
 }

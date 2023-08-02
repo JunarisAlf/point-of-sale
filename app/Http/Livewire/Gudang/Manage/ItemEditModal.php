@@ -27,7 +27,7 @@ class ItemEditModal extends Component {
     }
     public function rules(){
         return [
-            'quantity'      => 'required|integer|min:1',
+            'quantity'      => 'required|integer',
             'buying_price'  => 'required|integer|min:1',
             'expired_date'  =>  [Rule::requiredIf($this->has_expired)]
         ];
