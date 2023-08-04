@@ -21,6 +21,10 @@ class Item extends Model{
     public function stocks(){
         return $this->hasMany(StockItem::class, 'item_id', 'id');
     }
+
+    public function prices(){
+        return $this->hasMany(MultiPrice::class, 'item_id', 'id');
+    }
   
 }
 

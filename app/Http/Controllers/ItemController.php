@@ -10,6 +10,10 @@ class ItemController extends Controller{
         $user = Auth::user();
         return view('admin.pages.master.item', compact('user'));
     }
+    public function multiPrice(){
+        $user = Auth::user();
+        return view('admin.pages.master.multi-price', compact('user'));
+    }
     public function stock(){
         $user = Auth::user();
         return view('admin.pages.gudang.stock', compact('user'));
@@ -34,4 +38,5 @@ class ItemController extends Controller{
         $user = Auth::user();
         return view('admin.pages.gudang.transfer', compact('user'));
     }
+   
 }

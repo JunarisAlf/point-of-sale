@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\MultiPrice;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(StockOpnameSeeder::class);
         $this->call(SupplierSeeder::class);
         $this->call(BuySeeder::class);
+        $this->call(MultiPriceSeeder::class);
 
     }
 }
