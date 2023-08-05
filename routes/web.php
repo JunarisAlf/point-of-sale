@@ -6,6 +6,7 @@ use App\Http\Controllers\CabangController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\SellController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Models\Category;
@@ -35,6 +36,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/atur-pengguna',  [UserController::class, 'manageUserPage'])->name('admin.manageUser');
     
     Route::prefix('/transaksi')->group(function(){
+        Route::get('/tambah-penjualan',  [SellController::class, 'entrySell'])->name('admin.trx.sellEntry');
         Route::get('/tambah-pembelian',  [BuyController::class, 'entryBuy'])->name('admin.trx.buyEntry');
         Route::get('/daftar-pembelian',  [BuyController::class, 'buyList'])->name('admin.trx.buyList');
         Route::get('/daftar-hutang',  [BuyController::class, 'debtList'])->name('admin.trx.debtList');
