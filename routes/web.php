@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BuyController;
 use App\Http\Controllers\CabangController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\SellController;
@@ -49,6 +50,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/barang',  [ItemController::class, 'index'])->name('admin.master.item');
         Route::get('/harga-multi',  [ItemController::class, 'multiPrice'])->name('admin.master.multiPrice');
         Route::get('/supplier',  [SupplierController::class, 'index'])->name('admin.master.supplier');
+        Route::get('/pelanggan',  [CustomerController::class, 'index'])->name('admin.master.customer');
     });
     Route::prefix('/gudang')->group(function(){
         Route::get('/stok-barang',  [ItemController::class, 'stock'])->name('admin.gudang.stock');
@@ -57,6 +59,5 @@ Route::middleware('auth')->group(function(){
         Route::get('/verifikasi-stock-opname',  [ItemController::class, 'verifStockOpname'])->name('admin.gudang.verifStockOpname');
         Route::get('/atur-barang',  [ItemController::class, 'manageItem'])->name('admin.gudang.manageItem');
         Route::get('/transfer-stok',  [ItemController::class, 'transfer'])->name('admin.gudang.transferStock');
-
     });
 });
