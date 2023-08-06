@@ -2,7 +2,7 @@
     <div class="col-span-12">
         <button wire:click="$emit('openCreateModal')" type="button" class="btn border-0 bg-green-500 p-0 align-middle text-white focus:ring-2 focus:ring-green-500/30 hover:bg-green-600">
             <i class="bx bx-plus bg-white bg-opacity-20 w-10 h-full text-16 py-3 align-middle rounded-l"></i>
-            <span class="px-3 leading-[2.8]">Tambah Data Supplier</span>
+            <span class="px-3 leading-[2.8]">Tambah Data Customer</span>
         </button>
     </div>
      <div class="col-span-12">
@@ -47,16 +47,16 @@
                                     Nomor
                                 </th>
                                 <th scope="col" class="p-4 text-center">
-                                    Nama Supplier
+                                    Nama Customer
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
                                     Telp.
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
-                                    Rekening
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-center">
                                     Alamat
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-center" style="width: 350px">
+                                    Total Transaksi
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center" style="width: 350px">
                                     Aksi
@@ -64,43 +64,37 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if ($suppliers->isEmpty())
+                            @if ($customers->isEmpty())
                                 <tr class="bg-white border-b border-zinc-100 hover:bg-zinc-100/50 dark:bg-zinc-700/50 dark:border-zinc-600">
                                     <td colspan="6" class="w-4 p-4 text-center">Tidak ada data</td>
                                 </tr>
                             @else
                                 
-                                @foreach ($suppliers as $key => $supplier)
+                                @foreach ($customers as $key => $customer)
                                     @php
-                                        $tableNumber = ($page - 1) * $suppliers->perPage() + $loop->index + 1;
+                                        $tableNumber = ($page - 1) * $customers->perPage() + $loop->index + 1;
                                     @endphp
                                     <tr class="bg-white border-b border-gray-50 hover:bg-gray-50/50 dark:bg-zinc-700/50 dark:border-zinc-600">
                                         <td class="w-4 p-4 text-center">
                                             {{$tableNumber}}
                                         </td>
-                                        
                                         <td class="px-6 py-4 dark:text-zinc-100/80 ">
-                                            {{$supplier->name}}
+                                            {{$customer->name}}
                                         </td>
                                         <td class="px-6 py-4 dark:text-zinc-100/80 text-center">
-                                            <button type="button" class="btn text-sky-500 bg-sky-50 border-sky-50 hover:text-white hover:bg-sky-600 hover:border-sky-600 focus:text-white focus:bg-sky-600 focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 dark:focus:ring-sky-500/10 dark:bg-sky-500/20 dark:border-transparent">{{$supplier->telp}}</button>
+                                            <button type="button" class="btn text-sky-500 bg-sky-50 border-sky-50 hover:text-white hover:bg-sky-600 hover:border-sky-600 focus:text-white focus:bg-sky-600 focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 dark:focus:ring-sky-500/10 dark:bg-sky-500/20 dark:border-transparent">{{$customer->wa}}</button>
                                         </td>
                                         <td class="px-6 py-4 dark:text-zinc-100/80 ">
-                                            <ul class="list-disc">
-                                                @foreach (json_decode($supplier->rekening) as $rekening)
-                                                    <li>{{$rekening}}</li>
-                                                @endforeach
-                                            </ul>
-                                            
+                                            <button type="button" class="btn text-sky-500 bg-sky-50 border-sky-50 hover:text-white hover:bg-sky-600 hover:border-sky-600 focus:text-white focus:bg-sky-600 focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 dark:focus:ring-sky-500/10 dark:bg-sky-500/20 dark:border-transparent">{{$customer->address}}</button>
                                         </td>
-                                        <td class="px-6 py-4 dark:text-zinc-100/80 ">
-                                            <button type="button" class="btn text-sky-500 bg-sky-50 border-sky-50 hover:text-white hover:bg-sky-600 hover:border-sky-600 focus:text-white focus:bg-sky-600 focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 dark:focus:ring-sky-500/10 dark:bg-sky-500/20 dark:border-transparent">{{$supplier->address}}</button>
+                                        <td class="px-6 py-4 dark:text-zinc-100/80 text-center">
+                                            <button type="button" class="btn text-violet-500 hover:text-white border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:text-white focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600 ">Rp. {{number_format($customer->trxs()->sum('amount'), 0, ',', '.')}}</button>
                                         </td>
 
                                         <td class="px-6 py-4 text-center" >
-                                            <button wire:click="$emit('openEditModal', {{$supplier->id}})" type="button" class="btn border-0 bg-yellow-500 p-0 align-middle text-white focus:ring-2 focus:ring-yellow-500/30 hover:bg-yellow-600 scale-80"><i class="bx bx-edit bg-white bg-opacity-20 w-10 h-full text-16 py-3 align-middle rounded-l"></i><span class="px-3 leading-[2.8]">Edit</span></button>
+                                            <button wire:click="$emit('openEditModal', {{$customer->id}})" type="button" class="btn border-0 bg-yellow-500 p-0 align-middle text-white focus:ring-2 focus:ring-yellow-500/30 hover:bg-yellow-600 scale-80"><i class="bx bx-edit bg-white bg-opacity-20 w-10 h-full text-16 py-3 align-middle rounded-l"></i><span class="px-3 leading-[2.8]">Edit</span></button>
 
-                                            <button wire:click="$emit('openDeleteModal', {{$supplier->id}})" type="button" class="btn border-0 bg-red-500 p-0 align-middle text-white focus:ring-2 focus:ring-red-500/30 hover:bg-red-600 scale-80" ><i class="bx bx-trash bg-white bg-opacity-20 w-10  h-full  text-16 py-3 align-middle rounded-l "></i><span class="px-3 leading-[2.8]">Hapus</span></button>
+                                            <button wire:click="$emit('openDeleteModal', {{$customer->id}})" type="button" class="btn border-0 bg-red-500 p-0 align-middle text-white focus:ring-2 focus:ring-red-500/30 hover:bg-red-600 scale-80" ><i class="bx bx-trash bg-white bg-opacity-20 w-10  h-full  text-16 py-3 align-middle rounded-l "></i><span class="px-3 leading-[2.8]">Hapus</span></button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -110,7 +104,7 @@
                     </table>
                 </div>
                 <div class="mt-8 w-full flex justify-center">
-                    {{$suppliers->links()}}
+                    {{$customers->links()}}
                 </div>
             </div>
         </div>
