@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Trx\BuyList;
 
 use App\Models\Buy;
 use App\Models\Cabang;
+use Carbon\Carbon;
 use Exception;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -11,7 +12,7 @@ use Livewire\WithPagination;
 class BuyListTable extends Component{
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
-    protected $listeners = ['refresh_buy_table' => 'mount'];
+    protected $listeners = ['refresh_buy_table' => 'mount', 'dateRangeChange'];
 
     
     public $paginate_count = 50, $data_count;
@@ -25,6 +26,17 @@ class BuyListTable extends Component{
         $this->cabangSelect =  Cabang::all();
         // dd($this->data->get());
     }
+
+    public $dateRange;
+    public function dateRangeChange($range){
+        $range = explode(" to ", $range);
+        $this->dateRange = [
+            'start'     => isset($range[0])  ? Carbon::createFromFormat('d-m-Y', $range[0])->format('Y-m-d') : Carbon::now()->format('Y-m-d'),
+            'end'       => isset($range[1])  ? Carbon::createFromFormat('d-m-Y', $range[1])->format('Y-m-d') : Carbon::now()->format('Y-m-d')
+        ];
+        $this->updated();
+    }
+    
     public function updated(){
         $this->resetPage();
         $this->data = $this->getData();
@@ -66,7 +78,10 @@ class BuyListTable extends Component{
             })
             ->where('cabang_id', $cabangId)
             ->join('suppliers', 'buys.supplier_id', '=', 'suppliers.id');
-
+        //daterange
+        if(isset($this->dateRange['start']) && isset($this->dateRange['end']) ){
+            $buys->whereBetween('date', [$this->dateRange['start'], $this->dateRange['end']]);
+        }
         // Is Paid
         if($this->is_paid !== 'all'){
             $buys->where('is_paid', $this->is_paid);

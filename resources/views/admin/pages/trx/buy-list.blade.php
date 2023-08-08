@@ -9,6 +9,21 @@
    @livewire('trx.buy-list.expired-modal')
 
    @livewire('trx.buy-list.buy-list-table')
+@endsection
 
-
+@section('page_css')
+    <link rel="stylesheet" href="{{asset('mania/libs/flatpickr/flatpickr.min.css')}}">
+@endsection
+@section('page_script')
+    <script src="{{asset('mania/libs/flatpickr/flatpickr.min.js')}}"></script>
+    <script>
+        const dateRange = flatpickr('#datepicker-range', {
+            mode: "range",
+            dateFormat: "d-m-Y",
+            defaultDate: new Date(),
+            onChange: function(selectedDates, dateStr, instance) {
+                Livewire.emit('dateRangeChange', dateStr);
+            }
+        });
+    </script>
 @endsection

@@ -12,7 +12,7 @@
                            </div>
                        </div>
 
-                       <div class="col-span-1 sm:col-span-3 items-center ">
+                       <div class="col-span-1 sm:col-span-2 items-center ">
                            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Urutkan</label>
                            <select id="countries" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" wire:model="shortField">
                                @foreach ($shortableField as $key => $short)
@@ -21,7 +21,12 @@
                            </select>
                        </div>
 
-                       <div class="col-span-1 sm:col-span-3 ">
+                       <div class="col-span-1 items-center sm:col-span-2" wire:ignore>
+                            <label for="range" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Tanggal</label>
+                            <input type="text" class="w-full border-gray-100 rounded form-control dark:bg-zinc-700/50 dark:border-zinc-600 dark:text-gray-100" id="datepicker-range" name="range">
+                        </div>
+
+                       <div class="col-span-1 sm:col-span-2 ">
                            <div class="flex">
                                <button  style="z-index: 0 !important" id="dropdown-button" data-dropdown-toggle="dropdown" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button">Cari
                                </button>
