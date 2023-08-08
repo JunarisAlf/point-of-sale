@@ -23,6 +23,7 @@ class ItemTable extends Component{
         $this->resetPage();
         $this->data = $this->getData();
         $this->cabangSelect =  Cabang::all();
+        $this->cabang_id = $this->cabangSelect->first()->id;
         // dd($this->data->get());
     }
     public function updated(){
@@ -31,7 +32,7 @@ class ItemTable extends Component{
     }
 
     // cabang
-    public $cabang_id = 1;
+    public $cabang_id;
     public $cabangSelect;
     public function updatedCabangId(){
         $this->emit('cabangChanged', $this->cabang_id);

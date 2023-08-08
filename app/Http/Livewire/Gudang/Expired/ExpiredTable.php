@@ -33,6 +33,7 @@ class ExpiredTable extends Component{
         $this->data = $this->getData();
         $this->categorySelect = Category::all();
         $this->cabangSelect =  Cabang::all();
+        $this->cabang_id = $this->cabangSelect->first()->id;
         // dd($this->data->get());
     }
     public function updated(){
@@ -47,7 +48,7 @@ class ExpiredTable extends Component{
         $this->mount();
     }
     // cabang
-    public $cabang_id = 1;
+    public $cabang_id;
     public $cabangSelect;
     
     // sort
