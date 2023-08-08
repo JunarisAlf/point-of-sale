@@ -13,4 +13,7 @@ class CustomerTrxDetail extends Model{
     public function trx(){
         return  $this->belongsTo(CustomerTrx::class, 'cus_trx_id', 'id');
     }
+    public function item(){
+        return $this->belongsTo(Item::class, 'item_id', 'id');
+    }
 }

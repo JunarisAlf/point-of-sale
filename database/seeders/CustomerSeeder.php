@@ -21,7 +21,7 @@ class CustomerSeeder extends Seeder {
         $trx = $cus->trxs()->create([
             'cabang_id'    => 1,
             'is_paid'   => true,
-            'date'      => Carbon::now()->format('Y-m-d'),
+            'date'      => Carbon::now()->format('Y-m-d H:i:s'),
             'amount'     => 40000
         ]);
         $trx->details()->create([

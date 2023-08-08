@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function(){
     
     Route::prefix('/transaksi')->group(function(){
         Route::get('/tambah-penjualan',  [SellController::class, 'entrySell'])->name('admin.trx.sellEntry');
+        Route::get('/daftar-penjualan',  [SellController::class, 'sellList'])->name('admin.trx.sellList');
         Route::get('/tambah-pembelian',  [BuyController::class, 'entryBuy'])->name('admin.trx.buyEntry');
         Route::get('/daftar-pembelian',  [BuyController::class, 'buyList'])->name('admin.trx.buyList');
         Route::get('/daftar-hutang',  [BuyController::class, 'debtList'])->name('admin.trx.debtList');

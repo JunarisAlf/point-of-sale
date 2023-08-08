@@ -21,7 +21,8 @@ return new class extends Migration
                   ->constrained(table: 'cabangs', column: 'id', indexName: 'cus_trx_cabang')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
-            $table->date('date');
+            $table->dateTime('date');
+            $table->dateTime('paid_date')->nullable(); //if null the trx is do in cash
             $table->boolean('is_paid');
             $table->unsignedBigInteger('amount');
             $table->timestamps();

@@ -10,4 +10,8 @@ class SellController extends Controller{
         $user = Auth::user();
         return view('admin.pages.trx.sell-entry', compact('user'));
     }
+    public function sellList(){
+        $user = Auth::user();
+        return view('admin.pages.trx.sell-list', compact('user'));
+    }
 }
