@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('customer_trxs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_id')
+                  ->nullable()
                   ->constrained(table: 'customers', column: 'id', indexName: 'cus_trx')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
@@ -24,7 +25,9 @@ return new class extends Migration
             $table->dateTime('date');
             $table->dateTime('paid_date')->nullable(); //if null the trx is do in cash
             $table->boolean('is_paid');
-            $table->unsignedBigInteger('amount');
+            $table->unsignedBigInteger('sub_total');
+            $table->unsignedBigInteger('total');
+            $table->unsignedBigInteger('total_discount');
             $table->timestamps();
         });
     }

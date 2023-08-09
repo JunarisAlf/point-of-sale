@@ -6,14 +6,19 @@
     
                     <div class="col-span-1  md:col-span-3 items-center ">
                         <label for="category-select" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Barang</label>
-                        <div wire:ignore>
-                            <select  class="" data-trigger name="supplier_id" placeholder="This is a search placeholder" id="item-select" wire:model="supplier_id"> 
-                                <option selected>Pilih Barang</option>
-                                @foreach ($items as $item)
-                                    <option  value="{{$item->id}}">{{$item->barcode}} - {{$item->name}}</option>
-                                @endforeach
-                            </select>
+                        <div class="rounded @error('item_id') border-red-500 border-[0.5px] @enderror" >
+                            <div wire:ignore>
+                                <select  class="" data-trigger name="item_id" placeholder="This is a search placeholder" id="item-select" wire:model="item_id"> 
+                                    <option selected>Pilih Barang</option>
+                                    @foreach ($items as $item)
+                                        <option  value="{{$item->id}}">{{$item->barcode}} - {{$item->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
+                        @error('item_id')
+                            <div class="text-xs text-red-500 mt-2">{{$message}}</div>
+                        @enderror
                     </div>
 
                     <div class="mb-4 col-span-1  md:col-span-1">

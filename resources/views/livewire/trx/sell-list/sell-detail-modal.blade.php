@@ -29,7 +29,7 @@
                                                  Harga Satuan
                                             </th>
                                             <th scope="col" class="px-6 py-3 text-center">
-                                                Diskom
+                                                Diskon
                                             </th>
                                             <th scope="col" class="px-6 py-3 text-center">
                                                 Total

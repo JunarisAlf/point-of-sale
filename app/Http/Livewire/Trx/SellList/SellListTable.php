@@ -51,8 +51,8 @@ class SellListTable extends Component{
     public $shortableField = [
         ['field' => 'customers.name',       'short' => 'ASC',   'label'     => 'Nama Customer - Menaik'],
         ['field' => 'customers.name',       'short' => 'DESC',  'label'     => 'Nama Customer - Menurun'],
-        ['field' => 'amount',               'short' => 'ASC',   'label'     => 'Total Bayar - Menaik'],
-        ['field' => 'amount',               'short' => 'DESC',  'label'     => 'Total Bayar - Menurun'],
+        ['field' => 'total',               'short' => 'ASC',   'label'     => 'Total Bayar - Menaik'],
+        ['field' => 'total',               'short' => 'DESC',  'label'     => 'Total Bayar - Menurun'],
         ['field' => 'date',                 'short' => 'DESC',  'label'     => 'Tanggal Pembelian - Terbaru'],
         ['field' => 'date',                 'short' => 'ASC',   'label'     => 'Tanggal Pembelian - Terlama'],
     ];

@@ -30,20 +30,17 @@ class EntryTable extends Component{
         $totalSum = array_reduce($this->items, function ($carry, $item) {
             return $carry + $item['total_price'];
         }, 0);
+        $subTotal = array_reduce($this->items, function ($carry, $item) {
+            return $carry + ($item['quantity'] *  $item['price']) ;
+        }, 0);
         $totalDisc = array_reduce($this->items, function ($carry, $item) {
             return $carry + $item['discount'];
         }, 0);
-        $this->emit('grandPriceUpdate', compact('totalSum', 'totalDisc'));
+        $this->emit('grandPriceUpdate', compact('totalSum', 'totalDisc', 'subTotal'));
     }
 
     public function store(){
-       
-        try{
-            
-        }catch(Exception $e){
-            // DB::rollback();
-            $this->emit('showDangerAlert', 'Server ERROR!');
-        }
+        $this->emit('validateMetaInfo', $this->items);
     }
     public function render(){
         return view('livewire.trx.sell-entry.entry-table');

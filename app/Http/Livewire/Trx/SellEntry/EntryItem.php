@@ -3,15 +3,19 @@
 namespace App\Http\Livewire\Trx\SellEntry;
 
 use App\Models\Item;
+use App\Models\StockItem;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class EntryItem extends Component{
     public $items;
-    public $quantity, $item_id, $price, $total_price, $discount = 0, $percentage = 0;
+    public $quantity, $maxQuantity, $item_id, $price, $total_price, $discount = 0, $percentage = 0;
     protected $listeners = ['itemChanged', 'discountChange'];
     public function itemChanged($item_id){
         $this->item_id = $item_id;
         $this->discount = 0;
+        $cabang_id = Auth::user()->cabang?->id == null ? 1 : Auth::user()->cabang->id == null;
+        $this->maxQuantity = StockItem::where('item_id', $item_id)->where('cabang_id', $cabang_id)->where('quantity', '>', 0)->sum('quantity');
         $this->dispatchBrowserEvent('discount-updated');
         $this->updatedQuantity();
     }
@@ -63,6 +67,10 @@ class EntryItem extends Component{
     }
 
     public function submit(){
+        $this->validate([
+            'quantity'      => 'required|integer|min:1|max:' . $this->maxQuantity,
+            'item_id'       => 'required|exists:items,id'
+        ]);
         $item = [
             'id'            => $this->item_id, 
             'quantity'      => $this->quantity, 

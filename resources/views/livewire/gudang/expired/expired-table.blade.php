@@ -142,7 +142,7 @@
                                             @for($i = 1; $i < $stocks_count; $i++)
                                                 </tr>
                                                     <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
-                                                        {{Carbon\Carbon::parse($item->stocks[$i]->expired_date)->format('d-m-Y ') }}
+                                                        {{Carbon\Carbon::parse($item->stocks[$i]->expired_date)->format('d/m/Y ') }}
                                                     </td>
                                                     <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
                                                         <div class="flex items-center dark:text-zinc-100/80">

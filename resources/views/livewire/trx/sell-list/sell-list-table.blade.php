@@ -68,7 +68,10 @@
                                    Pelanggan
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
-                                    Diskon
+                                    Sub Total
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-center">
+                                    Total Diskon
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
                                     Total Bayar
@@ -100,10 +103,13 @@
                                             {{$sell->customer->name}}
                                         </td>
                                         <td class="w-4 p-4 text-center border-[1px] ">
-                                            <button type="button" class="btn text-red-500 hover:text-white border-red-500 hover:bg-red-600 hover:border-red-600 focus:bg-red-600 focus:text-white focus:border-red-600 focus:ring focus:ring-red-500/30 active:bg-red-600 active:border-red-600 w-full">Rp. {{number_format($sell->discount, 0, ',', '.')}}</button>
+                                            <button type="button" class="btn text-violet-500 hover:text-white border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:text-white focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600 w-full">Rp. {{number_format($sell->sub_total, 0, ',', '.')}}</button>
                                         </td>
                                         <td class="w-4 p-4 text-center border-[1px] ">
-                                            <button type="button" class="btn text-violet-500 hover:text-white border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:text-white focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600 w-full">Rp. {{number_format($sell->amount, 0, ',', '.')}}</button>
+                                            <button type="button" class="btn text-red-500 hover:text-white border-red-500 hover:bg-red-600 hover:border-red-600 focus:bg-red-600 focus:text-white focus:border-red-600 focus:ring focus:ring-red-500/30 active:bg-red-600 active:border-red-600 w-full">Rp. {{number_format($sell->total_discount, 0, ',', '.')}}</button>
+                                        </td>
+                                        <td class="w-4 p-4 text-center border-[1px] ">
+                                            <button type="button" class="btn text-violet-500 hover:text-white border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:text-white focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600 w-full">Rp. {{number_format($sell->total, 0, ',', '.')}}</button>
                                             
                                         </td>
                                         <td class="w-4 p-4 text-center border-[1px] ">

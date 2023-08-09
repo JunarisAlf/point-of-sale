@@ -72,7 +72,7 @@ class ExpiredTable extends Component{
             Item::
                 with(['stocks' => function($query) use ($cabangId){
                     $query->where('cabang_id', $cabangId);
-                    $query->where('quantity', '>', 0);
+                    // $query->where('quantity', '>', 0);
                 }])
                 ->whereHas('stocks', function($query) use ($cabangId){
                     $query->where('cabang_id', $cabangId);

@@ -6,7 +6,7 @@
     @livewire('trx.sell-entry.meta-info')
     @livewire('trx.sell-entry.entry-item')
     @livewire('trx.sell-entry.entry-table')
-
+    @livewire('trx.sell-entry.confirm-modal')
 @endsection
 
 @section('page_css')
@@ -44,7 +44,21 @@
     <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
-        
+        Livewire.on('refreshPage', function (url) {
+            var newTab = window.open(url, '_blank'); // Open new tab
+            if (newTab) {
+                newTab.addEventListener('load', function () {
+                    // Wait for the new tab to fully load
+                    setTimeout(function () {
+                        location.reload(); // Refresh the page after new tab loads
+                    }, 500); // Adjust the delay as needed
+                });
+            } else {
+                // Handle case where new tab was blocked
+                alert('Please allow popups to open the new tab.');
+            }
+        });
+     
         //  Customer
         $(document).ready(function() {
             $('#customer-select').select2({
@@ -53,11 +67,9 @@
         });
         $('#customer-select').on('change', function() {
             let selectedValue = $(this).val();
+            console.log(selectedValue)
             Livewire.emit('customerChange', selectedValue)
         });
-        window.addEventListener('itemSubmited', event => {
-            $('#customer-select').val(null).trigger('change');
-        })
 
         //  Item
         $(document).ready(function() {

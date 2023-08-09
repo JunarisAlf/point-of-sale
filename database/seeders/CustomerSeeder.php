@@ -19,16 +19,18 @@ class CustomerSeeder extends Seeder {
             'address'   => '-'
         ]);
         $trx = $cus->trxs()->create([
-            'cabang_id'    => 1,
-            'is_paid'   => true,
-            'date'      => Carbon::now()->format('Y-m-d H:i:s'),
-            'amount'     => 40000
+            'cabang_id'         => 1,
+            'is_paid'           => true,
+            'date'              => Carbon::now()->format('Y-m-d H:i:s'),
+            'sub_total'         => 45_000,
+            'total_discount'    => 5000,
+            'total'             => 40000
         ]);
         $trx->details()->create([
-            'item_id'   => 1,
-            'quantity'  => 3,
-            'price'     => 15_000,
-            'discount'  => 5000,
+            'item_id'       => 1,
+            'quantity'      => 3,
+            'price'         => 15_000,
+            'discount'      => 5000,
             'grand_price'   => 45_000
         ]);
         Customer::create([
