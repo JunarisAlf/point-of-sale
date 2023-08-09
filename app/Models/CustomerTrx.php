@@ -16,4 +16,7 @@ class CustomerTrx extends Model{
     public function details(){
         return $this->hasMany(CustomerTrxDetail::class, 'cus_trx_id', 'id');
     }
+    public function cabang(){
+        return $this->belongsTo(Cabang::class, 'cabang_id', 'id');
+    }
 }

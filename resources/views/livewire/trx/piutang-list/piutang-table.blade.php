@@ -24,18 +24,28 @@
                        <div class="col-span-1 items-center sm:col-span-3  ">
                            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Cabang</label>
                            <select id="countries" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" wire:model="cabang_id">
+                                    <option  value="all">Semua Cabang</option>
                                @foreach ($cabangSelect as $cabang)
-                                   <option  value="{{$cabang->id}}">{{$cabang->name}}</option>
+                                    <option  value="{{$cabang->id}}">{{$cabang->name}}</option>
                                @endforeach
                            </select>
                        </div>
 
-                        <div class="col-span-1 items-center sm:col-span-3" wire:ignore>
+                        <div class="col-span-1 items-center sm:col-span-2" wire:ignore>
                             <label for="range" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Tanggal</label>
                             <input type="text" class="w-full border-gray-100 rounded form-control dark:bg-zinc-700/50 dark:border-zinc-600 dark:text-gray-100" id="datepicker-range" name="range">
                         </div>
 
-                       <div class="col-span-1 sm:col-span-3 ">
+                        <div class="col-span-1 items-center sm:col-span-2  ">
+                            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Cabang</label>
+                            <select id="countries" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" wire:model="piutang_status">
+                                <option  value="unpaid">Hutang Belum Dibayar</option>
+                                <option  value="paid">Hutang Sudah Dibayar</option>
+                            </select>
+                        </div>
+
+
+                       <div class="col-span-1 sm:col-span-2 ">
                         <div class="flex">
                             <button  style="z-index: 0 !important" id="dropdown-button" data-dropdown-toggle="dropdown" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button">Cari
                             </button>
@@ -55,7 +65,7 @@
 
 
                <div class="relative overflow-x-auto overscroll-x-auto" x-data='overscroll' x-on:mouseover="enableHorizontalScroll($el)" x-on:mouseout="disableHorizontalScroll($el)">
-                   <table class="w-full text-sm text-left text-gray-500 " style="min-width: max-content">
+                   <table class="w-full text-sm text-left text-gray-500 min-w-max" >
                        <thead class="text-xs text-gray-700 dark:text-gray-100 uppercase bg-gray-50/50 dark:bg-zinc-700">
                            <tr>
                                 <th scope="col" class="p-4 text-center">
@@ -63,6 +73,12 @@
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
                                     Tanggal Pembelian
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-center">
+                                    Tanggal Pembayaran
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-center">
+                                    Cabang
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
                                    Pelanggan
@@ -84,7 +100,7 @@
                        <tbody>
                            @if ($sells->isEmpty())
                                <tr class="bg-white border-b border-zinc-100 hover:bg-zinc-100/50 dark:bg-zinc-700/50 dark:border-zinc-600">
-                                   <td colspan="7" class="w-4 p-4 text-center">Tidak ada data</td>
+                                   <td colspan="9" class="w-4 p-4 text-center">Tidak ada data</td>
                                </tr>
                            @else
                                
@@ -100,6 +116,12 @@
                                             <button type="button" class="btn text-gray-500 bg-gray-50 border-gray-50 hover:text-white hover:bg-gray-600 hover:border-gray-600 focus:text-white focus:bg-gray-600 focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 dark:bg-gray-500/20 dark:focus:ring-gray-500/10 dark:border-transparent w-full"> {{Carbon\Carbon::parse($sell->date)->format('d/m/Y H:i:s')}}</button>
                                         </td>
                                         <td class="w-4 p-4 text-center border-[1px] ">
+                                            <button type="button" class="btn text-gray-500 bg-gray-50 border-gray-50 hover:text-white hover:bg-gray-600 hover:border-gray-600 focus:text-white focus:bg-gray-600 focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 dark:bg-gray-500/20 dark:focus:ring-gray-500/10 dark:border-transparent w-full"> {{$sell->paid_date == null ? "-" : Carbon\Carbon::parse($sell->paid_date)->format('d/m/Y H:i:s')}}</button>
+                                        </td>
+                                        <td class="w-4 p-4 text-center border-[1px] ">
+                                            {{$sell->cabang->name}}
+                                        </td>
+                                        <td class="w-4 p-4 text-center border-[1px] ">
                                             {{$sell->customer->name}}
                                         </td>
                                         <td class="w-4 p-4 text-center border-[1px] ">
@@ -112,8 +134,11 @@
                                             <button type="button" class="btn text-violet-500 hover:text-white border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:text-white focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600 w-full">Rp. {{number_format($sell->total, 0, ',', '.')}}</button>
                                             
                                         </td>
-                                        <td class="w-4 p-4 text-center border-[1px] ">
-                                            <button wire:click="openDetailModal({{$sell->id}})" type="button" class="btn text-white bg-violet-500 border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600"><i class="mdi mdi-eye-outline text-22 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Detail</span></button>
+                                        <td class="w-4 p-4 text-center border-[1px] min-w-max">
+                                            <div class="flex flex-row gap-2">
+                                                <button wire:click="openDetailModal({{$sell->id}})" type="button" class="btn text-white bg-violet-500 border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600"><i class="mdi mdi-eye-outline text-22 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Detail</span></button>
+                                                <button  wire:click="$emit('openMarkPaidModal', {{$sell->id}})" type="button" class="btn text-white bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 focus:bg-green-600 focus:border-green-600 focus:ring focus:ring-green-500/30 active:bg-green-600 active:border-green-600"><i class="mdi mdi-cash-check text-22 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Tandai Lunas</span></button>
+                                            </div>
                                         </td>
                                     </tr>
                                @endforeach

@@ -14,4 +14,8 @@ class SellController extends Controller{
         $user = Auth::user();
         return view('admin.pages.trx.sell-list', compact('user'));
     }
+    public function piutangList(){
+        $user = Auth::user();
+        return view('admin.pages.trx.piutang-list', compact('user'));
+    }
 }

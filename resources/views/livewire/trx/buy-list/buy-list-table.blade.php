@@ -161,6 +161,10 @@
                    {{$buys->links()}}
                </div>
            </div>
+           <div class="card-header border-t border-gray-50 p-5 dark:border-zinc-600 flex flex-row justify-between px-8">
+                <h5 class="uppercase text-gray-600 dark:text-gray-100 font-bold text-lg">Total (Rp.)</h5>
+                <h5 class="uppercase text-gray-600 dark:text-gray-100 font-bold text-lg">{{number_format($buys->sum('price_sum'), 0, ',', '.') }}</h5>
+            </div>
        </div>
    </div>
    

@@ -44,6 +44,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/tambah-pembelian',  [BuyController::class, 'entryBuy'])->name('admin.trx.buyEntry');
         Route::get('/daftar-pembelian',  [BuyController::class, 'buyList'])->name('admin.trx.buyList');
         Route::get('/daftar-hutang',  [BuyController::class, 'debtList'])->name('admin.trx.debtList');
+        Route::get('/daftar-piutang',  [SellController::class, 'piutangList'])->name('admin.trx.piutangList');
+
 
     });
 
