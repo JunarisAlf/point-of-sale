@@ -81,6 +81,7 @@ class OpnameDone extends Component{
         Item::
             whereHas('stocks', function($query) use ($cabangId, $opname_date){
                 $query->where('cabang_id', $cabangId);
+                // $query->where('quantity', '>', 0);
                 $query->whereHas('opnames', function($subQuery) use ( $opname_date){
                     $subQuery->where('date', $opname_date);
                 });
@@ -88,7 +89,7 @@ class OpnameDone extends Component{
             ->with(
                 ['stocks' => function($query) use ($cabangId, $opname_date){
                     $query->where('cabang_id', $cabangId);
-                    $query->where('quantity', '>', 0);
+                    // $query->where('quantity', '>', 0);
                     $query->whereHas('opnames', function($subQuery) use ( $opname_date){
                         $subQuery->where('date', $opname_date);
                     });
