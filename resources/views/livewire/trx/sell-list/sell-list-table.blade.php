@@ -100,7 +100,7 @@
                                             <button type="button" class="btn text-gray-500 bg-gray-50 border-gray-50 hover:text-white hover:bg-gray-600 hover:border-gray-600 focus:text-white focus:bg-gray-600 focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 dark:bg-gray-500/20 dark:focus:ring-gray-500/10 dark:border-transparent w-full"> {{Carbon\Carbon::parse($sell->date)->format('d/m/Y H:i:s')}}</button>
                                         </td>
                                         <td class="w-4 p-4 text-center border-[1px] ">
-                                            {{$sell->customer->name}}
+                                            {{$sell->customer_name}}
                                         </td>
                                         <td class="w-4 p-4 text-center border-[1px] ">
                                             <button type="button" class="btn text-violet-500 hover:text-white border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:text-white focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600 w-full">Rp. {{number_format($sell->sub_total, 0, ',', '.')}}</button>

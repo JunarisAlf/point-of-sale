@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Trx\SellList;
 use App\Models\Cabang;
 use App\Models\CustomerTrx;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -69,12 +70,15 @@ class SellListTable extends Component{
         $sells = CustomerTrx::query();
         $sells
             ->with(['details'])->withSum('details as discount', 'discount')
-            ->whereHas('customer', function($query) use ($keyword){
-                $query->where('name', 'like', "%$keyword%");
-            })
             ->where('cabang_id', $cabangId)
-            ->where('is_paid', true)->where('paid_date', null) // pay in cash
-            ->join('customers', 'customer_trxs.customer_id', '=', 'customers.id');
+            ->where('is_paid', true)
+            ->where('paid_date', null) // pay in cash
+            ->leftJoin('customers', 'customer_trxs.customer_id', '=', 'customers.id')
+            ->select('customer_trxs.*', DB::raw('COALESCE(customers.name, "UMUM") AS customer_name'));
+        //search
+        if($keyword != null || $keyword != ''){
+            $sells->where(DB::raw('COALESCE(customers.name, "UMUM")'), 'LIKE', "%$keyword%");
+        }
         //daterange
         if(isset($this->dateRange['start']) && isset($this->dateRange['end']) ){
             $sells->whereBetween('date', [$this->dateRange['start'], $this->dateRange['end']]);

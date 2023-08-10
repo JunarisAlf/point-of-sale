@@ -88,7 +88,7 @@
                                             <button type="button" class="btn text-sky-500 bg-sky-50 border-sky-50 hover:text-white hover:bg-sky-600 hover:border-sky-600 focus:text-white focus:bg-sky-600 focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 dark:focus:ring-sky-500/10 dark:bg-sky-500/20 dark:border-transparent">{{$customer->address}}</button>
                                         </td>
                                         <td class="px-6 py-4 dark:text-zinc-100/80 text-center">
-                                            <button type="button" class="btn text-violet-500 hover:text-white border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:text-white focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600 ">Rp. {{number_format($customer->trxs()->sum('amount'), 0, ',', '.')}}</button>
+                                            <button type="button" class="btn text-violet-500 hover:text-white border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:text-white focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600 ">Rp. {{number_format($customer->trxs()->sum('total'), 0, ',', '.')}}</button>
                                         </td>
 
                                         <td class="px-6 py-4 text-center" >
