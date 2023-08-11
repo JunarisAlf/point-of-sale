@@ -10,6 +10,7 @@ class SuccessAlert extends Component{
     public function show($message){
         $this->show = true;
         $this->message = $message;
+        $this->dispatchBrowserEvent('auto-hide');
     }
     public function render(){
         return view('livewire.utils.alert.success-alert');
