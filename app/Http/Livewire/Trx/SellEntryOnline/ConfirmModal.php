@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Livewire\Trx\SellEntry;
+namespace App\Http\Livewire\Trx\SellEntryOnline;
 
 use App\Models\CustomerTrx;
+use App\Models\OnlineTrx;
 use App\Models\StockItem;
 use Carbon\Carbon;
 use Exception;
@@ -12,37 +13,22 @@ use Livewire\Component;
 
 class ConfirmModal extends Component {
     public $show = false, $items;
-    public $is_paid = true, $customer_id;
-    public $pay = 0, $change, $globalDisc = 0, $sub_total, $grand_total, $discount;
-    protected $listeners = ['openConfirmModal' => 'openModal', 'payChange', 'globalDiscChange'];
+    public $grand_total;
+    protected $listeners = ['openConfirmModal' => 'openModal'];
 
     public function openModal($data){
         $this->items = $data['items'];
-        $this->sub_total = $data['metainfo']['subTotal'];
         $this->grand_total = $data['metainfo']['totalSum'];
-        $this->discount = $data['metainfo']['totalDisc'];
-        $this->customer_id = $data['metainfo']['customer_id'];
         $this->show = true;
     }
-    public function payChange($val){
-        $this->pay = intval($val);
-        $this->change = $this->pay - ($this->grand_total - $this->globalDisc) ;
-    }
-    public function globalDiscChange($val){
-        $this->globalDisc = intval($val);
-        $this->change = $this->pay - ($this->grand_total - $this->globalDisc) ;
-    }
+
     public function store(){
-        $cabang_id = Auth::user()->cabang?->id == null ? 1 : Auth::user()->cabang->id == null;
-        $customer_trx = [
-            'customer_id'       => $this->customer_id,
+        $cabang_id = Auth::user()->role == 'master' ? session('cabang_id') : Auth::user()->cabang->id;
+        $online_trx = [
             'cabang_id'         => $cabang_id,
+            'note'              => session()->get('note', '-'),
             'date'              => Carbon::now()->format('Y-m-d H:i:s'),
-            'paid_date'         => null,
-            'is_paid'           => $this->is_paid,
-            'sub_total'         => $this->sub_total,
-            'total_discount'    => $this->discount + $this->globalDisc,
-            'total'             => $this->grand_total - $this->globalDisc,
+            'total'             => $this->grand_total ,
         ];
         $trx_details = [];
         foreach ($this->items as $key => $item) {
@@ -50,13 +36,12 @@ class ConfirmModal extends Component {
                 'item_id'       => $item['id'],
                 'quantity'      => $item['quantity'],
                 'price'         => $item['price'],
-                'discount'      => $item['discount'],
                 'grand_price'   => $item['total_price']
             ]);
         }
         DB::beginTransaction();
         try {
-            $trx_elequent = CustomerTrx::create($customer_trx);
+            $trx_elequent = OnlineTrx::create($online_trx);
             $trx_elequent->details()->createMany($trx_details);
             foreach ($trx_details as $key => $detail) {
                 $stocks = StockItem::where('item_id', $detail['item_id'])->where('cabang_id', $cabang_id)->where('quantity', '>', 0)->orderBy('expired_date', 'ASC')->get();
@@ -91,6 +76,6 @@ class ConfirmModal extends Component {
         }
     }
     public function render() {
-        return view('livewire.trx.sell-entry.confirm-modal');
+        return view('livewire.trx.sell-entry-online.confirm-modal');
     }
 }

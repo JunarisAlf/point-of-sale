@@ -13,10 +13,10 @@ class CustomerSeeder extends Seeder {
      */
     public function run(): void {
         $cus = Customer::create([
-            'name'      => 'UMUM',
-            'gender'    => 'male',
-            'wa'        => '-',
-            'address'   => '-'
+            'name'      => 'Customer 1',
+            'gender'    => 'female',
+            'wa'        => '6282245456465',
+            'address'   => 'Jl. Ahmad Dahlan No 5, Kampung Melayu, Sukajadi'
         ]);
         $trx = $cus->trxs()->create([
             'cabang_id'         => 1,
@@ -33,12 +33,7 @@ class CustomerSeeder extends Seeder {
             'discount'      => 5000,
             'grand_price'   => 45_000
         ]);
-        Customer::create([
-            'name'      => 'Customer 1',
-            'gender'    => 'female',
-            'wa'        => '6282245456465',
-            'address'   => 'Jl. Ahmad Dahlan No 5, Kampung Melayu, Sukajadi'
-        ]);
+        
 
         Customer::create([
             'name'      => 'Customer 2',

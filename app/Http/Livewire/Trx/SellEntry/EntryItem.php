@@ -14,7 +14,7 @@ class EntryItem extends Component{
     public function itemChanged($item_id){
         $this->item_id = $item_id;
         $this->discount = 0;
-        $cabang_id = Auth::user()->cabang?->id == null ? 1 : Auth::user()->cabang->id == null;
+        $cabang_id = Auth::user()->cabang?->id == null ? 1 : Auth::user()->cabang->id;
         $this->maxQuantity = StockItem::where('item_id', $item_id)->where('cabang_id', $cabang_id)->where('quantity', '>', 0)->sum('quantity');
         $this->dispatchBrowserEvent('discount-updated');
         $this->updatedQuantity();
