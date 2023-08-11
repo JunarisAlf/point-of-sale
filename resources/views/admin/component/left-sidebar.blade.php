@@ -29,14 +29,18 @@
                             <a href="{{route('admin.trx.sellList')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Daftar Penjualan</a>
                         </li>
                         <li>
+                            <a href="{{route('admin.trx.sellEntryOnline')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Entry Penjualan Online</a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.trx.sellOnlineList')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Daftar Penjualan Online</a>
+                        </li>
+                        <li>
                             <a href="{{route('admin.trx.buyEntry')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Entry Pembelian</a>
                         </li>
                         <li>
                             <a href="{{route('admin.trx.buyList')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Daftar Pembelian</a>
                         </li>
-                        <li>
-                            <a href="{{route('admin.trx.sellEntryOnline')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Entry Penjualan Online</a>
-                        </li>
+                       
                          <li>
                             <a href="{{route('admin.trx.debtList')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Daftar Hutang</a>
                         </li>

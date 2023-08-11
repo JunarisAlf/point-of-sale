@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('online_trxs', function (Blueprint $table) {
             $table->id();
             $table->string('note');
-            $table->date('date');
+            $table->datetime('date');
             $table->unsignedBigInteger('total');
             $table->foreignId('cabang_id')
                 ->constrained(table: 'cabangs', column: 'id', indexName: 'online_trx_cabang')

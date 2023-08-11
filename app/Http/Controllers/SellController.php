@@ -18,6 +18,10 @@ class SellController extends Controller{
         $user = Auth::user();
         return view('admin.pages.trx.sell-entry-online', compact('user'));
     }
+    public function sellOnlineList(){
+        $user = Auth::user();
+        return view('admin.pages.trx.sell-online-list', compact('user'));
+    }
     public function piutangList(){
         $user = Auth::user();
         return view('admin.pages.trx.piutang-list', compact('user'));
