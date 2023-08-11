@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BuyController;
 use App\Http\Controllers\CabangController;
+use App\Http\Controllers\CashController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
@@ -45,8 +46,9 @@ Route::middleware('auth')->group(function(){
         Route::get('/daftar-pembelian',  [BuyController::class, 'buyList'])->name('admin.trx.buyList');
         Route::get('/daftar-hutang',  [BuyController::class, 'debtList'])->name('admin.trx.debtList');
         Route::get('/daftar-piutang',  [SellController::class, 'piutangList'])->name('admin.trx.piutangList');
-
-
+    });
+    Route::prefix('/cash')->group(function(){
+        Route::get('/in-out', [CashController::class, 'inOut'])->name('admin.cash.inOut');
     });
 
     Route::prefix('/master-data')->group(function(){

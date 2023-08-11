@@ -18,7 +18,7 @@
                 {{-- START TRANSAKSI --}}
                 <li >
                     <a href="javascript: void(0);" class="nav-menu pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
-                        <i data-feather="dollar-sign"></i>
+                        <i data-feather="shopping-cart"></i>
                         <span >Transaksi</span>
                     </a>
                     <ul>
@@ -43,6 +43,21 @@
                     </ul>
                 </li>
                 {{-- END TRANSAKSI --}}
+
+                {{-- START TRANSAKSI --}}
+                <li >
+                    <a href="javascript: void(0);" class="nav-menu pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+                        <i data-feather="dollar-sign"></i>
+                        <span>Cash</span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="{{route('admin.cash.inOut')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Cash In/Out</a>
+                        </li>
+                    </ul>
+                </li>
+                {{-- END TRANSAKSI --}}
+
 
                  {{-- START MASTER DATA --}}
                  <li >

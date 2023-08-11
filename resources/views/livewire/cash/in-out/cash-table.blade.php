@@ -1,4 +1,16 @@
 <div class="grid grid-cols-12 gap-5 ">
+    @if (!$is_stored) 
+        <div class="col-span-12">
+            <button wire:click="$emit('openCreateModal', {{$cabang_id}})" type="button" class="btn border-0 bg-green-500 p-0 align-middle text-white focus:ring-2 focus:ring-green-500/30 hover:bg-green-600">
+                <i class="bx bx-plus bg-white bg-opacity-20 w-10 h-full text-16 py-3 align-middle rounded-l"></i>
+                <span class="px-3 leading-[2.8]">Tambah Data</span>
+            </button>
+            <button wire:click="openSetorModal" type="button" class="btn border-0 bg-sky-500 p-0 align-middle text-white focus:ring-2 focus:ring-sky-500/30 hover:bg-sky-600">
+                <i class="bx bx-money-withdraw bg-white bg-opacity-20 w-10 h-full text-16 py-3 align-middle rounded-l"></i>
+                <span class="px-3 leading-[2.8]">Setoran</span>
+            </button>
+        </div>
+    @endif
     <div class="col-span-12">
        <div class="card dark:bg-zinc-800 dark:border-zinc-600">
            <div class="card-body">
@@ -21,7 +33,6 @@
                     </div>
                </div>
 
-
                <div class="relative overflow-x-auto overscroll-x-auto" x-data='overscroll' x-on:mouseover="enableHorizontalScroll($el)" x-on:mouseout="disableHorizontalScroll($el)">
                    <table class="w-full text-sm text-left text-gray-500 " style="min-width: max-content">
                        <thead class="text-xs text-gray-700 dark:text-gray-100 uppercase bg-gray-50/50 dark:bg-zinc-700">
@@ -41,7 +52,6 @@
                            </tr>
                        </thead>
                        <tbody>
-                            
                             <tr >
                                 <td class="w-4 p-4 text-center border-[1px] font-bold">PENJUALAN</td>
                                 <td class="w-4 p-4 text-center border-[1px] ">
@@ -53,14 +63,40 @@
                                     <button type="button" class="btn text-violet-500 hover:text-white border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:text-white focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600 w-full">Rp. {{number_format($sell, 0, ',', '.')}}</button>
                                 </td>
                             </tr>
+                            @foreach ($cashes as $cash)
+                                <tr>
+                                    <td class="w-4 p-4 text-center border-[1px] font-bold">{{$cash->name}}</td>
+                                    <td class="w-4 p-4 text-center border-[1px] ">
+                                        <button type="button" class="btn text-gray-500 bg-gray-50 border-gray-50 hover:text-white hover:bg-gray-600 hover:border-gray-600 focus:text-white focus:bg-gray-600 focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 dark:bg-gray-500/20 dark:focus:ring-gray-500/10 dark:border-transparent w-full">{{Carbon\Carbon::parse($cash->date)->format('d/m/Y H:i:s')}}</button>
+                                    </td>
+                                    @if ($cash->flow === 'out')
+                                        <td class="w-4 p-4 text-center border-[1px] ">
+                                            <button type="button" class="btn text-red-500 hover:text-white border-red-500 hover:bg-red-600 hover:border-red-600 focus:bg-red-600 focus:text-white focus:border-red-600 focus:ring focus:ring-red-500/30 active:bg-red-600 active:border-red-600 w-full">Rp. {{number_format($cash->total, 0, ',', '.')}}</button>
+                                        </td>
+                                        <td class="w-4 p-4 text-center border-[1px] "> </td>
+                                    @elseif($cash->flow === 'in')
+                                        <td class="w-4 p-4 text-center border-[1px] "> </td>
+                                        <td class="w-4 p-4 text-center border-[1px] ">
+                                            <button type="button" class="btn text-violet-500 hover:text-white border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:text-white focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600 w-full">Rp. {{number_format($cash->total, 0, ',', '.')}}</button> 
+                                        </td>
+                                    @endif
+                                </tr>
+                            @endforeach
                        </tbody>
                    </table>
                </div>
          
            </div>
-           <div class="card-header border-t border-gray-50 p-5 dark:border-zinc-600 flex flex-row justify-between px-8">
-                <h5 class="uppercase text-gray-600 dark:text-gray-100 font-bold text-lg">Total (Rp.)</h5>
-                <h5 class="uppercase text-gray-600 dark:text-gray-100 font-bold text-lg"></h5>
+           <div class="card-header border-t border-gray-50 p-5 dark:border-zinc-600 flex flex-col justify-between px-8">
+                <div class="flex flex-row justify-between">
+                    <h5 class="uppercase text-gray-600 dark:text-gray-100 font-bold text-lg">Total (Rp.)</h5>
+                    <h5 class="uppercase text-gray-600 dark:text-gray-100 font-bold text-lg">{{number_format($cashSum, 0, ',', '.')}}</h5>
+                </div>
+                @if ($is_stored)
+                    <div class="flex flex-row justify-between">
+                        <h5 class="uppercase text-gray-600 dark:text-gray-100 font-bold text-md">Sudah Disetor</h5>
+                    </div>
+                @endif
             </div>
        </div>
    </div>
