@@ -53,6 +53,7 @@ Route::middleware('auth')->group(function(){
     });
     Route::prefix('/cash')->group(function(){
         Route::get('/in-out', [CashController::class, 'inOut'])->name('admin.cash.inOut');
+        Route::get('/asset', [CashController::class, 'assets'])->name('admin.cash.assets');
     });
 
     Route::prefix('/master-data')->group(function(){

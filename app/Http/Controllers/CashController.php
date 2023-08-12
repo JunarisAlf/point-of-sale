@@ -10,4 +10,8 @@ class CashController extends Controller{
         $user = Auth::user();
         return view('admin.pages.cash.in-out', compact('user'));
     }
+    public function assets(){
+        $user = Auth::user();
+        return view('admin.pages.cash.assets', compact('user'));
+    }
 }
