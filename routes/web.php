@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function(){
 
     Route::get('/dashboard',  [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/atur-pengguna',  [UserController::class, 'manageUserPage'])->name('admin.manageUser');
+    Route::get('/login-log',  [UserController::class, 'loginLog'])->name('admin.loginLog');
     
     Route::prefix('/transaksi')->group(function(){
         Route::get('/tambah-penjualan',  [SellController::class, 'entrySell'])->name('admin.trx.sellEntry');

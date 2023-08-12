@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Auth\LoginPage;
 
+use App\Models\UserLog;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -15,6 +16,7 @@ class Form extends Component{
         
         if (Auth::attempt($validated)) {
             session()->regenerate();
+            UserLog::create(['user_id' => Auth::user()->id]);
             return to_route('admin.dashboard');
         }
         $this->resetExcept('username');

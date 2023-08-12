@@ -16,4 +16,8 @@ class UserController extends Controller{
         $user = Auth::user();
         return view('admin.pages.user.manage', compact('user'));
     }
+    public function loginLog(){
+        $user = Auth::user();
+        return view('admin.pages.user.login-log', compact('user'));
+    }
 }
