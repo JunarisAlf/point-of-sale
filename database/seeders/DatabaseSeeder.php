@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\KeyValue;
 use App\Models\MultiPrice;
 use Illuminate\Database\Seeder;
 
@@ -24,7 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(BuySeeder::class);
         $this->call(MultiPriceSeeder::class);
         $this->call(CustomerSeeder::class);
-
+        $this->call(KeyValueSeeder::class);
 
     }
 }

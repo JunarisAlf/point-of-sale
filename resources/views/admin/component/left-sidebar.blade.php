@@ -74,9 +74,6 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="/sdfdfs"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Data Toko</a>
-                        </li>
-                        <li>
                             <a href="{{route('admin.master.cabang')}}" class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Data Cabang</a>
                         </li>
                         <li>
@@ -145,6 +142,22 @@
                     </ul>
                 </li>
                 {{-- END USER --}}
+
+                {{-- START MASTER DATA --}}
+                <li >
+                    <a href="javascript: void(0);" class="nav-menu pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+                        <i data-feather="settings"></i>
+                        <span >Setting</span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="{{route('admin.master.generalInfo')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Informasi Toko</a>
+                        </li>
+                    </ul>
+                </li>
+                {{-- END MASTER DATA --}}
+
+
                 <li>
                     <a href="javascript: void(0);" aria-expanded="false" class="nav-menu pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
                         <i data-feather="user"></i>
