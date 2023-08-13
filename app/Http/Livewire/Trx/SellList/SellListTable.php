@@ -78,6 +78,7 @@ class SellListTable extends Component{
         //search
         if($keyword != null || $keyword != ''){
             $sells->where(DB::raw('COALESCE(customers.name, "UMUM")'), 'LIKE', "%$keyword%");
+            $sells->orWhere('invoice_id', 'LIKE', "%$keyword%");
         }
         //daterange
         if(isset($this->dateRange['start']) && isset($this->dateRange['end']) ){

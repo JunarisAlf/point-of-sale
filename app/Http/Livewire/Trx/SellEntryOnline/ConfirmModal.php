@@ -26,6 +26,7 @@ class ConfirmModal extends Component {
         $cabang_id = Auth::user()->role == 'master' ? session('cabang_id') : Auth::user()->cabang->id;
         $online_trx = [
             'cabang_id'         => $cabang_id,
+            'user_id'           => Auth::user()->id,
             'note'              => session()->get('note', '-'),
             'date'              => Carbon::now()->format('Y-m-d H:i:s'),
             'total'             => $this->grand_total ,
@@ -68,7 +69,7 @@ class ConfirmModal extends Component {
             }
           
             DB::commit();
-            $this->emit('refreshPage', route('receipt', ['id' => $trx_elequent->id ]));
+            $this->emit('refreshPage');
             $this->emit('showSuccessAlert', 'Berhasil Menambahkan Data!');
         } catch (Exception $e) {
             DB::rollBack();

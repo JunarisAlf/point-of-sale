@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <title>POS Receipt</title>
     <style>
         body {
@@ -46,45 +48,77 @@
 <body>
     <div class="receipt">
         <div class="header">
-            <h1>Receipt</h1>
-            <p>Date: <span id="date">[Date]</span></p>
-            <p>Cashier: <span id="cashier">[Cashier Name]</span></p>
-            <p>Address: <span id="address">[Address]</span></p>
+            <h1 class="font-bold text-xl mb-2">{{App\Models\KeyValue::where('key', 'toko_name')->first()->value}}</h1>
+            <span class="block w-full text-center text-sm">{{$trx->invoice_id}}</span>
+            <p>Tanggal: <span>{{Carbon\Carbon::parse($trx->date)->format('d-m-y H:i:s')}}</span></p>
+            <p>Kasir: <span id="address">#{{$trx->user->id}}</span></p>
+            <p>Pelanggan: <span id="address">{{$trx->customer?->name === null ? "-" : $trx->customer?->name}}</span></p>
         </div>
         <div class="items">
             <div class="item">
-                <table style="width: 100%; margin-top: 4px"> 
-                    <tr>
-                        <td>Item Name</td>
-                        <td style="text-align: center">12</td>
-                        <td style="text-align: end">Rp. 12.000</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>- Rp. 1.000</td>
-                        <td style="text-align: end">Rp. 11.000</td>
-                    </tr>
-                </table>
-                
-                <table style="width: 100%; margin-top: 4px"> 
-                    <tr>
-                        <td>Item Name</td>
-                        <td style="text-align: center">12</td>
-                        <td style="text-align: end">Rp. 12.000</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>- Rp. 1.000</td>
-                        <td style="text-align: end">Rp. 11.000</td>
-                    </tr>
-                </table>
+                @foreach ($trx->details as $detail)
+                    <table style="width: 100%; margin-top: 4px"> 
+                        <tr>
+                            <td>+ {{$detail->item->name}}</td>
+                            <td style="text-align: center">{{$detail->quantity}} x</td>
+                            <td style="text-align: end">{{number_format($detail->price, 0, ',', '.')}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">&nbsp;&nbsp;    {{number_format($detail->price * $detail->quantity , 0, ',', '.')}} 
+                            {{ $detail->discount !== 0 ? "- Disc. " . number_format($detail->discount, 0, ',', '.') : ""}}</td>
+                            <td style="text-align: end">{{number_format($detail->grand_price, 0, ',', '.')}}</td>
+                        </tr>
+                    </table>
+                @endforeach
             </div>
         </div>
         <div class="totals">
-            <p><strong>Sub Total:</strong> [Sub Total]</p>
-            <p><strong>Total Discount:</strong> [Total Discount]</p>
-            <p><strong>Grand Total:</strong> [Grand Total]</p>
-        </div>
+            <table class="w-full">
+                <tr>
+                    <td>
+                        <strong>Sub Total: </strong>
+                    </td>
+                    <td class="">
+                        <p>Rp. {{number_format($trx->sub_total, 0, ',', '.')}}</p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <strong>Total Discount: </strong>
+                    </td>
+                    <td class="">
+                        <p>Rp. {{number_format($trx->total_discount, 0, ',', '.')}}</p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <strong>Grand Total: </strong>
+                    </td>
+                    <td class="">
+                        <p>Rp. {{number_format($trx->total, 0, ',', '.')}}</p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <strong>Bayar: </strong>
+                    </td>
+                    <td class="">
+                        <p>Rp. {{number_format($trx->total_pay, 0, ',', '.')}}</p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <strong>Kembalian: </strong>
+                    </td>
+                    <td class="">
+                        <p>Rp. {{number_format($trx->total_pay - $trx->total, 0, ',', '.')}}</p>
+                    </td>
+                </tr>
+            </table>
     </div>
 </body>
 </html>

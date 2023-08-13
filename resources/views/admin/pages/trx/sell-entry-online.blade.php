@@ -45,18 +45,9 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         Livewire.on('refreshPage', function (url) {
-            var newTab = window.open(url, '_blank'); // Open new tab
-            if (newTab) {
-                newTab.addEventListener('load', function () {
-                    // Wait for the new tab to fully load
-                    setTimeout(function () {
-                        location.reload(); // Refresh the page after new tab loads
-                    }, 500); // Adjust the delay as needed
-                });
-            } else {
-                // Handle case where new tab was blocked
-                alert('Please allow popups to open the new tab.');
-            }
+            setTimeout(function () {
+                location.reload();
+            }, 200); 
         });
      
         //  Customer

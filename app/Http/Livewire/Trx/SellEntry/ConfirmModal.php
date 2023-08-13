@@ -37,9 +37,11 @@ class ConfirmModal extends Component {
         $customer_trx = [
             'customer_id'       => $this->customer_id,
             'cabang_id'         => $cabang_id,
+            'user_id'           => Auth::user()->id,
             'date'              => Carbon::now()->format('Y-m-d H:i:s'),
             'paid_date'         => null,
             'is_paid'           => $this->is_paid,
+            'total_pay'         => $this->pay,
             'sub_total'         => $this->sub_total,
             'total_discount'    => $this->discount + $this->globalDisc,
             'total'             => $this->grand_total - $this->globalDisc,

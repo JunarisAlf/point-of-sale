@@ -20,8 +20,10 @@ class CustomerSeeder extends Seeder {
         ]);
         $trx = $cus->trxs()->create([
             'cabang_id'         => 1,
+            'user_id'           => 1,
             'is_paid'           => true,
             'date'              => Carbon::now()->format('Y-m-d H:i:s'),
+            'total_pay'         => 40_000,
             'sub_total'         => 45_000,
             'total_discount'    => 5000,
             'total'             => 40000
@@ -31,7 +33,7 @@ class CustomerSeeder extends Seeder {
             'quantity'      => 3,
             'price'         => 15_000,
             'discount'      => 5000,
-            'grand_price'   => 45_000
+            'grand_price'   => 40_000
         ]);
         
 
