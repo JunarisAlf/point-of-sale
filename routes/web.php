@@ -73,4 +73,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/atur-barang',  [ItemController::class, 'manageItem'])->name('admin.gudang.manageItem');
         Route::get('/transfer-stok',  [ItemController::class, 'transfer'])->name('admin.gudang.transferStock');
     });
+    Route::prefix('/setting')->group(function(){
+        Route::get('/informasi-toko',  [UtilsController::class, 'generalInfo'])->name('admin.master.generalInfo');
+        Route::get('/lain-lain',  [UtilsController::class, 'otherInfo'])->name('admin.master.otherInfo');
+    });
 });

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Master\GeneralInfo;
+namespace App\Http\Livewire\Setting\GeneralInfo;
 
 use App\Models\KeyValue;
 use Exception;
@@ -51,6 +51,6 @@ class Form extends Component{
 
     }
     public function render(){
-        return view('livewire.master.general-info.form');
+        return view('livewire.setting.general-info.form');
     }
 }

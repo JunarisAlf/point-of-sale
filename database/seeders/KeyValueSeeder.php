@@ -32,6 +32,14 @@ class KeyValueSeeder extends Seeder
             'key'      => 'toko_email',
             'value'    => 'junaris@gmail.com'
         ]);
+        KeyValue::create([
+            'key'      => 'runing_text',
+            'value'    => 'Lorem ipsum dolor sit amet consectetur adipisicing elit, Lorem ipsum dolor sit amet consectetur adipisicing elit.'
+        ]);
+        KeyValue::create([
+            'key'      => 'login_text',
+            'value'    => 'Tumbuhkanlah etos kerja yang tak kenal lelah, karena kesuksesan bukanlah hadiah instan, melainkan hasil dari usaha tanpa henti dan komitmen terhadap kemajuan pribadi.'
+        ]);
     
     }
 }

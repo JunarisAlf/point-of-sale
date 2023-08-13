@@ -3,6 +3,6 @@
 @section('menu_title', 'Informasi Toko')
 
 @section('HTML_Main')
-    @livewire('master.general-info.form')
+    @livewire('setting.general-info.form')
 @endsection
 

@@ -17,7 +17,7 @@
                     <div class="flex h-[90vh] flex-col">
                             <div class="mx-auto">
                             <a href="index.html" class="">
-                                <img src="{{asset('mania/images/logo-sm.svg')}}" alt="" class="h-8 inline"> <span class="text-xl align-middle font-medium ltr:ml-2 rtl:mr-2 dark:text-white">Juna POS</span>
+                                <img src="{{asset('storage/images/'. App\Models\KeyValue::where('key', 'toko_logo')->first()->value)}}" alt="" class="h-8 inline"> <span class="text-xl align-middle font-medium ltr:ml-2 rtl:mr-2 dark:text-white">{{App\Models\KeyValue::where('key', 'toko_name')->first()->value}}</span>
                             </a>
                         </div>
 
@@ -53,36 +53,16 @@
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
                                         <i class="bx bxs-quote-alt-left text-green-600 text-5xl"></i>
-                                            <h3 class="mt-4 text-white text-22">“I feel confident imposing change on myself. It's a lot more progressing fun than looking back. That's why I ultricies enim at malesuada nibh diam on tortor neaded to throw curve balls.”</h3>
+                                            <h3 class="mt-4 text-white text-22">
+                                                {{App\Models\KeyValue::where('key', 'login_text')->first()->value}}
+                                            </h3>
                                             <div class="flex mt-6 mb-10 pt-4">
-                                                <img src="{{asset('mania/images/users/avatar-1.jpg')}}" class="h-12 w-12 rounded-full" alt="...">
+                                                <img src="{{asset('storage/profile/' . App\Models\User::where('role', 'master')->first()->profile_image)}}" class="h-12 w-12 rounded-full" alt="...">
                                                 <div class="flex-1 ltr:ml-3 rtl:mr-2 mb-4">
-                                                    <h5 class="font-size-18 text-white">Pemilik Toko</h5>
+                                                    <h5 class="font-size-18 text-white">
+                                                        {{App\Models\User::where('role', 'master')->first()->full_name}}
+                                                    </h5>
                                                     <p class="mb-0 text-white/50">Owner
-                                                    </p>
-                                                </div>
-                                            </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <i class="bx bxs-quote-alt-left text-green-600 text-5xl"></i>
-                                            <h3 class="mt-4 text-white text-22">“I feel confident imposing change on myself. It's a lot more progressing fun than looking back. That's why I ultricies enim at malesuada nibh diam on tortor neaded to throw curve balls.”</h3>
-                                            <div class="flex mt-6 mb-10 pt-4">
-                                                <img src="assets/images/users/avatar-2.jpg" class="h-12 w-12 rounded-full" alt="...">
-                                                <div class="flex-1 ltr:ml-3 rtl:mr-2 mb-4">
-                                                    <h5 class="font-size-18 text-white">Mariya Willam</h5>
-                                                    <p class="mb-0 text-white/50">Designer
-                                                    </p>
-                                                </div>
-                                            </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <i class="bx bxs-quote-alt-left text-green-600 text-5xl"></i>
-                                            <h3 class="mt-4 text-white text-22">“I feel confident imposing change on myself. It's a lot more progressing fun than looking back. That's why I ultricies enim at malesuada nibh diam on tortor neaded to throw curve balls.”</h3>
-                                            <div class="flex mt-6 mb-10 pt-4">
-                                                <img src="assets/images/users/avatar-3.jpg" class="h-12 w-12 rounded-full" alt="...">
-                                                <div class="flex-1 ltr:ml-3 rtl:mr-2 mb-4">
-                                                    <h5 class="font-size-18 text-white">Jiya Jons</h5>
-                                                    <p class="mb-0 text-white/50">Developer
                                                     </p>
                                                 </div>
                                             </div>
@@ -90,7 +70,6 @@
                                 </div>
                                 <div class="swiper-pagination"></div>
                             </div>
-
                         </div>
                     </div>
                     

@@ -7,8 +7,8 @@
             <div
                 class="navbar-brand flex h-[70px] shrink items-center justify-between border-r border-r-gray-50 bg-slate-50 px-5 dark:border-zinc-700 dark:bg-zinc-800">
                 <a href="#" class="flex items-center text-lg font-bold dark:text-white">
-                    <img src="{{asset('mania/images/logo-sm.svg')}}" alt="" class="mt-1 inline-block h-6 ltr:mr-2 rtl:ml-2" />
-                    <span class="hidden align-middle xl:block">Juna POS</span>
+                    <img src="{{asset('storage/images/' . App\Models\KeyValue::where('key', 'toko_logo')->first()->value)}}" alt="" class="mt-1 inline-block h-7 ltr:mr-2 rtl:ml-2" />
+                    <span class="hidden align-middle xl:block">{{ App\Models\KeyValue::where('key', 'toko_name')->first()->value }}</span>
                 </a>
             </div>
             {{-- END Navbar Brand --}}
@@ -19,20 +19,29 @@
             </button>
 
             {{-- START SEARCH --}}
-            {{-- <form class="app-search hidden px-5 xl:block">
-                <div class="relative inline-block">
-                    <input type="text"
-                        class="rounded border-0 bg-gray-50/30 px-4 placeholder:text-sm focus:ring-0 dark:border-zinc-700 dark:bg-zinc-700/50 dark:text-gray-100 dark:placeholder:text-gray-200"
-                        placeholder="Search...">
-                    <button
-                        class="absolute top-1 inline-block rounded bg-violet-500 py-1.5 px-2.5 text-white shadow shadow-violet-100 ltr:right-1 rtl:left-1 rtl:right-auto dark:shadow-gray-900"
-                        type="button"><i class="bx bx-search-alt align-middle"></i></button>
-                </div>
-            </form> --}}
+            
             {{-- END SEARCH --}}
         </div>
         {{-- END And Search --}}
-        
+        <style>
+            @keyframes marquee {
+                0% {
+                    transform: translateX(100%);
+                }
+                100% {
+                        transform: translateX(-100%);
+                    }
+                }
+                .animate-marquee {
+                animation: marquee 10s linear infinite;
+            }
+        </style>
+        <div class="w-[60%] h-12 hidden md:block overflow-x-hidden">
+            <p class="whitespace-nowrap animate-marquee font-bold text-xl uppercase pt-3">
+                {{App\Models\KeyValue::where('key', 'runing_text')->first()->value}}
+            </p>
+        </div>
+
         {{-- START Top Right Nav --}}
         <div class="flex items-center">
             {{-- START Darkmode --}}

@@ -7,7 +7,7 @@
                 document.write(new Date().getFullYear());
             </script> Point Of Sale
         </div>
-        <div class="hidden md:inline-block text-end">Develop By <a href="" class="text-violet-500 underline">Junaris A</a></div>
+        <div class="hidden md:inline-block text-end">Develop By <a href="https://wa.me/6282284393018" target="_blank" class="text-violet-500 underline">Junaris A</a></div>
     </div>
 </footer>
 <!-- end Footer --> 
