@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Trx\PiutangList;
 use App\Models\Cabang;
 use App\Models\CustomerTrx;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -96,11 +97,11 @@ class PiutangTable extends Component{
         }
          //date
          if(isset($this->dateRange['date']) ){
-            $sells->whereDate('date', $this->dateRange['date']);
+            $sells->whereDate(DB::raw('DATE(date)'), $this->dateRange['date']);
         }
         //daterange
         if(isset($this->dateRange['start']) && isset($this->dateRange['end']) ){
-            $sells->whereBetween('date', [$this->dateRange['start'], $this->dateRange['end']]);
+            $sells->whereBetween(DB::raw('DATE(date)'), [$this->dateRange['start'], $this->dateRange['end']]);
         }
 
         $sells->join('customers', 'customer_trxs.customer_id', '=', 'customers.id');

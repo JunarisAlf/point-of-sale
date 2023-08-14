@@ -6,6 +6,7 @@ use App\Models\Buy;
 use App\Models\Cabang;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -90,11 +91,11 @@ class BuyListTable extends Component{
 
         //date
         if(isset($this->dateRange['date']) ){
-            $buys->whereDate('date', $this->dateRange['date']);
+            $buys->whereDate(DB::raw('DATE(date)'), $this->dateRange['date']);
         }
         //daterange
         if(isset($this->dateRange['start']) && isset($this->dateRange['end']) ){
-            $buys->whereBetween('date', [$this->dateRange['start'], $this->dateRange['end']]);
+            $buys->whereBetween(DB::raw('DATE(date)'), [$this->dateRange['start'], $this->dateRange['end']]);
         }
         // Is Paid
         if($this->is_paid !== 'all'){

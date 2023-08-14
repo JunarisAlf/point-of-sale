@@ -93,11 +93,11 @@ class SellListTable extends Component{
 
         //date
         if(isset($this->dateRange['date']) ){
-            $sells->whereDate('date', $this->dateRange['date']);
+            $sells->whereDate(DB::raw('DATE(date)'), $this->dateRange['date']);
         }
         //daterange
         if(isset($this->dateRange['start']) && isset($this->dateRange['end']) ){
-            $sells->whereBetween('date', [$this->dateRange['start'], $this->dateRange['end']]);
+            $sells->whereBetween(DB::raw('DATE(date)'), [$this->dateRange['start'], $this->dateRange['end']]);
         }
         // ORDER
         $shortRule = $this->shortableField[$this->shortField];
