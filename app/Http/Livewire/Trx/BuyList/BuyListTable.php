@@ -14,38 +14,47 @@ class BuyListTable extends Component{
     protected $paginationTheme = 'bootstrap';
     protected $listeners = ['refresh_buy_table' => 'mount', 'dateRangeChange'];
 
-    
+
     public $paginate_count = 50, $data_count;
     public $page = 1; // for page number
     // search
     public $searchQuery;
-   
+
     public function mount(){
         $this->resetPage();
         $this->data = $this->getData();
         $this->cabangSelect =  Cabang::all();
+        $this->dateRange = [
+            'date'     => Carbon::now()->format('Y-m-d')
+        ];
         // dd($this->data->get());
     }
 
     public $dateRange;
     public function dateRangeChange($range){
         $range = explode(" to ", $range);
-        $this->dateRange = [
-            'start'     => isset($range[0])  ? Carbon::createFromFormat('d-m-Y', $range[0])->format('Y-m-d') : Carbon::now()->format('Y-m-d'),
-            'end'       => isset($range[1])  ? Carbon::createFromFormat('d-m-Y', $range[1])->format('Y-m-d') : Carbon::now()->format('Y-m-d')
-        ];
+        if(count($range) === 2){
+            $this->dateRange = [
+                'start'     => isset($range[0])  ? Carbon::createFromFormat('d-m-Y', $range[0])->format('Y-m-d') : Carbon::now()->format('Y-m-d'),
+                'end'       => isset($range[1])  ? Carbon::createFromFormat('d-m-Y', $range[1])->format('Y-m-d') : Carbon::now()->format('Y-m-d')
+            ];
+        }else if(count($range) === 1){
+            $this->dateRange = [
+                'date'     => Carbon::createFromFormat('d-m-Y', $range[0])->format('Y-m-d')
+            ];
+        }
         $this->updated();
     }
-    
+
     public function updated(){
         $this->resetPage();
         $this->data = $this->getData();
     }
-   
+
     // cabang
     public $cabang_id = 1;
     public $cabangSelect;
-    
+
     public $is_arrived = 'all';
     public $is_paid = 'all';
 
@@ -59,8 +68,8 @@ class BuyListTable extends Component{
         ['field' => 'date',             'short' => 'DESC',  'label'  => 'Tanggal Pembelian - Terbaru'],
         ['field' => 'date',             'short' => 'ASC',   'label'  => 'Tanggal Pembelian - Terlama'],
     ];
-    
- 
+
+
     // pagging
     protected $data;
     public function updatingPaginateCount() {
@@ -78,6 +87,11 @@ class BuyListTable extends Component{
             })
             ->where('cabang_id', $cabangId)
             ->join('suppliers', 'buys.supplier_id', '=', 'suppliers.id');
+
+        //date
+        if(isset($this->dateRange['date']) ){
+            $buys->whereDate('date', $this->dateRange['date']);
+        }
         //daterange
         if(isset($this->dateRange['start']) && isset($this->dateRange['end']) ){
             $buys->whereBetween('date', [$this->dateRange['start'], $this->dateRange['end']]);
