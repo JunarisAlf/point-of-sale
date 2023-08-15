@@ -31,7 +31,10 @@ class AssetsTable extends Component{
         $totalAssets = 0;
         $incomePred = 0;
         foreach ($this->items as $key => $item) {
-            $subAsset = $item->stocks->avg('buying_price') * $item->quantity_sum;
+            $subAsset = 0;
+            foreach ($item->stocks as $key => $stock) {
+                $subAsset += $stock->quantity * $stock->buying_price;
+            }
             $totalAssets += $subAsset;
 
             $subIncome = $item->selling_price * $item->quantity_sum;
