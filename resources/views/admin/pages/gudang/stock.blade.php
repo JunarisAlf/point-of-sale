@@ -3,7 +3,7 @@
 @section('menu_title', 'Stok Barang')
 
 @section('HTML_Main')
-    @livewire('gudang.stock.stock-table')
+    @livewire('gudang.stock.stock-table', ['user' => $user])
     {{-- @livewire('gudang.stock.create-stock-modal') --}}
     {{-- @livewire('gudang.stock.delete-stock-modal') --}}
    {{-- @livewire('gudang.stock.edit-stock-modal') --}}
@@ -27,16 +27,16 @@
                         element.addEventListener('wheel', handleHorizontalScroll, { passive: false });
                     }
                 },
-               
+
                 disableHorizontalScroll(element) {
                     element.removeEventListener('wheel', this.handleHorizontalScroll);
                 },
-                
+
             }));
-            
+
         })
 
-        
+
     </script>
 @endsection
 @section('page_script')

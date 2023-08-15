@@ -3,7 +3,7 @@
 @section('menu_title', 'Daftar Piutang')
 
 @section('HTML_Main')
-   @livewire('trx.piutang-list.piutang-table')
+   @livewire('trx.piutang-list.piutang-table', ['user' => $user])
    @livewire('trx.piutang-list.detail-modal')
    @livewire('trx.piutang-list.mark-paid-modal')
 

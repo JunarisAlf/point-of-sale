@@ -33,7 +33,7 @@ class ConfirmModal extends Component {
         $this->change = $this->pay - ($this->grand_total - $this->globalDisc) ;
     }
     public function store(){
-        $cabang_id = Auth::user()->cabang?->id == null ? 1 : Auth::user()->cabang->id == null;
+        $cabang_id = Auth::user()->cabang?->id == null ? 1 : Auth::user()->cabang->id;
         $customer_trx = [
             'customer_id'       => $this->customer_id,
             'cabang_id'         => $cabang_id,
@@ -83,7 +83,7 @@ class ConfirmModal extends Component {
                     }
                 });
             }
-          
+
             DB::commit();
             $this->emit('refreshPage', route('receipt', ['id' => $trx_elequent->id ]));
             $this->emit('showSuccessAlert', 'Berhasil Menambahkan Data!');

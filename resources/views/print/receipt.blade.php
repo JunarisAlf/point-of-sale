@@ -57,14 +57,14 @@
         <div class="items">
             <div class="item">
                 @foreach ($trx->details as $detail)
-                    <table style="width: 100%; margin-top: 4px"> 
+                    <table style="width: 100%; margin-top: 4px">
                         <tr>
                             <td>+ {{$detail->item->name}}</td>
-                            <td style="text-align: center">{{$detail->quantity}} x</td>
+                            <td style="text-align: center">{{$detail->quantity}}</td>
                             <td style="text-align: end">{{number_format($detail->price, 0, ',', '.')}}</td>
                         </tr>
                         <tr>
-                            <td colspan="2">&nbsp;&nbsp;    {{number_format($detail->price * $detail->quantity , 0, ',', '.')}} 
+                            <td colspan="2">&nbsp;&nbsp;    {{number_format($detail->price * $detail->quantity , 0, ',', '.')}}
                             {{ $detail->discount !== 0 ? "- Disc. " . number_format($detail->discount, 0, ',', '.') : ""}}</td>
                             <td style="text-align: end">{{number_format($detail->grand_price, 0, ',', '.')}}</td>
                         </tr>

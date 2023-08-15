@@ -3,7 +3,7 @@
 @section('menu_title', 'Eexpired Barang')
 
 @section('HTML_Main')
-    @livewire('gudang.expired.expired-table')
+    @livewire('gudang.expired.expired-table', ['user' => $user])
     {{-- @livewire('gudang.stock.create-stock-modal') --}}
     {{-- @livewire('gudang.stock.delete-stock-modal') --}}
    {{-- @livewire('gudang.stock.edit-stock-modal') --}}
@@ -29,9 +29,9 @@
                 disableHorizontalScroll(element) {
                     element.removeEventListener('wheel', this.handleHorizontalScroll);
                 },
-                
+
             }));
-            
+
         })
     </script>
 @endsection

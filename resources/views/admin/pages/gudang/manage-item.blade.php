@@ -3,7 +3,7 @@
 @section('menu_title', 'Atur Barang')
 
 @section('HTML_Main')
-    @livewire('gudang.manage.item-table')
+    @livewire('gudang.manage.item-table', ['user' => $user])
     @livewire('gudang.manage.item-fill-modal')
     @livewire('gudang.manage.item-edit-modal')
     @livewire('gudang.manage.item-create-modal')
@@ -36,7 +36,7 @@
                     console.log('updated val',val)
                 },
                 inputTimeOut: null,
-                
+
             }));
             Alpine.data('overscroll', () => ({
                 enableHorizontalScroll(element) {
@@ -53,9 +53,9 @@
                 disableHorizontalScroll(element) {
                     element.removeEventListener('wheel', this.handleHorizontalScroll);
                 },
-                
+
             }));
-            
+
         })
     </script>
 @endsection
@@ -66,7 +66,7 @@
     <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
-        
+
         //  item
         $(document).ready(function() {
             $('#item-select').select2({
@@ -82,8 +82,8 @@
             $('#item-select').val(null).trigger('change');
         })
 
-        
-        
+
+
     </script>
 @endsection
 

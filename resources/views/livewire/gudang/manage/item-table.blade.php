@@ -11,7 +11,7 @@
            <div class="card-body">
                <div class="w-full overflow-x-auto">
                    <div class="grid grid-cols-1 sm:grid-cols-6 gap-4 mb-8 mt-4 p-2 items-end justify-between">
-                       
+
                        <div class="col-span-1 sm:col-span-6  min-w-max">
                            <div class="flex flex-row items-center gap-2">
                                <label>Show</label>
@@ -32,7 +32,7 @@
                        <div class="col-span-1 sm:col-span-2 ">
                            <div class="flex">
                                <button  style="z-index: 0 !important" id="dropdown-button" data-dropdown-toggle="dropdown" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button">Cari</button>
-                              
+
                                <div class="relative w-full">
                                    <input wire:model="searchQuery" type="search" id="search-dropdown" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-white rounded-r-lg border-l-zinc-100 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-zinc-500 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Pencarian" required>
                                    <button type="button" class="absolute top-0 right-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -48,9 +48,13 @@
                        <div class="col-span-1 items-center sm:col-span-2  ">
                            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Cabang</label>
                            <select id="countries" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" wire:model="cabang_id">
-                               @foreach ($cabangSelect as $cabang)
-                                   <option  value="{{$cabang->id}}">{{$cabang->name}}</option>
-                               @endforeach
+                            @if ($user->role === 'master')
+                                @foreach ($cabangSelect as $cabang)
+                                    <option  value="{{$cabang->id}}">{{$cabang->name}}</option>
+                                @endforeach
+                            @else
+                                <option  selected ="{{$user->cabang->id}}">{{$user->cabang->name}}</option>
+                            @endif
                            </select>
                        </div>
 
@@ -88,7 +92,7 @@
                                    <td colspan="6" class="w-4 p-4 text-center">Tidak ada data</td>
                                </tr>
                            @else
-                               
+
                                @foreach ($items as $key => $item)
                                    @php
                                        $tableNumber = ($page - 1) * $items->perPage() + $loop->index + 1;
@@ -115,7 +119,7 @@
                                                     <button wire:click="openFillModal({{$item->id}})" type="button" class="btn border-0 bg-violet-500 p-0 align-middle text-white focus:ring-2 focus:ring-violet-500/30 hover:bg-violet-600 scale-80"><i class="bx bx-pen bg-white bg-opacity-20 w-10 h-full text-16 py-3 align-middle rounded-l"></i><span class="px-3 leading-[2.8]">Isi Stok</span></button>
                                                 </div>
                                             </td>
-                                           
+
                                         @endif
                                         @if ($has_stock == true && $stocks_count > 0)
                                             <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
@@ -137,9 +141,9 @@
                                                 </div>
                                             </td>
                                         @endif
-                                        
+
                                     </tr>
-                                   
+
                                     @if ($has_stock == true && $stocks_count > 1)
                                         @for($i = 1; $i < $stocks_count; $i++)
                                             <tr>
@@ -149,7 +153,7 @@
                                                 <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
                                                     <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full">{{$item->stocks[$i]->quantity}}</button>
                                                 </td>
-                                              
+
                                                 <td class="w-4 p-4 text-center border-[1px] min-w-max">
                                                     <div class="flex flex-row justify-center min-w-[300px]">
                                                         <button wire:click="openEditModal({{$item->stocks[$i]->id}})" type="button" class="btn border-0 bg-yellow-500 p-0 align-middle text-white focus:ring-2 focus:ring-yellow-500/30 hover:bg-yellow-600 scale-80"><i class="bx bx-edit bg-white bg-opacity-20 w-10 h-full text-16 py-3 align-middle rounded-l"></i><span class="px-3 leading-[2.8]">Edit</span></button>
@@ -158,10 +162,10 @@
                                             </tr>
                                         @endfor
                                     @endif
-                                    
+
                                @endforeach
                            @endif
-                          
+
                        </tbody>
                    </table>
                </div>

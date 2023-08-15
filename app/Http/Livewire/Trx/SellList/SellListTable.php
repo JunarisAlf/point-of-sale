@@ -10,6 +10,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 class SellListTable extends Component{
+    public $user;
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     protected $listeners = ['refresh_sell_table' => 'mount', 'dateRangeChange'];

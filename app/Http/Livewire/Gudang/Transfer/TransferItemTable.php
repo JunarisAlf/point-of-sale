@@ -9,6 +9,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 class TransferItemTable extends Component{
+    public $user;
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     protected $listeners = ['refresh_item_table' => 'mount', 'categoryChange'];
@@ -27,7 +28,7 @@ class TransferItemTable extends Component{
         $this->searchQuery = '';
         $this->mount();
     }
-   
+
     public function mount(){
         $this->resetPage();
         $this->data = $this->getData();
@@ -50,7 +51,7 @@ class TransferItemTable extends Component{
     // cabang
     public $cabang_id;
     public $cabangSelect;
-    
+
     // sort
     public $shortField = 0;
     public $shortableField = [
@@ -71,7 +72,7 @@ class TransferItemTable extends Component{
     public function getData(){
         $items = Item::query();
         $cabangId = $this->cabang_id;
-        $items = 
+        $items =
             Item::
                 with(['stocks' => function($query) use ($cabangId){
                     $query->where('cabang_id', $cabangId);
@@ -86,7 +87,7 @@ class TransferItemTable extends Component{
         if($this->searchQuery !== null && $this->searchField !== null){
             $items->where($this->searchableField[$this->searchField]['value'], 'like', "%$this->searchQuery%");
         }
-       
+
         if($this->category !== null && $this->category !== 'all'){
             $items->where('category_id', $this->category);
         }

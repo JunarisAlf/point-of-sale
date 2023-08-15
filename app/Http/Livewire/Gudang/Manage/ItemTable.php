@@ -9,6 +9,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 class ItemTable extends Component{
+    public $user;
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     protected $listeners = ['refresh_item_table' => 'mount'];
@@ -17,8 +18,8 @@ class ItemTable extends Component{
     public $page = 1; // for page number
     // search
     public $searchQuery = '';
- 
-   
+
+
     public function mount(){
         $this->resetPage();
         $this->data = $this->getData();
@@ -46,7 +47,7 @@ class ItemTable extends Component{
         ['field' => 'name',          'short' => 'DESC', 'label' => 'Nama Barang - Menurun'],
         ['field' => 'quantity_sum',  'short' => 'ASC',  'label'  => 'Jumlah Stok - Menaik'],
         ['field' => 'quantity_sum',  'short' => 'DESC', 'label'  => 'Jumlah Stok - Menurun'],
-        
+
     ];
 
     public function openFillModal($id){
@@ -66,7 +67,7 @@ class ItemTable extends Component{
     public function getData(){
         $items = Item::query();
         $cabangId = $this->cabang_id;
-        $items = 
+        $items =
             Item::
                 with(['stocks' => function($query) use ($cabangId){
                     $query->where('cabang_id', $cabangId);
@@ -96,5 +97,5 @@ class ItemTable extends Component{
             'items' => $this->data->paginate($this->paginate_count)
         ]);
     }
-  
+
 }

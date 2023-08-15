@@ -4,7 +4,7 @@
             <div class="card-body">
                 <div class="w-full overflow-x-auto">
                     <div class="grid grid-cols-1 sm:grid-cols-6 gap-4 mb-8 mt-4 p-2 items-end justify-between">
-                        
+
                         <div class="col-span-1 sm:col-span-6  min-w-max">
                             <div class="flex flex-row items-center gap-2">
                                 <label>Show</label>
@@ -51,16 +51,20 @@
                         <div class="col-span-1 items-center sm:col-span-2  ">
                             <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Cabang</label>
                             <select id="countries" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" wire:model="cabang_id">
-                                @foreach ($cabangSelect as $cabang)
-                                    <option  value="{{$cabang->id}}">{{$cabang->name}}</option>
-                                @endforeach
+                                @if ($user->role === 'master')
+                                    @foreach ($cabangSelect as $cabang)
+                                        <option  value="{{$cabang->id}}">{{$cabang->name}}</option>
+                                    @endforeach
+                                @else
+                                    <option  selected ="{{$user->cabang->id}}">{{$user->cabang->name}}</option>
+                                @endif
                             </select>
                         </div>
 
                         <div class="col-span-1 sm:col-span-2 items-center ">
                             <label for="category-select" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Kategori</label>
                             <div wire:ignore>
-                                <select  class="" data-trigger name="category_id"   placeholder="This is a search placeholder" id="category-select" wire:model="category_id"> 
+                                <select  class="" data-trigger name="category_id"   placeholder="This is a search placeholder" id="category-select" wire:model="category_id">
                                     <option  selected>Pilih Kategori</option>
                                     <option  value="all">Semua Kategori</option>
                                     @foreach ($categorySelect as $category)
@@ -70,8 +74,8 @@
                                 </select>
                             </div>
                         </div>
-                       
-                          
+
+
                         <div class="col-span-1 items-center sm:col-span-2  ">
                             <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Expired</label>
                             <select id="countries" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" wire:model="has_expired">
@@ -118,7 +122,7 @@
                                     <td colspan="6" class="w-4 p-4 text-center">Tidak ada data</td>
                                 </tr>
                             @else
-                                
+
                                 @foreach ($items as $key => $item)
                                     @php
                                         $tableNumber = ($page - 1) * $items->perPage() + $loop->index + 1;
@@ -132,7 +136,7 @@
                                         </td>
                                         <td class="px-6 py-4 dark:text-zinc-100/80 text-center">
                                             <button type="button" class="btn text-green-500 hover:text-white border-green-500 hover:bg-green-600 hover:border-green-600 focus:bg-green-600 focus:text-white focus:border-green-600 focus:ring focus:ring-green-500/30 active:bg-green-600 active:border-green-600   w-full">{{$item->category->name}}</button>
-                                            
+
                                         </td>
                                         <td class="px-6 py-4 dark:text-zinc-100/80 text-center">
                                             @if ($item->has_expired)
@@ -158,7 +162,7 @@
                                     </tr>
                                 @endforeach
                             @endif
-                           
+
                         </tbody>
                     </table>
                 </div>
@@ -168,7 +172,7 @@
             </div>
         </div>
     </div>
-    
 
-  
+
+
 </div>

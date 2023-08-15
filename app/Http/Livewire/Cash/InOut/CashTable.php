@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class CashTable extends Component{
+    public $user;
     public $cabang_id, $cabangSelect;
     public $date, $is_stored;
     public $sell, $cashes, $cashSum;

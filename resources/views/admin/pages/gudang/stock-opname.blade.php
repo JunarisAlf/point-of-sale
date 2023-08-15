@@ -3,9 +3,9 @@
 @section('menu_title', 'Stock Opname')
 
 @section('HTML_Main')
-    @livewire('gudang.opname.date')
-    @livewire('gudang.opname.opname-table')
-    @livewire('gudang.opname.opname-done')
+    @livewire('gudang.opname.date', ['user' => $user])
+    @livewire('gudang.opname.opname-table', ['user' => $user])
+    @livewire('gudang.opname.opname-done', ['user' => $user])
     @livewire('gudang.opname.opname-modal')
 
 @endsection
@@ -30,9 +30,9 @@
                 disableHorizontalScroll(element) {
                     element.removeEventListener('wheel', this.handleHorizontalScroll);
                 },
-                
+
             }));
-            
+
         })
     </script>
 @endsection

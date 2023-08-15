@@ -3,7 +3,7 @@
 @section('menu_title', 'Stock Opname')
 
 @section('HTML_Main')
-    @livewire('gudang.verif-opname.date')
+    @livewire('gudang.verif-opname.date', ['user' => $user])
     @livewire('gudang.verif-opname.detail')
 @endsection
 
@@ -27,12 +27,12 @@
                 disableHorizontalScroll(element) {
                     element.removeEventListener('wheel', this.handleHorizontalScroll);
                 },
-                
+
             }));
-            
+
         })
     </script>
 @endsection
 @section('page_script')
-   
+
 @endsection

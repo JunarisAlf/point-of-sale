@@ -10,6 +10,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 class StockTable extends Component{
+    public $user;
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     protected $listeners = ['refresh_item_table' => 'mount', 'categoryChange'];
@@ -28,7 +29,7 @@ class StockTable extends Component{
         $this->searchQuery = '';
         $this->mount();
     }
-   
+
     public function mount(){
         $this->resetPage();
         $this->data = $this->getData();
@@ -53,7 +54,7 @@ class StockTable extends Component{
     public $cabangSelect;
     // expiredable
     public $has_expired;
-    
+
     // sort
     public $shortField = 0;
     public $shortableField = [
@@ -76,7 +77,7 @@ class StockTable extends Component{
     public function getData(){
         $items = Item::query();
         $cabangId = $this->cabang_id;
-        $items = 
+        $items =
             Item::
                 with(['stocks' => function($query) use ($cabangId){
                     $query->where('cabang_id', $cabangId);
@@ -87,7 +88,7 @@ class StockTable extends Component{
                 ->withSum(['stocks as quantity_sum' => function ($query) use ($cabangId) {
                     $query->where('cabang_id', $cabangId);
                 }], 'quantity');
-        
+
         if($this->searchQuery !== null && $this->searchField !== null){
             $items->where($this->searchableField[$this->searchField]['value'], 'like', "%$this->searchQuery%");
         }
@@ -103,7 +104,7 @@ class StockTable extends Component{
         $this->data_count = $items->count();
         return $items;
     }
-   
+
     public function render(){
         $this->data = $this->getData();
         return view('livewire.gudang.stock.stock-table', [

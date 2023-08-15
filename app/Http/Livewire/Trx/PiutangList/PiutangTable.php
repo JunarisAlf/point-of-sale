@@ -10,9 +10,10 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 class PiutangTable extends Component{
+    public $user;
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
-    protected $listeners = ['refresh_piutang_table' => 'mount'];
+    protected $listeners = ['refresh_piutang_table' => 'mount', 'dateRangeChange'];
 
     public $paginate_count = 50, $data_count;
     public $page = 1; // for page number
@@ -23,9 +24,6 @@ class PiutangTable extends Component{
         $this->resetPage();
         $this->data = $this->getData();
         $this->cabangSelect =  Cabang::all();
-        $this->dateRange = [
-            'date'     => Carbon::now()->format('Y-m-d')
-        ];
         // dd($this->data->get());
     }
     public function dateRangeChange($range){

@@ -3,10 +3,10 @@
 @section('menu_title', 'Transfer Stok Barang')
 
 @section('HTML_Main')
-    @livewire('gudang.transfer.transfer-item-table')
+    @livewire('gudang.transfer.transfer-item-table', ['user' => $user])
     @livewire('gudang.transfer.transfer-item-modal')
 
-  
+
 @endsection
 
 @section('page_css')
@@ -29,9 +29,9 @@
                 disableHorizontalScroll(element) {
                     element.removeEventListener('wheel', this.handleHorizontalScroll);
                 },
-                
+
             }));
-            
+
         })
     </script>
 @endsection

@@ -45,9 +45,14 @@
                        <div class="col-span-1 items-center sm:col-span-2  ">
                            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Cabang</label>
                            <select id="countries" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" wire:model="cabang_id">
-                               @foreach ($cabangSelect as $cabang)
-                                   <option  value="{{$cabang->id}}">{{$cabang->name}}</option>
-                               @endforeach
+                            @if ($user->role === 'master')
+                                @foreach ($cabangSelect as $cabang)
+                                    <option  value="{{$cabang->id}}">{{$cabang->name}}</option>
+                                @endforeach
+                            @else
+                                <option  value="{{$user->cabang->id}}">{{$user->cabang->name}}</option>
+                            @endif
+
                            </select>
                        </div>
 
@@ -104,7 +109,7 @@
                                    <td colspan="7" class="w-4 p-4 text-center">Tidak ada data</td>
                                </tr>
                            @else
-                               
+
                                @foreach ($buys as $key => $buy)
                                    @php
                                        $tableNumber = ($page - 1) * $buys->perPage() + $loop->index + 1;
@@ -118,7 +123,7 @@
                                         </td>
                                         <td class="w-4 p-4 text-center border-[1px] ">
                                             <button type="button" class="btn text-gray-500 bg-gray-50 border-gray-50 hover:text-white hover:bg-gray-600 hover:border-gray-600 focus:text-white focus:bg-gray-600 focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 dark:bg-gray-500/20 dark:focus:ring-gray-500/10 dark:border-transparent w-full"> {{Carbon\Carbon::parse($buy->date)->format('d/m/Y')}}</button>
-                                           
+
                                         </td>
                                         <td class="w-4 p-4 text-center border-[1px] ">
                                             @if ($buy->is_arrived)
@@ -126,7 +131,7 @@
                                             @else
                                                 <button type="button" class="btn text-yellow-500 bg-yellow-50 hover:text-white border-yellow-50 hover:bg-yellow-600 focus:text-white hover:border-yellow-600 focus:bg-yellow-600 focus:border-yellow-600 focus:ring focus:ring-yellow-500/30 active:bg-yellow-600 active:border-yellow-600 dark:focus:ring-yellow-500/10 dark:bg-yellow-500/20 dark:border-transparent">Belum Tiba</button>
                                             @endif
-                                            
+
                                         </td>
                                         <td class="w-4 p-4 text-center border-[1px] ">
                                             @if ($buy->is_paid)
@@ -141,15 +146,15 @@
                                         <td class="w-4 p-4 text-center border-[1px] ">
                                             <div class="flex flex-row gap-2 min-w-max">
                                                 <button wire:click="$emit('openDetailModal', {{$buy->id}})" type="button" class="btn text-white bg-violet-500 border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600"><i class="mdi mdi-eye-outline text-22 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Detail</span></button>
-                                                @if (!$buy->is_paid)
+                                                @if (!$buy->is_paid && $user->role === 'master')
                                                     <button {{$buy->is_paid ? 'disabled' : ''}} wire:click="$emit('openMarkPaidModal', {{$buy->id}})" type="button" class="btn text-white bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 focus:bg-green-600 focus:border-green-600 focus:ring focus:ring-green-500/30 active:bg-green-600 active:border-green-600"><i class="mdi mdi-cash-check text-22 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Tandai Lunas</span></button>
                                                 @endif
                                                 @if (!$buy->is_arrived)
                                                     <button {{$buy->is_arrived ? 'disabled' : ''}} wire:click="$emit('openExpiredModal', {{$buy->id}})" type="button" class="btn text-white bg-yellow-500 border-yellow-500 hover:bg-yellow-600 hover:border-yellow-600 focus:bg-yellow-600 focus:border-yellow-600 focus:ring focus:ring-yellow-500/30 active:bg-yellow-600 active:border-yellow-600"><i class="mdi mdi-package-variant-closed-check text-22 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Tandai Tiba</span></button>
                                                 @endif
-                                                
+
                                             </div>
-                                           
+
                                         </td>
                                     </tr>
                                @endforeach
@@ -167,7 +172,7 @@
             </div>
        </div>
    </div>
-   
 
- 
+
+
 </div>

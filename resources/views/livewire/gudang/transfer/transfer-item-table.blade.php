@@ -4,7 +4,7 @@
            <div class="card-body">
                <div class="w-full overflow-x-auto">
                    <div class="grid grid-cols-1 sm:grid-cols-6 gap-4 mb-8 mt-4 p-2 items-end justify-between">
-                       
+
                        <div class="col-span-1 sm:col-span-6  min-w-max">
                            <div class="flex flex-row items-center gap-2">
                                <label>Show</label>
@@ -51,9 +51,13 @@
                        <div class="col-span-1 items-center sm:col-span-2  ">
                            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Cabang</label>
                            <select id="countries" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" wire:model="cabang_id">
-                               @foreach ($cabangSelect as $cabang)
-                                   <option  value="{{$cabang->id}}">{{$cabang->name}}</option>
-                               @endforeach
+                                @if ($user->role === 'master')
+                                    @foreach ($cabangSelect as $cabang)
+                                        <option  value="{{$cabang->id}}">{{$cabang->name}}</option>
+                                    @endforeach
+                                @else
+                                    <option  selected ="{{$user->cabang->id}}">{{$user->cabang->name}}</option>
+                                @endif
                            </select>
                        </div>
 
@@ -91,7 +95,7 @@
                                    <td colspan="6" class="w-4 p-4 text-center">Tidak ada data</td>
                                </tr>
                            @else
-                               
+
                                @foreach ($items as $key => $item)
                                    @php
                                        $tableNumber = ($page - 1) * $items->perPage() + $loop->index + 1;
@@ -114,11 +118,11 @@
                                                         $diffMonth = Carbon\Carbon::parse($item->stocks[0]->expired_date)->diffInMonths()
                                                     @endphp
                                                     @if ($diffMonth <= 1)
-                                                        <div class="h-2.5 w-2.5 rounded-full bg-red-500 ltr:mr-2 rtl:ml-2"></div> 
+                                                        <div class="h-2.5 w-2.5 rounded-full bg-red-500 ltr:mr-2 rtl:ml-2"></div>
                                                     @elseif($diffMonth > 1 && $diffMonth < 3)
-                                                        <div class="h-2.5 w-2.5 rounded-full bg-yellow-500 ltr:mr-2 rtl:ml-2"></div> 
+                                                        <div class="h-2.5 w-2.5 rounded-full bg-yellow-500 ltr:mr-2 rtl:ml-2"></div>
                                                     @elseif($diffMonth >= 3)
-                                                        <div class="h-2.5 w-2.5 rounded-full bg-green-500 ltr:mr-2 rtl:ml-2"></div> 
+                                                        <div class="h-2.5 w-2.5 rounded-full bg-green-500 ltr:mr-2 rtl:ml-2"></div>
                                                     @endif
                                                     {{Carbon\Carbon::parse($item->stocks[0]->expired_date)->diffForHumans() }}
                                                 </div>
@@ -131,7 +135,7 @@
                                             </td>
                                         @endif
                                     </tr>
-                                    
+
                                         @if($stocks_count > 1)
                                             @for($i = 1; $i < $stocks_count; $i++)
                                                 </tr>
@@ -144,11 +148,11 @@
                                                                 $diffMonth = Carbon\Carbon::parse($item->stocks[$i]->expired_date)->diffInMonths()
                                                             @endphp
                                                             @if ($diffMonth <= 1)
-                                                                <div class="h-2.5 w-2.5 rounded-full bg-red-500 ltr:mr-2 rtl:ml-2"></div> 
+                                                                <div class="h-2.5 w-2.5 rounded-full bg-red-500 ltr:mr-2 rtl:ml-2"></div>
                                                             @elseif($diffMonth > 1 && $diffMonth < 3)
-                                                                <div class="h-2.5 w-2.5 rounded-full bg-yellow-500 ltr:mr-2 rtl:ml-2"></div> 
+                                                                <div class="h-2.5 w-2.5 rounded-full bg-yellow-500 ltr:mr-2 rtl:ml-2"></div>
                                                             @elseif($diffMonth >= 3)
-                                                                <div class="h-2.5 w-2.5 rounded-full bg-green-500 ltr:mr-2 rtl:ml-2"></div> 
+                                                                <div class="h-2.5 w-2.5 rounded-full bg-green-500 ltr:mr-2 rtl:ml-2"></div>
                                                             @endif
                                                             {{Carbon\Carbon::parse($item->stocks[$i]->expired_date)->diffForHumans() }}
                                                         </div>
@@ -164,7 +168,7 @@
                                         @endif
                                @endforeach
                            @endif
-                          
+
                        </tbody>
                    </table>
                </div>
@@ -174,7 +178,7 @@
            </div>
        </div>
    </div>
-   
 
- 
+
+
 </div>

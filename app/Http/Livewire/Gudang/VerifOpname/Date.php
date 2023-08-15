@@ -9,6 +9,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 class Date extends Component{
+    public $user;
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     protected $listeners = ['refresh_item_table' => 'mount'];
@@ -16,7 +17,7 @@ class Date extends Component{
     public $paginate_count = 10, $data_count;
     public $page = 1; // for page number
     // search
-  
+
     public function mount(){
         $this->resetPage();
         $this->data = $this->getData();
@@ -27,24 +28,24 @@ class Date extends Component{
         $this->emit('cabang_change');
         $this->data = $this->getData();
     }
-   
+
     // cabang
     public $cabang_id = 1;
     public $cabangSelect;
-    
+
     // pagging
     protected $data;
     public function updatingPaginateCount() {
         $this->resetPage();
     }
-    
+
     public function detail($date){
         $cabangId = $this->cabang_id;
         $this->emit('show_opnames_detail', $cabangId, $date);
     }
     public function getData(){
         $cabangId = $this->cabang_id;
-        $opnames = 
+        $opnames =
         StockOpname::
             whereHas('stockItem', function($query) use ($cabangId){
                 $query->where('cabang_id', $cabangId);

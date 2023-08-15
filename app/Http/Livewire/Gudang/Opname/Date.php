@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Livewire\Component;
 
 class Date extends Component {
+    public $user;
     public $opname_date;
     // cabang
     public $cabang_id ;
@@ -15,6 +16,7 @@ class Date extends Component {
         $this->opname_date = Carbon::now()->format('Y-m-d');
         $this->emit('dateChanged', $this->opname_date);
         $this->cabangSelect =  Cabang::all();
+        $this->cabang_id = $this->user->role === 'master' ? null : $this->user->cabang->id;
     }
     public function updatedOpnameDate(){
         $this->emit('dateChanged', $this->opname_date);

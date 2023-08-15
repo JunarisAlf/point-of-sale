@@ -10,9 +10,10 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 class OpnameDone extends Component{
+    public $user;
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
-    protected $listeners = ['refresh_item_table' => 'mount', 'categoryChange', 'dateChanged', 'cabangChange'];
+    protected $listeners = ['refresh_item_table' => 'refresh', 'categoryChange', 'dateChanged', 'cabangChange'];
 
     public $paginate_count = 20, $data_count;
     public $page = 1; // for page number
@@ -28,13 +29,18 @@ class OpnameDone extends Component{
         $this->searchQuery = '';
         $this->mount();
     }
-   
+
     public function mount(){
         $this->resetPage();
         $this->data = $this->getData();
         $this->categorySelect = Category::all();
+        $this->cabang_id = $this->user->role === 'master' ? null : $this->user->cabang->id;
         // $this->opname_date = Carbon::now()->format('Y-m-d');
         // dd($this->data->get());
+    }
+    public function refresh(){
+        $this->resetPage();
+        $this->data = $this->getData();
     }
     public function updated(){
         $this->resetPage();
@@ -47,8 +53,8 @@ class OpnameDone extends Component{
         $this->category = $id;
         $this->mount();
     }
-    
-    
+
+
     // sort
     public $shortField = 0;
     public $shortableField = [
@@ -77,7 +83,7 @@ class OpnameDone extends Component{
         $cabangId = $this->cabang_id;
         $opname_date = Carbon::parse($this->opname_date)->format('Y-m-d');
 
-        $items = 
+        $items =
         Item::
             whereHas('stocks', function($query) use ($cabangId, $opname_date){
                 $query->where('cabang_id', $cabangId);
@@ -100,11 +106,11 @@ class OpnameDone extends Component{
             ->withSum(['stocks as quantity_sum' => function ($query) use ($cabangId) {
                 $query->where('cabang_id', $cabangId);
             }], 'quantity');
-        
+
         if($this->searchQuery !== null && $this->searchField !== null){
             $items->where($this->searchableField[$this->searchField]['value'], 'like', "%$this->searchQuery%");
         }
-       
+
         if($this->category !== null && $this->category !== 'all'){
             $items->where('category_id', $this->category);
         }

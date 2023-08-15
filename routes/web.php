@@ -37,33 +37,32 @@ Route::middleware('auth')->group(function(){
 
 
     Route::get('/dashboard',  [DashboardController::class, 'index'])->name('admin.dashboard');
-    Route::get('/atur-pengguna',  [UserController::class, 'manageUserPage'])->name('admin.manageUser');
-    Route::get('/login-log',  [UserController::class, 'loginLog'])->name('admin.loginLog');
-    
+    Route::get('/atur-pengguna',  [UserController::class, 'manageUserPage'])->name('admin.manageUser')->middleware('master');
+    Route::get('/login-log',  [UserController::class, 'loginLog'])->name('admin.loginLog')->middleware('master');
+
     Route::prefix('/transaksi')->group(function(){
-        Route::get('/tambah-penjualan',  [SellController::class, 'entrySell'])->name('admin.trx.sellEntry');
+        Route::get('/tambah-penjualan',  [SellController::class, 'entrySell'])->name('admin.trx.sellEntry')->middleware('admin');
         Route::get('/print/receipt',  [PrintController::class, 'receipt'])->name('receipt');
         Route::get('/daftar-penjualan',  [SellController::class, 'sellList'])->name('admin.trx.sellList');
-        Route::get('/tambah-pembelian',  [BuyController::class, 'entryBuy'])->name('admin.trx.buyEntry');
+        Route::get('/tambah-pembelian',  [BuyController::class, 'entryBuy'])->name('admin.trx.buyEntry')->middleware('master');
         Route::get('/daftar-pembelian',  [BuyController::class, 'buyList'])->name('admin.trx.buyList');
-        Route::get('/tambah-penjualan-online',  [SellController::class, 'entrySellOnline'])->name('admin.trx.sellEntryOnline');
-        Route::get('/daftar-penjualan-online',  [SellController::class, 'sellOnlineList'])->name('admin.trx.sellOnlineList');
-    Route::get('/daftar-hutang',  [BuyController::class, 'debtList'])->name('admin.trx.debtList');
+        Route::get('/tambah-penjualan-online',  [SellController::class, 'entrySellOnline'])->name('admin.trx.sellEntryOnline')->middleware('master');
+        Route::get('/daftar-penjualan-online',  [SellController::class, 'sellOnlineList'])->name('admin.trx.sellOnlineList')->middleware('master');
+        Route::get('/daftar-hutang',  [BuyController::class, 'debtList'])->name('admin.trx.debtList')->middleware('master');
         Route::get('/daftar-piutang',  [SellController::class, 'piutangList'])->name('admin.trx.piutangList');
     });
     Route::prefix('/cash')->group(function(){
         Route::get('/in-out', [CashController::class, 'inOut'])->name('admin.cash.inOut');
-        Route::get('/asset', [CashController::class, 'assets'])->name('admin.cash.assets');
+        Route::get('/asset', [CashController::class, 'assets'])->name('admin.cash.assets')->middleware('master');
     });
 
-    Route::prefix('/master-data')->group(function(){
-        Route::get('/informasi-toko',  [UtilsController::class, 'generalInfo'])->name('admin.master.generalInfo');
+    Route::prefix('/master-data')->middleware('master')->group(function(){
         Route::get('/cabang',  [CabangController::class, 'index'])->name('admin.master.cabang');
         Route::get('/kategory',  [CategoryController::class, 'index'])->name('admin.master.category');
         Route::get('/barang',  [ItemController::class, 'index'])->name('admin.master.item');
         Route::get('/harga-multi',  [ItemController::class, 'multiPrice'])->name('admin.master.multiPrice');
         Route::get('/supplier',  [SupplierController::class, 'index'])->name('admin.master.supplier');
-        Route::get('/pelanggan',  [CustomerController::class, 'index'])->name('admin.master.customer');
+        Route::get('/pelanggan',  [CustomerController::class, 'index'])->name('admin.master.customer')->withoutMiddleware('master');
     });
     Route::prefix('/gudang')->group(function(){
         Route::get('/stok-barang',  [ItemController::class, 'stock'])->name('admin.gudang.stock');
@@ -73,7 +72,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/atur-barang',  [ItemController::class, 'manageItem'])->name('admin.gudang.manageItem');
         Route::get('/transfer-stok',  [ItemController::class, 'transfer'])->name('admin.gudang.transferStock');
     });
-    Route::prefix('/setting')->group(function(){
+    Route::prefix('/setting')->middleware('master')->group(function(){
         Route::get('/informasi-toko',  [UtilsController::class, 'generalInfo'])->name('admin.master.generalInfo');
         Route::get('/lain-lain',  [UtilsController::class, 'otherInfo'])->name('admin.master.otherInfo');
     });

@@ -18,20 +18,23 @@ class ExpiredModal extends Component {
         $this->details = $buy->details;
         foreach ($this->details as $key => $detail) {
             if($detail->item->has_expired){
-                array_push($this->expired_dates, ['item_id' => $detail->item_id, 'expired_date' => null]);
+                $this->expired_dates[$detail->item_id] = ['expired_date' => null];
             }
         }
-        // dd($this->expired_dates);
         $this->show = true;
+        // dd($this->expired_dates);
     }
 
-    public function dateInputed($item_id){
-        $index = array_search($item_id, array_column($this->expired_dates, 'item_id'));
-        if($index !== false){
-            $this->expired_dates[$index] = ['item_id' => $item_id, 'expired_date' => $this->date];
-        }else{
-            array_push($this->expired_dates, ['item_id' => $item_id, 'expired_date' => $this->date]);
-        }
+    public function dateInputed($item_id, $value){
+        // $index = array_search($item_id, array_column($this->expired_dates, 'item_id'));
+        $this->expired_dates[$item_id] = ['expired_date' => $value];
+
+        // if($index !== false){
+        //     $this->expired_dates[$index] = ['item_id' => $item_id, 'expired_date' => $value];
+        // }else{
+        //     array_push($this->expired_dates, ['item_id' => $item_id, 'expired_date' => $value]);
+        // }
+        // dd($this->expired_dates);
     }
 
     public function rules(){
@@ -54,15 +57,15 @@ class ExpiredModal extends Component {
                 $oldModalSum = $oldQtySum * $oldPrice;
                 $addedModalSum = $detail->grand_price;
                 $newPrice = ($oldModalSum + $addedModalSum) / ($oldQtySum + $detail->quantity);
-    
+
                 $has_expired = $detail->item->has_expired;
                 if($has_expired){
-                    $index = array_search($detail->item_id, array_column($this->expired_dates, 'item_id'));
-                    $expired_date = $this->expired_dates[$index]['expired_date'];
+                    // $index = array_search($detail->item_id, array_column($this->expired_dates, 'item_id'));
+                    $expired_date = $this->expired_dates[$detail->item_id]['expired_date'];
                     $stockItem = StockItem::
                         where('item_id', $detail->item_id)->where('cabang_id', $detail->buy->cabang_id)
                         ->where('expired_date', $expired_date)->first();
-    
+
                     //if null make new one
                     if($stockItem == null){
                         $detail->item->barang()->attach($detail->buy->cabang_id, [
@@ -94,7 +97,7 @@ class ExpiredModal extends Component {
         }catch(Exception $e){
             $this->emit('showDangerAlert', 'Server ERROR!');
         }
-        
+
 
     }
     public function render() {

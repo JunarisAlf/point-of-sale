@@ -3,7 +3,7 @@
 @section('menu_title', 'Daftar Penjualan')
 
 @section('HTML_Main')
-   @livewire('trx.sell-list.sell-list-table')
+   @livewire('trx.sell-list.sell-list-table', ['user' => $user])
    @livewire('trx.sell-list.sell-detail-modal')
 @endsection
 

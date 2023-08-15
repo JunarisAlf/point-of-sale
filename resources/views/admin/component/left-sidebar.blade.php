@@ -1,20 +1,21 @@
  <!-- ========== Left Sidebar Start ========== -->
  <div class="vertical-menu rtl:right-0 fixed ltr:left-0 bottom-0 top-16 h-screen border-r bg-sider border-gray-50 print:hidden dark:bg-zinc-800 dark:border-neutral-700 z-10" >
-    
+
     <div data-simplebar class="h-full">
         <!--- Sidemenu -->
         <div id="sidebar-menu">
             <!-- Left Menu Start -->
             <ul class="metismenu" id="side-menu">
                 <li class="menu-heading px-4 py-3.5 text-xs font-medium text-gray-500 cursor-default" data-key="t-menu">Menu</li>
-                <li >
-                    <a href="{{route('admin.dashboard')}}" class="pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
-                        <i data-feather="home"></i>
-                        <span data-key="t-dashboard">Dashboard</span>
-                    </a>
-                </li>
+                @if ($user->role == 'master')
+                    <li >
+                        <a href="{{route('admin.dashboard')}}" class="pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+                            <i data-feather="home"></i>
+                            <span data-key="t-dashboard">Dashboard</span>
+                        </a>
+                    </li>
+                @endif
 
-                
                 {{-- START TRANSAKSI --}}
                 <li >
                     <a href="javascript: void(0);" class="nav-menu pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
@@ -22,12 +23,17 @@
                         <span >Transaksi</span>
                     </a>
                     <ul>
+                    @if ($user->role == 'admin')
                         <li>
                             <a href="{{route('admin.trx.sellEntry')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Entry Penjualan</a>
                         </li>
+                    @endif
+
                         <li>
                             <a href="{{route('admin.trx.sellList')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Daftar Penjualan</a>
                         </li>
+
+                    @if ($user->role == 'master')
                         <li>
                             <a href="{{route('admin.trx.sellEntryOnline')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Entry Penjualan Online</a>
                         </li>
@@ -37,13 +43,18 @@
                         <li>
                             <a href="{{route('admin.trx.buyEntry')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Entry Pembelian</a>
                         </li>
+                    @endif
+
                         <li>
                             <a href="{{route('admin.trx.buyList')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Daftar Pembelian</a>
                         </li>
-                       
-                         <li>
+
+                    @if ($user->role == 'master')
+
+                        <li>
                             <a href="{{route('admin.trx.debtList')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Daftar Hutang</a>
                         </li>
+                    @endif
                         <li>
                             <a href="{{route('admin.trx.piutangList')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Daftar Piutang</a>
                         </li>
@@ -61,9 +72,12 @@
                         <li>
                             <a href="{{route('admin.cash.inOut')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Cash In/Out</a>
                         </li>
-                        <li>
-                            <a href="{{route('admin.cash.assets')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Asset</a>
-                        </li>
+                        @if ($user->role === 'master')
+                            <li>
+                                <a href="{{route('admin.cash.assets')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Asset</a>
+                            </li>
+                        @endif
+
                     </ul>
                 </li>
                 {{-- END TRANSAKSI --}}
@@ -76,6 +90,7 @@
                         <span >Data Master</span>
                     </a>
                     <ul>
+                    @if ($user->role === 'master')
                         <li>
                             <a href="{{route('admin.master.cabang')}}" class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Data Cabang</a>
                         </li>
@@ -91,6 +106,8 @@
                         <li>
                             <a href="{{route('admin.master.supplier')}}" class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Supplier</a>
                         </li>
+                    @endif
+
                         <li>
                             <a href="{{route('admin.master.customer')}}" class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Pelanggan</a>
                         </li>
@@ -118,9 +135,12 @@
                          <li>
                             <a href="{{route('admin.gudang.verifStockOpname')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Verifikasi Stock Opname</a>
                         </li>
+                    @if ($user->role === 'master')
                         <li>
                             <a href="{{route('admin.gudang.manageItem')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Atur Barang</a>
                         </li>
+                    @endif
+
                         <li>
                             <a href="{{route('admin.gudang.transferStock')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Transfer Stok</a>
                         </li>
@@ -130,6 +150,7 @@
 
 
                 {{-- START USER --}}
+            @if ($user->role === 'master')
                 <li >
                     <a href="javascript: void(0);"  class="nav-menu pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
                         <i data-feather="users"></i>
@@ -144,9 +165,11 @@
                         </li>
                     </ul>
                 </li>
+            @endif
                 {{-- END USER --}}
 
-                {{-- START MASTER DATA --}}
+                {{-- START SETTING DATA --}}
+            @if ($user->role === 'master')
                 <li >
                     <a href="javascript: void(0);" class="nav-menu pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
                         <i data-feather="settings"></i>
@@ -161,7 +184,8 @@
                         </li>
                     </ul>
                 </li>
-                {{-- END MASTER DATA --}}
+            @endif
+            {{-- END SETTING DATA --}}
 
 
                 <li>

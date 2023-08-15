@@ -1,5 +1,5 @@
 <div class="grid grid-cols-12 gap-5 ">
-    @if (!$is_stored) 
+    @if (!$is_stored)
         <div class="col-span-12">
             <button wire:click="$emit('openCreateModal', {{$cabang_id}})" type="button" class="btn border-0 bg-green-500 p-0 align-middle text-white focus:ring-2 focus:ring-green-500/30 hover:bg-green-600">
                 <i class="bx bx-plus bg-white bg-opacity-20 w-10 h-full text-16 py-3 align-middle rounded-l"></i>
@@ -16,7 +16,7 @@
            <div class="card-body">
                <div class="w-full overflow-x-auto">
                    <div class="grid grid-cols-1 sm:grid-cols-6 gap-4 mb-8 mt-4 p-2 items-end justify-between">
-                       
+
                         <div class="col-span-1 sm:col-span-3 ">
                             <label for="example-text-input" class="block font-medium text-gray-700 dark:text-gray-100 mb-2">Tanggal</label>
                             <input wire:model='date' class="w-full rounded border-gray-100 placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:bg-zinc-700/50 dark:border-zinc-600 dark:text-zinc-100" type="date" id="example-date-input">
@@ -25,9 +25,14 @@
                         <div class="col-span-1 items-center sm:col-span-3  ">
                            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Cabang</label>
                            <select id="countries" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" wire:model="cabang_id">
-                               @foreach ($cabangSelect as $cabang)
-                                   <option  value="{{$cabang->id}}">{{$cabang->name}}</option>
-                               @endforeach
+                            @if ($user->role === 'master')
+                                @foreach ($cabangSelect as $cabang)
+                                    <option  value="{{$cabang->id}}">{{$cabang->name}}</option>
+                                @endforeach
+                            @else
+                                <option  value="{{$user->cabang->id}}">{{$user->cabang->name}}</option>
+                            @endif
+
                            </select>
                        </div>
                     </div>
@@ -56,7 +61,7 @@
                                 <td class="w-4 p-4 text-center border-[1px] font-bold">PENJUALAN</td>
                                 <td class="w-4 p-4 text-center border-[1px] ">
                                     <button type="button" class="btn text-gray-500 bg-gray-50 border-gray-50 hover:text-white hover:bg-gray-600 hover:border-gray-600 focus:text-white focus:bg-gray-600 focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 dark:bg-gray-500/20 dark:focus:ring-gray-500/10 dark:border-transparent w-full">{{Carbon\Carbon::parse($date)->format('d/m/Y')}}</button>
-                                    
+
                                 </td>
                                 <td class="w-4 p-4 text-center border-[1px] "></td>
                                 <td class="w-4 p-4 text-center border-[1px] ">
@@ -77,7 +82,7 @@
                                     @elseif($cash->flow === 'in')
                                         <td class="w-4 p-4 text-center border-[1px] "> </td>
                                         <td class="w-4 p-4 text-center border-[1px] ">
-                                            <button type="button" class="btn text-violet-500 hover:text-white border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:text-white focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600 w-full">Rp. {{number_format($cash->total, 0, ',', '.')}}</button> 
+                                            <button type="button" class="btn text-violet-500 hover:text-white border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:text-white focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600 w-full">Rp. {{number_format($cash->total, 0, ',', '.')}}</button>
                                         </td>
                                     @endif
                                 </tr>
@@ -85,7 +90,7 @@
                        </tbody>
                    </table>
                </div>
-         
+
            </div>
            <div class="card-header border-t border-gray-50 p-5 dark:border-zinc-600 flex flex-col justify-between px-8">
                 <div class="flex flex-row justify-between">
@@ -100,6 +105,6 @@
             </div>
        </div>
    </div>
-   
- 
+
+
 </div>

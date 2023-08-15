@@ -3,7 +3,7 @@
 @section('menu_title', 'Uang Masuk dan Keluar')
 
 @section('HTML_Main')
-   @livewire('cash.in-out.cash-table')
+   @livewire('cash.in-out.cash-table', ['user' => $user])
    @livewire('cash.in-out.cash-modal')
    @livewire('cash.in-out.cash-setor-modal')
 

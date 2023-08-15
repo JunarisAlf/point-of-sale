@@ -11,6 +11,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 class BuyListTable extends Component{
+    public $user;
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     protected $listeners = ['refresh_buy_table' => 'mount', 'dateRangeChange'];
@@ -25,9 +26,7 @@ class BuyListTable extends Component{
         $this->resetPage();
         $this->data = $this->getData();
         $this->cabangSelect =  Cabang::all();
-        $this->dateRange = [
-            'date'     => Carbon::now()->format('Y-m-d')
-        ];
+
         // dd($this->data->get());
     }
 
