@@ -29,7 +29,7 @@ class CashSetorModal extends Component{
             ]);
             $this->show = false;
             $this->emit('showSuccessAlert', 'Data Berhasil Dihapus!');
-            $this->emit('refresh_customer_table');
+            $this->emit('refresh_cash_table');
         } catch (Exception $e) {
             $this->emit('showDangerAlert', 'Server ERROR!');
         }

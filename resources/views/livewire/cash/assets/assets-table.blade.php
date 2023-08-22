@@ -51,21 +51,30 @@
                                    <td colspan="7" class="w-4 p-4 text-center">Tidak ada data</td>
                                </tr>
                            @else
-                               
+
                                @foreach ($items as $key => $item)
                                    <tr class="bg-white border-b border-gray-50 hover:bg-gray-50/50 dark:bg-zinc-700/50 dark:border-zinc-600">
                                        <td class="w-4 p-4 text-center">
                                            {{$key+1}}
                                        </td>
                                        <td class="px-6 py-4 dark:text-zinc-100/80  w-[350px]">
-                                           <button type="button" class="btn text-gray-500 hover:text-white border-gray-500 hover:bg-gray-600 hover:border-gray-600 focus:bg-gray-600 focus:text-white focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 w-full text-start">{{$item->barcode}} - {{$item->name}}</button>
+                                           <button type="button" class="btn text-gray-500 hover:text-white border-gray-500 hover:bg-gray-600 hover:border-gray-600 focus:bg-gray-600 focus:text-white focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 w-full text-start">{{$item->name}}</button>
                                        </td>
-                                       
+
                                        <td class="px-6 py-4 dark:text-zinc-100/80 text-center">
                                            <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full"> {{$item->quantity_sum}}</button>
                                        </td>
+
                                        <td class="px-6 py-4 dark:text-zinc-100/80 text-center">
-                                           <button type="button" class="btn text-sky-500 hover:text-white border-sky-500 hover:bg-sky-600 hover:border-sky-600 focus:bg-sky-600 focus:text-white focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 w-full">Rp. {{number_format($item->stocks->avg('buying_price'), 0, ',', '.')}}</button>
+                                            @php
+                                                $cbModal = 0;
+                                                    $cbGroup = $item->stocks->groupBy('cabang_id');
+                                                    foreach ($cbGroup as $key => $cbItem) {
+                                                        $cbModal += $cbItem->avg('buying_price') * $cbItem->sum('quantity');
+                                                    }
+                                                $sumModal = $cbModal / $item->stocks->sum('quantity');
+                                            @endphp
+                                           <button type="button" class="btn text-sky-500 hover:text-white border-sky-500 hover:bg-sky-600 hover:border-sky-600 focus:bg-sky-600 focus:text-white focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 w-full">Rp. {{number_format($sumModal, 0, ',', '.')}}</button>
                                        </td>
                                        <td class="px-6 py-4 dark:text-zinc-100/80 text-center">
                                            <button type="button" class="btn text-violet-500 hover:text-white border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:text-white focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600 w-full flex flex-row items-start justify-center">
@@ -76,7 +85,7 @@
                                            </button>
                                        </td>
                                        <td class="px-6 py-4 dark:text-zinc-100/80 text-center">
-                                        <button type="button" class="btn text-sky-500 hover:text-white border-sky-500 hover:bg-sky-600 hover:border-sky-600 focus:bg-sky-600 focus:text-white focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 w-full">Rp. {{number_format($item->stocks->avg('buying_price') * $item->quantity_sum, 0, ',', '.')}}</button>
+                                        <button type="button" class="btn text-sky-500 hover:text-white border-sky-500 hover:bg-sky-600 hover:border-sky-600 focus:bg-sky-600 focus:text-white focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 w-full">Rp. {{number_format($sumModal * $item->quantity_sum, 0, ',', '.')}}</button>
                                     </td>
                                     <td class="px-6 py-4 dark:text-zinc-100/80 text-center">
                                         <button type="button" class="btn text-violet-500 hover:text-white border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:text-white focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600 w-full flex flex-row items-start justify-center">
@@ -86,7 +95,7 @@
                                    </tr>
                                @endforeach
                            @endif
-                          
+
                        </tbody>
                    </table>
                </div>
@@ -110,5 +119,5 @@
             </div>
        </div>
    </div>
- 
+
 </div>
