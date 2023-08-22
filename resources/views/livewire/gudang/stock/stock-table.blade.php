@@ -131,27 +131,27 @@
                                         <td class="w-4 p-4 text-center">
                                             {{$tableNumber}}
                                         </td>
-                                        <td class="px-6 py-4 dark:text-zinc-100/80  w-[350px]">
-                                            <button type="button" class="btn text-gray-500 hover:text-white border-gray-500 hover:bg-gray-600 hover:border-gray-600 focus:bg-gray-600 focus:text-white focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 w-full text-start">{{$item->barcode}} - {{$item->name}}</button>
+                                        <td class="px-2 dark:text-zinc-100/80  w-[350px]">
+                                            <button type="button" class="btn text-gray-500 hover:text-white border-gray-500 hover:bg-gray-600 hover:border-gray-600 focus:bg-gray-600 focus:text-white focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 w-full text-start">{{$item->name}}</button>
                                         </td>
-                                        <td class="px-6 py-4 dark:text-zinc-100/80 text-center">
+                                        <td class="px-2 dark:text-zinc-100/80 text-center">
                                             <button type="button" class="btn text-green-500 hover:text-white border-green-500 hover:bg-green-600 hover:border-green-600 focus:bg-green-600 focus:text-white focus:border-green-600 focus:ring focus:ring-green-500/30 active:bg-green-600 active:border-green-600   w-full">{{$item->category->name}}</button>
 
                                         </td>
-                                        <td class="px-6 py-4 dark:text-zinc-100/80 text-center">
+                                        <td class="px-2 dark:text-zinc-100/80 text-center">
                                             @if ($item->has_expired)
                                                 <button type="button" class="btn text-green-500 bg-green-50 border-green-50 hover:text-white hover:bg-green-600 hover:border-green-600 focus:text-white focus:bg-green-600 focus:border-green-600 focus:ring focus:ring-green-500/30 active:bg-green-600 active:border-green-600 dark:focus:ring-green-500/10 dark:bg-green-500/20 dark:border-transparent w-full">Expiredable</button>
                                             @else
                                                 <button type="button" class="btn text-sky-500 bg-sky-50 border-sky-50 hover:text-white hover:bg-sky-600 hover:border-sky-600 focus:text-white focus:bg-sky-600 focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 dark:focus:ring-sky-500/10 dark:bg-sky-500/20 dark:border-transparent w-full">Non-Expiredable</button>
                                             @endif
                                         </td>
-                                        <td class="px-6 py-4 dark:text-zinc-100/80 text-center">
+                                        <td class="px-2 dark:text-zinc-100/80 text-center">
                                             <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full"> {{$item->quantity_sum}}</button>
                                         </td>
-                                        <td class="px-6 py-4 dark:text-zinc-100/80 text-center">
+                                        <td class="px-2 dark:text-zinc-100/80 text-center">
                                             <button type="button" class="btn text-sky-500 hover:text-white border-sky-500 hover:bg-sky-600 hover:border-sky-600 focus:bg-sky-600 focus:text-white focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 w-full">Rp. {{number_format($item->stocks->avg('buying_price'), 0, ',', '.')}}</button>
                                         </td>
-                                        <td class="px-6 py-4 dark:text-zinc-100/80 text-center">
+                                        <td class="px-2 dark:text-zinc-100/80 text-center">
                                             <button type="button" class="btn text-violet-500 hover:text-white border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:text-white focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600 w-full flex flex-row items-start justify-center">
                                                 Rp. {{number_format($item->selling_price, 0, ',', '.')}}
                                                 <span class="text-red-500 text-xs">

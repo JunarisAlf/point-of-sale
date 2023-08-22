@@ -105,14 +105,14 @@
                                         <td class="w-4 p-4 text-center border-[1px] " rowspan="{{$item->stocks->count()}}">
                                             {{$tableNumber}}
                                         </td>
-                                        <td class="px-6 py-4 dark:text-zinc-100/80  w-[350px] border-[1px]" rowspan="{{$item->stocks->count()}}">
-                                            <button type="button" class="btn text-gray-500 hover:text-white border-gray-500 hover:bg-gray-600 hover:border-gray-600 focus:bg-gray-600 focus:text-white focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 w-full text-start">{{$item->barcode}} - {{$item->name}}</button>
+                                        <td class="px-2 dark:text-zinc-100/80  w-[350px] border-[1px]" rowspan="{{$item->stocks->count()}}">
+                                            <button type="button" class="btn text-gray-500 hover:text-white border-gray-500 hover:bg-gray-600 hover:border-gray-600 focus:bg-gray-600 focus:text-white focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 w-full text-start">{{$item->name}}</button>
                                         </td>
                                         @if($stocks_count > 0)
-                                            <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
+                                            <td class="px-2 dark:text-zinc-100/80 text-center border-[1px]">
                                                 {{Carbon\Carbon::parse($item->stocks[0]->expired_date)->format('d/m/Y ') }}
                                             </td>
-                                            <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
+                                            <td class="px-2 dark:text-zinc-100/80 text-center border-[1px]">
                                                 <div class="flex items-center dark:text-zinc-100/80">
                                                     @php
                                                         $diffMonth = Carbon\Carbon::parse($item->stocks[0]->expired_date)->diffInMonths()
@@ -127,11 +127,11 @@
                                                     {{Carbon\Carbon::parse($item->stocks[0]->expired_date)->diffForHumans() }}
                                                 </div>
                                             </td>
-                                            <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
+                                            <td class=" dark:text-zinc-100/80 text-center border-[1px]">
                                                 <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full">{{$item->stocks[0]->quantity}}</button>
                                             </td>
                                         @endif
-                                        <td class="px-6 py-4 dark:text-zinc-100/80  border-[1px]" rowspan="{{$item->stocks->count()}}">
+                                        <td class="px-4 dark:text-zinc-100/80  border-[1px]" rowspan="{{$item->stocks->count()}}">
                                             @if ($item->quantity_sum <= 10)
                                                 <button type="button" class="btn text-red-500 hover:text-white border-red-500 hover:bg-red-600 hover:border-red-600 focus:bg-red-600 focus:text-white focus:border-red-600 focus:ring focus:ring-red-500/30 active:bg-red-600 active:border-red-600 w-full text-center">{{$item->quantity_sum}}</button>
                                             @elseif($item->quantity_sum > 10 && $item->quantity_sum < 50 )
@@ -145,10 +145,10 @@
                                         @if($stocks_count > 1)
                                             @for($i = 1; $i < $stocks_count; $i++)
                                                 </tr>
-                                                    <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
+                                                    <td class="px-2 dark:text-zinc-100/80 text-center border-[1px]">
                                                         {{Carbon\Carbon::parse($item->stocks[$i]->expired_date)->format('d/m/Y ') }}
                                                     </td>
-                                                    <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
+                                                    <td class="px-2 dark:text-zinc-100/80 text-center border-[1px]">
                                                         <div class="flex items-center dark:text-zinc-100/80">
                                                             @php
                                                                 $diffMonth = Carbon\Carbon::parse($item->stocks[$i]->expired_date)->diffInMonths()
@@ -163,7 +163,7 @@
                                                             {{Carbon\Carbon::parse($item->stocks[$i]->expired_date)->diffForHumans() }}
                                                         </div>
                                                     </td>
-                                                    <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
+                                                    <td class="dark:text-zinc-100/80 text-center border-[1px]">
                                                         <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full">{{$item->stocks[$i]->quantity}}</button>
                                                     </td>
                                                 </tr>
