@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Trx\BuyList;
 
 use App\Models\Buy;
+use Carbon\Carbon;
 use Exception;
 use Livewire\Component;
 
@@ -24,6 +25,7 @@ class MarkPaidModal extends Component{
         try{
             $buy = Buy::find($id);
             $buy->is_paid = true;
+            $buy->paid_date = Carbon::now()->format('Y-m-d H:i:s');
             $buy->save();
             $this->show = false;
             $this->emit('showSuccessAlert', 'Berhasil Melakukan Pelunasan!');

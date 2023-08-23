@@ -81,7 +81,7 @@
                                    <td colspan="7" class="w-4 p-4 text-center">Tidak ada data</td>
                                </tr>
                            @else
-                               
+
                                @foreach ($buys as $key => $buy)
                                    @php
                                        $tableNumber = ($page - 1) * $buys->perPage() + $loop->index + 1;
@@ -97,16 +97,16 @@
                                             {{$buy->supplier->name}}
                                         </td>
                                         <td class="w-4 p-4 text-center border-[1px] ">
-                                            <button type="button" class="btn text-gray-500 bg-gray-50 border-gray-50 hover:text-white hover:bg-gray-600 hover:border-gray-600 focus:text-white focus:bg-gray-600 focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 dark:bg-gray-500/20 dark:focus:ring-gray-500/10 dark:border-transparent w-full"> {{Carbon\Carbon::parse($buy->date)->format('d/m/Y')}}</button>
-                                           
+                                            <button type="button" class="btn text-gray-500 bg-gray-50 border-gray-50 hover:text-white hover:bg-gray-600 hover:border-gray-600 focus:text-white focus:bg-gray-600 focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 dark:bg-gray-500/20 dark:focus:ring-gray-500/10 dark:border-transparent w-full"> {{Carbon\Carbon::parse($buy->created_at)->format('d/m/Y H:i:s')}}</button>
+
                                         </td>
-                                       
+
                                         <td class="w-4 p-4 text-center border-[1px] ">
                                             Rp. {{number_format($buy->price_sum, 0, ',', '.')}}
                                         </td>
                                         <td class="w-4 p-4 text-center border-[1px] ">
                                             <button  wire:click="$emit('openMarkPaidModal', {{$buy->id}})" type="button" class="btn text-white bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 focus:bg-green-600 focus:border-green-600 focus:ring focus:ring-green-500/30 active:bg-green-600 active:border-green-600"><i class="mdi mdi-cash-check text-22 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Tandai Lunas</span></button>
-                                           
+
                                         </td>
                                     </tr>
                                @endforeach

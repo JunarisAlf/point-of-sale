@@ -90,6 +90,9 @@
                                    Tanggal Pembelian
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
+                                    Tanggal Pembayaran
+                                 </th>
+                                <th scope="col" class="px-6 py-3 text-center">
                                     Status Barang
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
@@ -122,8 +125,10 @@
                                             {{$buy->supplier->name}}
                                         </td>
                                         <td class="w-4 p-4 text-center border-[1px] ">
-                                            <button type="button" class="btn text-gray-500 bg-gray-50 border-gray-50 hover:text-white hover:bg-gray-600 hover:border-gray-600 focus:text-white focus:bg-gray-600 focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 dark:bg-gray-500/20 dark:focus:ring-gray-500/10 dark:border-transparent w-full"> {{Carbon\Carbon::parse($buy->date)->format('d/m/Y')}}</button>
-
+                                            <button type="button" class="btn text-gray-500 bg-gray-50 border-gray-50 hover:text-white hover:bg-gray-600 hover:border-gray-600 focus:text-white focus:bg-gray-600 focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 dark:bg-gray-500/20 dark:focus:ring-gray-500/10 dark:border-transparent w-full"> {{Carbon\Carbon::parse($buy->created_at)->format('d/m/Y H:i:s')}}</button>
+                                        </td>
+                                        <td class="w-4 p-4 text-center border-[1px] ">
+                                            <button type="button" class="btn text-gray-500 bg-gray-50 border-gray-50 hover:text-white hover:bg-gray-600 hover:border-gray-600 focus:text-white focus:bg-gray-600 focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 dark:bg-gray-500/20 dark:focus:ring-gray-500/10 dark:border-transparent w-full"> {{ $buy->paid_date === null ? '-' : Carbon\Carbon::parse($buy->paid_date)->format('d/m/Y H:i:s')}}</button>
                                         </td>
                                         <td class="w-4 p-4 text-center border-[1px] ">
                                             @if ($buy->is_arrived)

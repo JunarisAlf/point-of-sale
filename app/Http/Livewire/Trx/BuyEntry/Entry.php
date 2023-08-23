@@ -32,7 +32,7 @@ class Entry extends Component{
     }
     public function mount(){
         $this->suppliers = Supplier::all();
-        $this->date = Carbon::now()->format('Y-m-d');
+        $this->date = Carbon::now()->format('Y-m-d H:i:s');
         $this->cabangs = Cabang::all();
     }
     public function render() {

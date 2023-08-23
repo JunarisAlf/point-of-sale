@@ -21,7 +21,7 @@ return new class extends Migration
                   ->constrained(table: 'cabangs', column: 'id', indexName: 'cabang_buy')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
-            $table->date('date');
+            $table->datetime('paid_date')->nullable();
             $table->boolean('is_paid');
             $table->boolean('is_arrived');
             $table->timestamps();

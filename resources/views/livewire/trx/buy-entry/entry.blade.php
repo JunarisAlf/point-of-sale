@@ -9,7 +9,7 @@
 
                 <div class="col-span-1">
                     <label for="example-text-input" class="block font-medium text-gray-700 dark:text-gray-100 mb-2">Date</label>
-                    <input wire:model='date' class="w-full rounded border-gray-100 placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:bg-zinc-700/50 dark:border-zinc-600 dark:text-zinc-100" type="date" id="example-date-input">
+                    <input wire:model='date' class="w-full rounded border-gray-100 placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:bg-zinc-700/50 dark:border-zinc-600 dark:text-zinc-100" type="datetime-local" id="example-date-input">
                 </div>
 
                 <div class="col-span-1 items-center ">

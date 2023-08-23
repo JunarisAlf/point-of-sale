@@ -65,8 +65,8 @@ class BuyListTable extends Component{
         ['field' => 'suppliers.name',    'short' => 'DESC',  'label'     => 'Nama Supplier - Menurun'],
         ['field' => 'price_sum',        'short' => 'ASC',   'label'  => 'Harga - Menaik'],
         ['field' => 'price_sum',        'short' => 'DESC',  'label'  => 'Harga - Menurun'],
-        ['field' => 'date',             'short' => 'DESC',  'label'  => 'Tanggal Pembelian - Terbaru'],
-        ['field' => 'date',             'short' => 'ASC',   'label'  => 'Tanggal Pembelian - Terlama'],
+        ['field' => 'created_at',             'short' => 'DESC',  'label'  => 'Tanggal Pembelian - Terbaru'],
+        ['field' => 'created_at',             'short' => 'ASC',   'label'  => 'Tanggal Pembelian - Terlama'],
     ];
 
 
@@ -90,11 +90,11 @@ class BuyListTable extends Component{
 
         //date
         if(isset($this->dateRange['date']) ){
-            $buys->whereDate(DB::raw('DATE(date)'), $this->dateRange['date']);
+            $buys->whereDate('buys.created_at', $this->dateRange['date']);
         }
         //daterange
         if(isset($this->dateRange['start']) && isset($this->dateRange['end']) ){
-            $buys->whereBetween(DB::raw('DATE(date)'), [$this->dateRange['start'], $this->dateRange['end']]);
+            $buys->whereBetween('buys.created_at', [$this->dateRange['start'], $this->dateRange['end']]);
         }
         // Is Paid
         if($this->is_paid !== 'all'){

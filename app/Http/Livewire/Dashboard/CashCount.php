@@ -24,7 +24,7 @@ class CashCount extends Component{
 
         $this->cashOutDateStart = Carbon::now()->format('Y-m-d');
         $this->cashOutDateEnd = Carbon::now()->format('Y-m-d');
-        $buys = Buy::whereBetween(DB::raw('DATE(date)'), [$this->cashOutDateStart, $this->cashOutDateEnd])->get();
+        $buys = Buy::whereBetween(DB::raw('DATE(buys.created_at)'), [$this->cashOutDateStart, $this->cashOutDateEnd])->get();
         $this->cashOutSum = 0;
         foreach ($buys as $key => $buy) {
             $this->cashOutSum += $buy->details()->sum('grand_price');
@@ -46,17 +46,16 @@ class CashCount extends Component{
     }
     public function cashOutRangeChange($start, $end){
 
-        $buys = Buy::whereBetween(DB::raw('DATE(date)'), [$start, $end])->get();
+        $buys = Buy::whereBetween(DB::raw('DATE(buys.created_at)'), [$start, $end])->get();
         $this->cashOutSum = 0;
         foreach ($buys as $key => $buy) {
             $this->cashOutSum += $buy->details()->sum('grand_price');
         }
-
         $endNew = Carbon::parse($start)->subDays(1)->format('Y-m-d');
         $daysDif = Carbon::parse($start)->diffInDays(Carbon::parse($end));
         $startNew = Carbon::parse($endNew)->subDays($daysDif)->format('Y-m-d');
 
-        $buys = Buy::whereBetween(DB::raw('DATE(date)'), [$startNew, $endNew])->get();
+        $buys = Buy::whereBetween(DB::raw('DATE(buys.created_at)'), [$startNew, $endNew])->get();
         $cashOutSumPrev = 0;
         foreach ($buys as $key => $buy) {
             $cashOutSumPrev += $buy->details()->sum('grand_price');

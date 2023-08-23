@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Trx\BuyEntry;
 
 use App\Models\Buy;
 use App\Models\Item;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -37,14 +38,14 @@ class EntryTable extends Component{
 
     public function store(){
         $buyData = session()->get('buy');
-       
         DB::beginTransaction();
         try{
             $buy = Buy::create([
                 'supplier_id'       => $buyData['supplier_id'],
                 'cabang_id'         => $buyData['cabang_id'],
-                'date'              => $buyData['date'],
+                'created_at'        => $buyData['date'],
                 'is_paid'           => $buyData['is_paid'],
+                'paid_date'         => $buyData['is_paid'] === "1" ? Carbon::now()->format('Y-m-d H:i:s') : null,
                 'is_arrived'        => $buyData['is_arrived']
             ]);
             foreach ($this->items as $key => $item) {

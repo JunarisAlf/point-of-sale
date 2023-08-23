@@ -16,7 +16,7 @@ class BuySeeder extends Seeder
         $buy = Buy::create([
             'supplier_id'       => 1,
             'cabang_id'         => 1,
-            'date'              => Carbon::now()->format('Y-m-d'),
+            'paid_date'         => null,
             'is_paid'           => false,
             'is_arrived'        => false
         ]);
@@ -44,8 +44,8 @@ class BuySeeder extends Seeder
         $buy = Buy::create([
             'supplier_id'       => 2,
             'cabang_id'         => 1,
-            'date'              => Carbon::now()->subDays(3)->format('Y-m-d'),
-            'is_paid'           => false,
+            'paid_date'         => Carbon::now()->subDays(3)->format('Y-m-d'),
+            'is_paid'           => true,
             'is_arrived'        => false
         ]);
 
