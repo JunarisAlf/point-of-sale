@@ -45,7 +45,7 @@ class Detail extends Component{
         $this->resetPage();
         $this->data = $this->getData();
     }
-  
+
     // sort
     public $shortField = 0;
     public $shortableField = [
@@ -102,10 +102,10 @@ class Detail extends Component{
                 $opname = StockOpname::find($id);
                 $opname->is_acc = true;
                 $opname->stockItem->quantity = $opname->stockItem->quantity + $opname->quantity - $opname->old_quantity;
-                $opname->stockItem->save(); 
+                $opname->stockItem->save();
                 $opname->save();
             }
-           
+
             $this->checks = [];
             $this->emit('showSuccessAlert', 'Aksi Berhasil!');
             $this->emit('refresh_item_table');
@@ -118,7 +118,7 @@ class Detail extends Component{
             $opname = StockOpname::find($id);
             $opname->is_acc = true;
             $opname->stockItem->quantity = $opname->stockItem->quantity + $opname->quantity - $opname->old_quantity;
-            $opname->stockItem->save(); 
+            $opname->stockItem->save();
             $opname->save();
             $this->emit('showSuccessAlert', 'Aksi Berhasil!');
             $this->emit('refresh_item_table');
@@ -127,12 +127,13 @@ class Detail extends Component{
             $this->emit('showDangerAlert', 'Server ERROR!');
         }
     }
+    public $diffPriceSum = 0;
     public function getData(){
         $items = Item::query();
         $cabangId = $this->cabang_id;
         $opname_date = $this->opname_date;
 
-        $items = 
+        $items =
         Item::
             whereHas('stocks', function($query) use ($cabangId, $opname_date){
                 $query->where('cabang_id', $cabangId);
@@ -154,11 +155,11 @@ class Detail extends Component{
             ->withSum(['stocks as quantity_sum' => function ($query) use ($cabangId) {
                 $query->where('cabang_id', $cabangId);
             }], 'quantity');
-        
+
         if($this->searchQuery !== null && $this->searchField !== null){
             $items->where($this->searchableField[$this->searchField]['value'], 'like', "%$this->searchQuery%");
         }
-       
+
         // ORDER
         $shortRule = $this->shortableField[$this->shortField];
         $items->orderBy($shortRule['field'], $shortRule['short']);

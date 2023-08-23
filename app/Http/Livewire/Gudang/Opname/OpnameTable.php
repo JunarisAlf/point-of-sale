@@ -82,7 +82,8 @@ class OpnameTable extends Component{
                 'date'      => $this->opname_date,
                 'user_id'   => $user->id,
                 'old_quantity'  => $stockItem->quantity,
-                'quantity'  => $stockItem->quantity
+                'quantity'  => $stockItem->quantity,
+                'diff_price'=>  0
             ]);
             $this->emit('refresh_item_table');
             $this->emit('showSuccessAlert', 'Aksi Berhasil Dilakukan!');
@@ -93,7 +94,7 @@ class OpnameTable extends Component{
     }
 
     public function makeCorrection($id){
-        $this->emit('openEditModal', $id);
+        $this->emit('openEditModal', $id, $this->opname_date);
     }
     public function getData(){
         $items = Item::query();

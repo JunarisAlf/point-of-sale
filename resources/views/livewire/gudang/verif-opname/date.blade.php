@@ -53,6 +53,9 @@
                                 Non-ACC
                              </th>
                              <th scope="col" class="px-6 py-3 text-center">
+                                Kerugian Total
+                             </th>
+                             <th scope="col" class="px-6 py-3 text-center">
                                  Aksi
                              </th>
 
@@ -88,6 +91,13 @@
 
                                      <td class="px-6 py-4 dark:text-zinc-100/80  border-[1px]">
                                         <button type="button" class="btn text-red-500 hover:text-white border-red-500 hover:bg-red-600 hover:border-red-600 focus:bg-red-600 focus:text-white focus:border-red-600 focus:ring focus:ring-red-500/30 active:bg-red-600 active:border-red-600 w-full text-center">{{$opname->is_acc_false}}</button>
+                                     </td>
+                                     <td class="px-6 py-4 dark:text-zinc-100/80  border-[1px]">
+                                        @if ($opname->diff_price_total >= 0 )
+                                            <button type="button" class="btn text-green-800 bg-green-50 hover:text-white border-green-50 hover:bg-green-900 focus:text-white hover:border-green-900 focus:bg-green-900 focus:border-green-900 focus:ring focus:ring-green-500/30 active:bg-green-900 active:border-green-900 dark:focus:ring-green-500/10 dark:bg-green-500/20 dark:border-transparent w-full">{{number_format($opname->diff_price_total, 0, ',', '.')}}</button>
+                                        @else
+                                            <button type="button" class="btn text-red-800 bg-red-50 hover:text-white border-red-50 hover:bg-red-900 focus:text-white hover:border-red-900 focus:bg-red-900 focus:border-red-900 focus:ring focus:ring-red-500/30 active:bg-red-900 active:border-red-900 dark:focus:ring-red-500/10 dark:bg-red-500/20 dark:border-transparent w-full">{{number_format($opname->diff_price_total, 0, ',', '.')}}</button>
+                                        @endif
                                      </td>
                                      <td class="px-6 py-4 dark:text-zinc-100/80  border-[1px] flex flex-row justify-center">
                                         <button wire:click="detail('{{$opname->date}}')" type="button" class="btn text-white bg-violet-500 border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600"><i class="mdi mdi-eye-outline text-16 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Detail</span></button>

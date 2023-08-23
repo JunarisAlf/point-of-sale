@@ -54,7 +54,9 @@ class Date extends Component{
             ->selectRaw('COUNT(*) as item_checked')
             ->selectRaw('SUM(CASE WHEN is_acc = true THEN 1 ELSE 0 END) as is_acc_true')
             ->selectRaw('SUM(CASE WHEN is_acc = false THEN 1 ELSE 0 END) as is_acc_false')
-            ->groupBy('date');
+            ->selectRaw('SUM(CASE WHEN is_acc = true THEN diff_price ELSE 0 END) as diff_price_total')
+            ->groupBy('date')
+            ->orderBy('date', 'desc');
 
         $this->data_count = $opnames->count();
         return $opnames;

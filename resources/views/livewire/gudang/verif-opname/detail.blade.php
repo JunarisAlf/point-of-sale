@@ -76,6 +76,9 @@
                                     Stock Opname
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
+                                    Kerugian
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-center">
                                     Checker
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
@@ -110,7 +113,7 @@
                                         </td>
 
                                         <td class="px-2 py-1 dark:text-zinc-100/80  w-[400px] border-[1px]" rowspan="{{$item->stocks->count()}}">
-                                            <button type="button" class="btn text-gray-500 hover:text-white border-gray-500 hover:bg-gray-600 hover:border-gray-600 focus:bg-gray-600 focus:text-white focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 w-full text-start">{{$item->barcode}} - {{$item->name}}</button>
+                                            <button type="button" class="btn text-gray-500 hover:text-white border-gray-500 hover:bg-gray-600 hover:border-gray-600 focus:bg-gray-600 focus:text-white focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 w-full text-start">{{$item->name}}</button>
                                         </td>
 
                                         @if($stocks_count > 0)
@@ -124,6 +127,13 @@
 
                                             <td class="px-2 py-1 dark:text-zinc-100/80 text-center border-[1px]">
                                                 <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full">{{$item->stocks[0]->opname->quantity}}</button>
+                                            </td>
+                                            <td class="px-2 py-1 dark:text-zinc-100/80 text-center border-[1px]">
+                                                @if ($item->stocks[0]->opname->diff_price >= 0 )
+                                                    <button type="button" class="btn text-green-800 bg-green-50 hover:text-white border-green-50 hover:bg-green-900 focus:text-white hover:border-green-900 focus:bg-green-900 focus:border-green-900 focus:ring focus:ring-green-500/30 active:bg-green-900 active:border-green-900 dark:focus:ring-green-500/10 dark:bg-green-500/20 dark:border-transparent w-full">{{number_format($item->stocks[0]->opname->diff_price, 0, ',', '.')}}</button>
+                                                @else
+                                                    <button type="button" class="btn text-red-800 bg-red-50 hover:text-white border-red-50 hover:bg-red-900 focus:text-white hover:border-red-900 focus:bg-red-900 focus:border-red-900 focus:ring focus:ring-red-500/30 active:bg-red-900 active:border-red-900 dark:focus:ring-red-500/10 dark:bg-red-500/20 dark:border-transparent w-full">{{number_format($item->stocks[0]->opname->diff_price, 0, ',', '.')}}</button>
+                                                @endif
                                             </td>
                                             <td class="px-2 py-1 dark:text-zinc-100/80 text-center border-[1px]">
                                                 <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full">{{$item->stocks[0]->opname->user->full_name}}</button>
@@ -161,6 +171,14 @@
                                                     </td>
                                                     <td class="px-2 py-1 dark:text-zinc-100/80 text-center border-[1px]">
                                                         <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full">{{$item->stocks[$i]->opname->quantity}}</button>
+                                                    </td>
+                                                    <td class="px-2 py-1 dark:text-zinc-100/80 text-center border-[1px]">
+                                                        @if ($item->stocks[$i]->opname->diff_price >= 0 )
+                                                            <button type="button" class="btn text-green-800 bg-green-50 hover:text-white border-green-50 hover:bg-green-900 focus:text-white hover:border-green-900 focus:bg-green-900 focus:border-green-900 focus:ring focus:ring-green-500/30 active:bg-green-900 active:border-green-900 dark:focus:ring-green-500/10 dark:bg-green-500/20 dark:border-transparent w-full">{{number_format($item->stocks[$i]->opname->diff_price, 0, ',', '.')}}</button>
+                                                        @else
+                                                            <button type="button" class="btn text-red-800 bg-red-50 hover:text-white border-red-50 hover:bg-red-900 focus:text-white hover:border-red-900 focus:bg-red-900 focus:border-red-900 focus:ring focus:ring-red-500/30 active:bg-red-900 active:border-red-900 dark:focus:ring-red-500/10 dark:bg-red-500/20 dark:border-transparent w-full">{{number_format($item->stocks[$i]->opname->diff_price, 0, ',', '.')}}</button>
+                                                        @endif
+
                                                     </td>
                                                     <td class="px-2 py-1 dark:text-zinc-100/80 text-center border-[1px]">
                                                         <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full">{{$item->stocks[$i]->opname->user->full_name}}</button>

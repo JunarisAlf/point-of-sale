@@ -11,7 +11,8 @@ class OpnameModal extends Component{
     public $show = false;
     public $data_id, $name, $quantity;
     protected $listeners = ['openEditModal' => 'openModal', 'dateChanged'];
-    public function openModal($id){
+    public function openModal($id, $opnameDate){
+        $this->opname_date = $opnameDate;
         try {
             $stockItem = StockItem::find($id);
             $this->data_id = $stockItem->id;
@@ -26,9 +27,7 @@ class OpnameModal extends Component{
             'quantity'   => 'required|integer|min:0',
         ];
     }
-    public function mount(){
-        $this->opname_date = Carbon::now()->format('Y-m-d');
-    }
+
     public $opname_date;
     public function dateChanged($date){
         $this->opname_date = $date;
@@ -42,13 +41,15 @@ class OpnameModal extends Component{
                 'date'          => $this->opname_date,
                 'user_id'       => $user->id,
                 'old_quantity'  => $stockItem->quantity,
-                'quantity'      => $validated['quantity']
+                'quantity'      => $validated['quantity'],
+                'diff_price'    => ($validated['quantity'] - $stockItem->quantity) *  $stockItem->buying_price
             ]);
             $this->emit('refresh_item_table');
             $this->emit('showSuccessAlert', 'Aksi Berhasil Dilakukan!');
             $this->show = false;
 
         }catch(Exception $e){
+            dd($e);
             $this->emit('showDangerAlert', 'Server ERROR!');
         }
         $this->reset();

@@ -23,6 +23,7 @@ return new class extends Migration
                   ->onUpdate('cascade');
             $table->integer('old_quantity');
             $table->integer('quantity');
+            $table->integer('diff_price');
             $table->boolean('is_acc')->default(false);
             $table->timestamps();
 

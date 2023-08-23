@@ -16,13 +16,15 @@ class StockOpnameSeeder extends Seeder {
         $items = StockItem::all();
         $dateNow = Carbon::now()->format('Y-m-d');
         foreach ($items as $key => $item) {
+            $diff =  rand(0, 3);
             $item->opnames()->create([
-                'date'      => $dateNow,
+                'date'          => $dateNow,
                 'old_quantity'  => $item->quantity,
-                'quantity'  => $item->quantity + rand(0, 3),
-                'user_id'   => 3
+                'quantity'      => $item->quantity + $diff,
+                'diff_price'    => $diff * $item->buying_price,
+                'user_id'       => 3
             ]);
         }
-       
+
     }
 }
