@@ -4,9 +4,7 @@
 
 @section('HTML_Main')
     @livewire('gudang.expired.expired-table', ['user' => $user])
-    {{-- @livewire('gudang.stock.create-stock-modal') --}}
-    {{-- @livewire('gudang.stock.delete-stock-modal') --}}
-   {{-- @livewire('gudang.stock.edit-stock-modal') --}}
+    @livewire('gudang.expired.expired-edit-modal')
 @endsection
 
 @section('page_css')

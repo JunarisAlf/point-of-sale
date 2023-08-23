@@ -110,6 +110,9 @@
                                         </td>
                                         @if($stocks_count > 0)
                                             <td class="px-2 dark:text-zinc-100/80 text-center border-[1px]">
+                                                <div wire:click="$emit('openExpDateEditModal', {{$item->stocks[0]->id}})" class="inline p-1 bg-yellow-500 rounded-sm mr-2 cursor-pointer hover:bg-yellow-600">
+                                                    <span class="mdi mdi-calendar-edit text-white"></span>
+                                                </div>
                                                 {{Carbon\Carbon::parse($item->stocks[0]->expired_date)->format('d/m/Y ') }}
                                             </td>
                                             <td class="px-2 dark:text-zinc-100/80 text-center border-[1px]">
@@ -146,6 +149,9 @@
                                             @for($i = 1; $i < $stocks_count; $i++)
                                                 </tr>
                                                     <td class="px-2 dark:text-zinc-100/80 text-center border-[1px]">
+                                                        <div wire:click="$emit('openExpDateEditModal', {{$item->stocks[$i]->id}})" class="inline p-1 bg-yellow-500 rounded-sm mr-2 cursor-pointer hover:bg-yellow-600">
+                                                            <span class="mdi mdi-calendar-edit text-white"></span>
+                                                        </div>
                                                         {{Carbon\Carbon::parse($item->stocks[$i]->expired_date)->format('d/m/Y ') }}
                                                     </td>
                                                     <td class="px-2 dark:text-zinc-100/80 text-center border-[1px]">
