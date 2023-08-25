@@ -35,6 +35,8 @@ class ConfirmModal extends Component {
         foreach ($this->items as $key => $item) {
             array_push($trx_details, [
                 'item_id'       => $item['id'],
+                'satuan_id'     => $item['satuan_id'],
+                'qty_satuan'    => $item['converted_qty'],
                 'quantity'      => $item['quantity'],
                 'price'         => $item['price'],
                 'grand_price'   => $item['total_price']
@@ -46,7 +48,7 @@ class ConfirmModal extends Component {
             $trx_elequent->details()->createMany($trx_details);
             foreach ($trx_details as $key => $detail) {
                 $stocks = StockItem::where('item_id', $detail['item_id'])->where('cabang_id', $cabang_id)->where('quantity', '>', 0)->orderBy('expired_date', 'ASC')->get();
-                $qtyOut = $detail['quantity'];
+                $qtyOut = $detail['qty_satuan'];
                 $stocks->each(function ($value, $key) use ($stocks, &$qtyOut) {
                     if($value->quantity >= $qtyOut){
                         $value->quantity -= $qtyOut;
@@ -67,7 +69,7 @@ class ConfirmModal extends Component {
                     }
                 });
             }
-          
+
             DB::commit();
             $this->emit('refreshPage');
             $this->emit('showSuccessAlert', 'Berhasil Menambahkan Data!');

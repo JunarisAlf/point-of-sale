@@ -21,6 +21,12 @@ return new class extends Migration
                   ->constrained(table: 'items', column: 'id', indexName: 'cus_trx_detail_item')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
+            $table->foreignId('satuan_id')
+                  ->nullable()
+                  ->constrained(table: 'item_qty_converters', column: 'id', indexName: 'item_qty_converters_sell_detail')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
+            $table->unsignedInteger('qty_satuan')->nullable();
             $table->unsignedInteger('quantity');
             $table->unsignedBigInteger('price');
             $table->unsignedBigInteger('discount');

@@ -16,4 +16,7 @@ class OnlineTrxDetail extends Model{
     public function item(){
         return $this->belongsTo(Item::class, 'item_id', 'id');
     }
+    public function satuan(){
+        return $this->belongsTo(QtyConverter::class, 'satuan_id', 'id');
+    }
 }

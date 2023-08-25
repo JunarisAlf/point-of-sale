@@ -51,6 +51,8 @@ class ConfirmModal extends Component {
             array_push($trx_details, [
                 'item_id'       => $item['id'],
                 'quantity'      => $item['quantity'],
+                'satuan_id'     => $item['satuan_id'],
+                'qty_satuan'    => $item['converted_qty'], // real qty
                 'price'         => $item['price'],
                 'discount'      => $item['discount'],
                 'grand_price'   => $item['total_price']
@@ -62,7 +64,7 @@ class ConfirmModal extends Component {
             $trx_elequent->details()->createMany($trx_details);
             foreach ($trx_details as $key => $detail) {
                 $stocks = StockItem::where('item_id', $detail['item_id'])->where('cabang_id', $cabang_id)->where('quantity', '>', 0)->orderBy('expired_date', 'ASC')->get();
-                $qtyOut = $detail['quantity'];
+                $qtyOut = $detail['qty_satuan'];
                 $stocks->each(function ($value, $key) use ($stocks, &$qtyOut) {
                     if($value->quantity >= $qtyOut){
                         $value->quantity -= $qtyOut;

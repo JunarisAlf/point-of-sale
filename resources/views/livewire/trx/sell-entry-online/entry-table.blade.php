@@ -40,9 +40,14 @@
                                         <td class="w-4 p-4 text-center border-[1px] ">
                                             {{$item['name']}}
                                         </td>
-                                      
+
                                         <td class="w-4 p-4 text-center border-[1px] ">
-                                            <button type="button" class="btn text-sky-500 bg-sky-50 border-sky-50 hover:text-white hover:bg-sky-600 hover:border-sky-600 focus:text-white focus:bg-sky-600 focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 dark:focus:ring-sky-500/10 dark:bg-sky-500/20 dark:border-transparent">{{$item['quantity']}}</button>
+                                            @php
+                                                $satuan = App\Models\QtyConverter::find($item['satuan_id']);
+                                            @endphp
+                                            <button type="button" class="btn text-sky-500 bg-sky-50 border-sky-50 hover:text-white hover:bg-sky-600 hover:border-sky-600 focus:text-white focus:bg-sky-600 focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 dark:focus:ring-sky-500/10 dark:bg-sky-500/20 dark:border-transparent">
+                                                {{$item['quantity']}} {{$satuan->name}} ({{$item['quantity'] * $satuan->quantity}})
+                                            </button>
                                         </td>
                                         <td class="w-4 p-4 text-center border-[1px] ">
                                             Rp. {{number_format($item['price'], 0, ',', '.')}}

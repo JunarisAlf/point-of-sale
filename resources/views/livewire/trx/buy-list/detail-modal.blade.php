@@ -14,7 +14,7 @@
                    </div>
                    <div class="p-6 space-y-6 ltr:text-left rtl:text-right">
                         <div class="relative overflow-x-auto overflow-y-auto">
-                           
+
                             <div class="relative overflow-x-auto overscroll-x-auto" x-data='overscroll' x-on:mouseover="enableHorizontalScroll($el)" x-on:mouseout="disableHorizontalScroll($el)">
                                 <table class="w-full text-sm text-left text-gray-500 " style="min-width: max-content">
                                     <thead class="text-xs text-gray-700 dark:text-gray-100 uppercase bg-gray-50/50 dark:bg-zinc-700">
@@ -26,7 +26,7 @@
                                                 Jumlah
                                              </th>
                                              <th scope="col" class="px-6 py-3 text-center">
-                                                 Harga
+                                                 Harga Satuan
                                              </th>
                                              <th scope="col" class="px-6 py-3 text-center">
                                                 Total
@@ -40,7 +40,9 @@
                                                     {{$detail->item->name}}
                                                 </td>
                                                 <td class="w-4 p-4 text-center border-[1px] ">
-                                                    <button type="button" class="btn text-gray-500 bg-gray-50 border-gray-50 hover:text-white hover:bg-gray-600 hover:border-gray-600 focus:text-white focus:bg-gray-600 focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 dark:bg-gray-500/20 dark:focus:ring-gray-500/10 dark:border-transparent w-full"> {{$detail->quantity}}</button>
+                                                    <button type="button" class="btn text-gray-500 bg-gray-50 border-gray-50 hover:text-white hover:bg-gray-600 hover:border-gray-600 focus:text-white focus:bg-gray-600 focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 dark:bg-gray-500/20 dark:focus:ring-gray-500/10 dark:border-transparent w-full">
+                                                        {{$detail->quantity}} {{$detail->satuan->name}} ({{$detail->qty_satuan}})
+                                                    </button>
                                                 </td>
                                                 <td class="w-4 p-4 text-center border-[1px] ">
                                                 <button type="button" class="btn text-sky-500 bg-sky-50 border-sky-50 hover:text-white hover:bg-sky-600 hover:border-sky-600 focus:text-white focus:bg-sky-600 focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 dark:focus:ring-sky-500/10 dark:bg-sky-500/20 dark:border-transparent">Rp. {{number_format($detail->price, 0, ',', '.')}}</button>

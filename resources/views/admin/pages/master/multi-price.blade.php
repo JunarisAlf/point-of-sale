@@ -8,6 +8,10 @@
     @livewire('master.multi.edit-multi-price-modal')
     @livewire('master.multi.create-multi-price-modal')
 
+    @livewire('master.multi.create-qty-conv-modal')
+    @livewire('master.multi.edit-qty-conv-modal')
+    @livewire('master.multi.delete-qty-conv-modal')
+
 @endsection
 
 @section('page_css')
@@ -28,13 +32,13 @@
                         element.addEventListener('wheel', handleHorizontalScroll, { passive: false });
                     }
                 },
-               
+
                 disableHorizontalScroll(element) {
                     element.removeEventListener('wheel', this.handleHorizontalScroll);
                 },
-                
+
             }));
-           
+
         })
     </script>
 @endsection
@@ -53,7 +57,7 @@
             let selectedValue = $(this).val();
             Livewire.emit('itemSelectChange', selectedValue)
         });
-        
-       
+
+
     </script>
 @endsection

@@ -51,6 +51,8 @@ class EntryTable extends Component{
             foreach ($this->items as $key => $item) {
                 $buy->details()->create([
                     'item_id'       => $item['id'],
+                    'satuan_id'     => $item['satuan_id'],
+                    'qty_satuan'    => $item['converted_qty'], // real qty
                     'quantity'      => $item['quantity'],
                     'price'         => $item['price'],
                     'grand_price'   => $item['total_price']
@@ -63,6 +65,7 @@ class EntryTable extends Component{
             $this->emit('submited');
         }catch(Exception $e){
             DB::rollback();
+            dd($e);
             $this->emit('showDangerAlert', 'Server ERROR!');
         }
     }

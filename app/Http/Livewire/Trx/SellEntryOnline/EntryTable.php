@@ -31,9 +31,9 @@ class EntryTable extends Component{
             return $carry + $item['total_price'];
         }, 0);
         $subTotal = array_reduce($this->items, function ($carry, $item) {
-            return $carry + ($item['quantity'] *  $item['price']) ;
+            return $carry + ($item['converted_qty'] *  $item['price']) ;
         }, 0);
-     
+
         $this->emit('grandPriceUpdate', compact('totalSum'));
     }
 
