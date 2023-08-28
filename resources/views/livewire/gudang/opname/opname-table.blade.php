@@ -1,4 +1,4 @@
-<div class="grid grid-cols-12 gap-5 ">
+<div class="grid grid-cols-12 gap-5 print:hidden">
     <div class="col-span-12">
        <div class="card dark:bg-zinc-800 dark:border-zinc-600">
             <div class="card-body pb-0">
@@ -73,11 +73,11 @@
                                 <th scope="col" class="px-6 py-3 text-center">
                                    Stock
                                 </th>
-                                
+
                                 <th scope="col" class="px-6 py-3 text-center">
                                     Aksi
                                 </th>
-                               
+
                            </tr>
                        </thead>
                        <tbody>
@@ -86,7 +86,7 @@
                                    <td colspan="6" class="w-4 p-4 text-center">Tidak ada data</td>
                                </tr>
                            @else
-                               
+
                                @foreach ($items as $key => $item)
                                    @php
                                        $tableNumber = ($page - 1) * $items->perPage() + $loop->index + 1;
@@ -109,14 +109,14 @@
                                             @elseif($item->quantity_sum >= 50)
                                                 <button type="button" class="btn text-sky-500 hover:text-white border-sky-500 hover:bg-sky-600 hover:border-sky-600 focus:bg-sky-600 focus:text-white focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 w-full text-center">{{$item->quantity_sum}}</button>
                                             @endif
-                                           
+
                                         </td>
 
                                         @if($stocks_count > 0)
                                             <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
                                                 {{$item->stocks[0]->expired_date !== null ? Carbon\Carbon::parse($item->stocks[0]->expired_date)->format('d/m/Y ') : '-'}}
                                             </td>
-                                            
+
                                             <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
                                                 <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full">{{$item->stocks[0]->quantity}}</button>
                                             </td>
@@ -126,7 +126,7 @@
                                             </td>
                                         @endif
 
-                                        
+
 
                                         @if($stocks_count > 1)
                                             @for($i = 1; $i < $stocks_count; $i++)
@@ -134,7 +134,7 @@
                                                     <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
                                                         {{$item->stocks[$i]->expired_date !== null ? Carbon\Carbon::parse($item->stocks[$i]->expired_date)->format('d/m/Y ') : '-'}}
                                                     </td>
-                                                   
+
                                                     <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
                                                         <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full">{{$item->stocks[$i]->quantity}}</button>
                                                     </td>
@@ -147,7 +147,7 @@
                                         @endif
                                @endforeach
                            @endif
-                          
+
                        </tbody>
                    </table>
                </div>
@@ -157,7 +157,7 @@
            </div>
        </div>
    </div>
-   
 
- 
+
+
 </div>

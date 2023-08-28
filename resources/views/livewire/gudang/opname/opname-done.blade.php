@@ -1,4 +1,8 @@
 <div class="grid grid-cols-12 gap-5 ">
+    <div class="col-span-12 print:hidden">
+        <button id="print-btn" type="button" class="btn border-0 bg-gray-50 p-0 align-middle text-black focus:ring-2 focus:ring-neutral-500/30 hover:bg-neutral-800"><i class="bx bxs-file-pdf bg-black bg-opacity-10 w-14 h-full text-16 py-3 align-middle rounded-l"></i><span class="px-3 leading-[2.8]">PDF</span></button>
+        <button onclick="ExportToExcel('xlsx')" type="button" class="btn border-0 bg-gray-50 p-0 align-middle text-black focus:ring-2 focus:ring-neutral-500/30 hover:bg-neutral-800"><i class="bx bx-table bg-black bg-opacity-10 w-14 h-full text-16 py-3 align-middle rounded-l"></i><span class="px-3 leading-[2.8]">Excel</span></button>
+    </div>
     <div class="col-span-12">
        <div class="card dark:bg-zinc-800 dark:border-zinc-600">
             <div class="card-body pb-0">
@@ -6,7 +10,7 @@
             </div>
            <div class="card-body">
                <div class="w-full overflow-x-auto">
-                   <div class="grid grid-cols-1 sm:grid-cols-6 gap-4 mb-8 mt-4 p-2 items-end justify-between">
+                   <div class="grid grid-cols-1 sm:grid-cols-6 gap-4 mb-8 mt-4 p-2 items-end justify-between print:hidden">
                        <div class="col-span-1 sm:col-span-6  min-w-max">
                            <div class="flex flex-row items-center gap-2">
                                <label>Show</label>
@@ -55,7 +59,7 @@
 
 
                <div class="relative overflow-x-auto overscroll-x-auto" x-data='overscroll' x-on:mouseover="enableHorizontalScroll($el)" x-on:mouseout="disableHorizontalScroll($el)">
-                   <table class="w-full text-sm text-left text-gray-500 " style="min-width: max-content">
+                   <table id="tbl_exporttable_to_xls" class="w-full text-sm text-left text-gray-500 " style="min-width: max-content">
                        <thead class="text-xs text-gray-700 dark:text-gray-100 uppercase bg-gray-50/50 dark:bg-zinc-700">
                            <tr>
                                 <th scope="col" class="p-4 text-center">
@@ -76,7 +80,7 @@
                                 <th scope="col" class="px-6 py-3 text-center">
                                     Aksi
                                 </th>
-                               
+
                            </tr>
                        </thead>
                        <tbody>
@@ -85,7 +89,7 @@
                                    <td colspan="6" class="w-4 p-4 text-center">Tidak ada data</td>
                                </tr>
                            @else
-                               
+
                                @foreach ($items as $key => $item)
                                    @php
                                        $tableNumber = ($page - 1) * $items->perPage() + $loop->index + 1;
@@ -104,7 +108,7 @@
                                             <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
                                                 {{$item->stocks[0]->expired_date !== null ? Carbon\Carbon::parse($item->stocks[0]->expired_date)->format('d/m/Y ') : '-'}}
                                             </td>
-                                            
+
                                             <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
                                                 <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full">{{$item->stocks[0]->opname->old_quantity}}</button>
                                             </td>
@@ -122,7 +126,7 @@
                                             </td>
                                         @endif
 
-                                        
+
 
                                         @if($stocks_count > 1)
                                             @for($i = 1; $i < $stocks_count; $i++)
@@ -148,7 +152,7 @@
                                         @endif
                                @endforeach
                            @endif
-                          
+
                        </tbody>
                    </table>
                </div>
@@ -158,4 +162,17 @@
            </div>
        </div>
    </div>
+   <script>
+        let printBtn = document.getElementById('print-btn');
+        printBtn.addEventListener('click', function(){
+            window.print();
+        })
+        function ExportToExcel(type, fn, dl) {
+            let elt = document.getElementById('tbl_exporttable_to_xls');
+            let wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+            return dl ?
+                XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+                XLSX.writeFile(wb, fn || ('Opname.' + (type || 'xlsx')));
+        }
+    </script>
 </div>

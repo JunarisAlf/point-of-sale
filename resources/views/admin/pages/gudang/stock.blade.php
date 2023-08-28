@@ -12,6 +12,7 @@
 @section('page_css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="//unpkg.com/alpinejs" defer></script>
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('overscroll', () => ({

@@ -11,6 +11,7 @@
 
 @section('page_css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     <script>
         document.addEventListener('alpine:init', () => {
@@ -35,7 +36,7 @@
                     this.imaskObj.unmaskedValue = '' + val;
                 },
                 inputTimeOut: null,
-                
+
             }));
             Alpine.data('overscroll', () => ({
                 enableHorizontalScroll(element) {
@@ -50,11 +51,11 @@
                         element.addEventListener('wheel', handleHorizontalScroll, { passive: false });
                     }
                 },
-               
+
                 disableHorizontalScroll(element) {
                     element.removeEventListener('wheel', this.handleHorizontalScroll);
                 },
-                
+
             }));
             Alpine.data('barcode', () => ({
                 initBarcode(element, code){
@@ -63,12 +64,12 @@
                         .EAN13(code, {fontSize: 18, textMargin: 0})
                         .blank(20) // Create space between the barcodes
                         .render();
-                }                
+                }
             }))
-            
+
         })
 
-        
+
     </script>
 @endsection
 @section('page_script')
@@ -99,7 +100,7 @@
             let selectedValue = $(this).val();
             Livewire.emit('categoryChange', selectedValue)
         });
- 
+
         // Update
         $(document).ready(function() {
             $('#category-select-edit').select2({
@@ -113,6 +114,6 @@
         window.addEventListener('changeCategoryVal', event => {
             $('#category-select-edit').val(event.detail.category_id).trigger('change');
         })
-       
+
     </script>
 @endsection

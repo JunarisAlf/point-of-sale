@@ -1,17 +1,17 @@
 <div class="grid grid-cols-12 gap-5 ">
-    <div class="col-span-12">
+    <div class="col-span-12 print:hidden flex flex-row gap-4">
         <button wire:click="$emit('openCreateModal')" type="button" class="btn border-0 bg-green-500 p-0 align-middle text-white focus:ring-2 focus:ring-green-500/30 hover:bg-green-600">
             <i class="bx bx-plus bg-white bg-opacity-20 w-10 h-full text-16 py-3 align-middle rounded-l"></i>
             <span class="px-3 leading-[2.8]">Tambah Data Barang</span>
         </button>
-
+        <button id="print-btn" type="button" class="btn border-0 bg-gray-50 p-0 align-middle text-black focus:ring-2 focus:ring-neutral-500/30 hover:bg-neutral-800"><i class="bx bxs-file-pdf bg-black bg-opacity-10 w-14 h-full text-16 py-3 align-middle rounded-l"></i><span class="px-3 leading-[2.8]">PDF</span></button>
+        <button onclick="ExportToExcel('xlsx')" type="button" class="btn border-0 bg-gray-50 p-0 align-middle text-black focus:ring-2 focus:ring-neutral-500/30 hover:bg-neutral-800"><i class="bx bx-table bg-black bg-opacity-10 w-14 h-full text-16 py-3 align-middle rounded-l"></i><span class="px-3 leading-[2.8]">Excel</span></button>
     </div>
      <div class="col-span-12">
         <div class="card dark:bg-zinc-800 dark:border-zinc-600">
             <div class="card-body">
                 <div class="w-full overflow-x-auto">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 mt-4 p-2 items-end justify-between">
-                        
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 mt-4 p-2 items-end justify-between print:hidden">
                         <div class="col-span-1 sm:col-span-2  min-w-max">
                             <div class="flex flex-row items-center gap-2">
                                 <label>Show</label>
@@ -42,7 +42,7 @@
                         <div class="col-span-1 items-center ">
                             <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Kategori</label>
                             <div wire:ignore>
-                                <select  class="" data-trigger name="category_id"   placeholder="This is a search placeholder" id="category-select" wire:model="category_id"> 
+                                <select  class="" data-trigger name="category_id"   placeholder="This is a search placeholder" id="category-select" wire:model="category_id">
                                     <option  >Pilih Kategori</option>
                                     <option  selected value="all">Semua Kategori</option>
                                     @foreach ($categorySelect as $category)
@@ -51,7 +51,7 @@
                                 </select>
                             </div>
                         </div>
-                       
+
                         <div class="col-span-1 ">
                             <div class="flex">
                                 <button  style="z-index: 0 !important" id="dropdown-button" data-dropdown-toggle="dropdown" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-zinc-200 border border-gray-300 rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button">{{$searchableField[$searchField]['label']}}<svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
@@ -62,7 +62,7 @@
                                         @foreach ($searchableField as $key => $field)
                                             <li>
                                                 <button wire:click="searchFieldChange('{{$key}}')" type="button" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{$field['label']}}</button>
-                                            </li>   
+                                            </li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -82,7 +82,7 @@
 
 
                 <div class="relative overflow-x-auto overscroll-x-auto" x-data='overscroll' x-on:mouseover="enableHorizontalScroll($el)" x-on:mouseout="disableHorizontalScroll($el)">
-                    <table class="w-full text-sm text-left text-gray-500 " style="min-width: max-content">
+                    <table id="tbl_exporttable_to_xls" class="w-full text-sm text-left text-gray-500 " style="min-width: max-content">
                         <thead class="text-xs text-gray-700 dark:text-gray-100 uppercase bg-gray-50/50 dark:bg-zinc-700">
                             <tr>
                                 <th scope="col" class="p-4 text-center">
@@ -103,7 +103,7 @@
                                 <th scope="col" class="px-6 py-3 text-center">
                                     Harga Jual
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-center" style="width: 350px">
+                                <th scope="col" class="px-6 py-3 text-center print:hidden" style="width: 350px">
                                     Aksi
                                 </th>
                             </tr>
@@ -114,7 +114,7 @@
                                     <td colspan="6" class="w-4 p-4 text-center">Tidak ada data</td>
                                 </tr>
                             @else
-                                
+
                                 @foreach ($items as $key => $item)
                                     @php
                                         $tableNumber = ($page - 1) * $items->perPage() + $loop->index + 1;
@@ -123,17 +123,20 @@
                                         <td class="w-4 p-4 text-center">
                                             {{$tableNumber}}
                                         </td>
-                                        <td class="px-6 py-4 dark:text-zinc-100/80 text-center flex flex-col items-center" x-data="barcode">
-                                            <img x-init="initBarcode($el, '{{$item->barcode}}')"  @generate-barcode.window="initBarcode($el, '{{$item->barcode}}')" width="200px" class="hidden sm:block" >
+                                        <td class="px-6 py-4 dark:text-zinc-100/80 text-center flex flex-col items-center " x-data="barcode">
+                                            <div class="print:hidden">
+
+                                                <img x-init="initBarcode($el, '{{$item->barcode}}')"  @generate-barcode.window="initBarcode($el, '{{$item->barcode}}')" width="200px" class="hidden sm:block " >
+                                            </div>
                                             <button type="button" class="btn text-gray-500 hover:text-white border-gray-500 hover:bg-gray-600 hover:border-gray-600 focus:bg-gray-600 focus:text-white focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600">{{$item->barcode}}</button>
                                         </td>
                                         <td class="px-6 py-4 dark:text-zinc-100/80  w-[350px]">
                                             <button type="button" class="btn text-gray-500 hover:text-white border-gray-500 hover:bg-gray-600 hover:border-gray-600 focus:bg-gray-600 focus:text-white focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 w-full text-start">{{$item->name}}</button>
                                             <button type="button" class="btn text-green-500 hover:text-white border-green-500 hover:bg-green-600 hover:border-green-600 focus:bg-green-600 focus:text-white focus:border-green-600 focus:ring focus:ring-green-500/30 active:bg-green-600 active:border-green-600 mt-4">{{$item->category->name}}</button>
-                                            
+
                                         </td>
                                         {{-- <td class="px-6 py-4 dark:text-zinc-100/80 text-center">
-                                            
+
                                             <button type="button" class="btn text-green-500 hover:text-white border-green-500 hover:bg-green-600 hover:border-green-600 focus:bg-green-600 focus:text-white focus:border-green-600 focus:ring focus:ring-green-500/30 active:bg-green-600 active:border-green-600 w-full">{{$item->category->name}}</button>
                                         </td> --}}
                                         <td class="px-6 py-4 dark:text-zinc-100/80 text-center">
@@ -147,7 +150,7 @@
                                             <button type="button" class="btn text-violet-500 hover:text-white border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:text-white focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600 w-full">Rp. {{number_format($item->selling_price, 0, ',', '.')}}</button>
                                         </td>
 
-                                        <td class="px-6 py-4 text-center" >
+                                        <td class="px-6 py-4 text-center print:hidden" >
                                             <button wire:click="$emit('openEditModal', {{$item->id}})" type="button" class="btn border-0 bg-yellow-500 p-0 align-middle text-white focus:ring-2 focus:ring-yellow-500/30 hover:bg-yellow-600 scale-80"><i class="bx bx-edit bg-white bg-opacity-20 w-10 h-full text-16 py-3 align-middle rounded-l"></i><span class="px-3 leading-[2.8]">Edit</span></button>
 
                                             <button wire:click="$emit('openDeleteModal', {{$item->id}})" type="button" class="btn border-0 bg-red-500 p-0 align-middle text-white focus:ring-2 focus:ring-red-500/30 hover:bg-red-600 scale-80" ><i class="bx bx-trash bg-white bg-opacity-20 w-10  h-full  text-16 py-3 align-middle rounded-l "></i><span class="px-3 leading-[2.8]">Hapus</span></button>
@@ -155,17 +158,27 @@
                                     </tr>
                                 @endforeach
                             @endif
-                           
+
                         </tbody>
                     </table>
                 </div>
-                <div class="mt-8 w-full flex justify-center">
+                <div class="mt-8 w-full flex justify-center print:hidden">
                     {{$items->links()}}
                 </div>
             </div>
         </div>
     </div>
-    
-
-  
+    <script>
+    let printBtn = document.getElementById('print-btn');
+        printBtn.addEventListener('click', function(){
+            window.print();
+        })
+        function ExportToExcel(type, fn, dl) {
+            let elt = document.getElementById('tbl_exporttable_to_xls');
+            let wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+            return dl ?
+                XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+                XLSX.writeFile(wb, fn || ('Barang.' + (type || 'xlsx')));
+        }
+    </script>
 </div>

@@ -11,9 +11,10 @@
 
 @section('page_css')
     <script src="//unpkg.com/alpinejs" defer></script>
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
     <script>
         document.addEventListener('alpine:init', () => {
-           
+
             Alpine.data('overscroll', () => ({
                 enableHorizontalScroll(element) {
                     function handleHorizontalScroll(event) {
@@ -27,11 +28,11 @@
                         element.addEventListener('wheel', handleHorizontalScroll, { passive: false });
                     }
                 },
-               
+
                 disableHorizontalScroll(element) {
                     element.removeEventListener('wheel', this.handleHorizontalScroll);
                 },
-                
+
             }));
         })
     </script>
