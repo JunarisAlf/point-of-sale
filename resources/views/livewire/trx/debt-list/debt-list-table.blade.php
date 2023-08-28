@@ -1,9 +1,13 @@
 <div class="grid grid-cols-12 gap-5 ">
+    <div class="col-span-12 print:hidden flex flex-row gap-4">
+        <button id="print-btn" type="button" class="btn border-0 bg-gray-50 p-0 align-middle text-black focus:ring-2 focus:ring-neutral-500/30 hover:bg-neutral-800"><i class="bx bxs-file-pdf bg-black bg-opacity-10 w-14 h-full text-16 py-3 align-middle rounded-l"></i><span class="px-3 leading-[2.8]">PDF</span></button>
+        <button onclick="ExportToExcel('xlsx')" type="button" class="btn border-0 bg-gray-50 p-0 align-middle text-black focus:ring-2 focus:ring-neutral-500/30 hover:bg-neutral-800"><i class="bx bx-table bg-black bg-opacity-10 w-14 h-full text-16 py-3 align-middle rounded-l"></i><span class="px-3 leading-[2.8]">Excel</span></button>
+    </div>
     <div class="col-span-12">
        <div class="card dark:bg-zinc-800 dark:border-zinc-600">
            <div class="card-body">
                <div class="w-full overflow-x-auto">
-                   <div class="grid grid-cols-1 sm:grid-cols-6 gap-4 mb-8 mt-4 p-2 items-end justify-between">
+                   <div class="grid grid-cols-1 sm:grid-cols-6 gap-4 mb-8 mt-4 p-2 items-end justify-between print:hidden">
                        <div class="col-span-1 sm:col-span-6  min-w-max">
                            <div class="flex flex-row items-center gap-2">
                                <label>Show</label>
@@ -52,7 +56,7 @@
 
 
                <div class="relative overflow-x-auto overscroll-x-auto" x-data='overscroll' x-on:mouseover="enableHorizontalScroll($el)" x-on:mouseout="disableHorizontalScroll($el)">
-                   <table class="w-full text-sm text-left text-gray-500 " style="min-width: max-content">
+                   <table  id="tbl_exporttable_to_xls" class="w-full text-sm text-left text-gray-500 " style="min-width: max-content">
                        <thead class="text-xs text-gray-700 dark:text-gray-100 uppercase bg-gray-50/50 dark:bg-zinc-700">
                            <tr>
                                 <th scope="col" class="p-4 text-center">
@@ -70,7 +74,7 @@
                                 <th scope="col" class="px-6 py-3 text-center">
                                     Harga
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-center">
+                                <th scope="col" class="px-6 py-3 text-center print:hidden">
                                     Aksi
                                 </th>
                            </tr>
@@ -104,7 +108,7 @@
                                         <td class="w-4 p-4 text-center border-[1px] ">
                                             Rp. {{number_format($buy->price_sum, 0, ',', '.')}}
                                         </td>
-                                        <td class="w-4 p-4 text-center border-[1px] ">
+                                        <td class="w-4 p-4 text-center border-[1px] print:hidden">
                                             <button  wire:click="$emit('openMarkPaidModal', {{$buy->id}})" type="button" class="btn text-white bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 focus:bg-green-600 focus:border-green-600 focus:ring focus:ring-green-500/30 active:bg-green-600 active:border-green-600"><i class="mdi mdi-cash-check text-22 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Tandai Lunas</span></button>
 
                                         </td>
@@ -114,7 +118,7 @@
                        </tbody>
                    </table>
                </div>
-               <div class="mt-8 w-full flex justify-center">
+               <div class="mt-8 w-full flex justify-center print:hidden">
                    {{$buys->links()}}
                </div>
            </div>
@@ -124,4 +128,18 @@
             </div>
        </div>
    </div>
+   <script>
+    let printBtn = document.getElementById('print-btn');
+        printBtn.addEventListener('click', function(){
+            window.print();
+        })
+        function ExportToExcel(type, fn, dl) {
+            let elt = document.getElementById('tbl_exporttable_to_xls');
+            let wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+            return dl ?
+                XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+                XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
+        }
+    </script>
+
 </div>

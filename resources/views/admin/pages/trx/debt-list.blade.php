@@ -6,3 +6,6 @@
    @livewire('trx.debt-list.debt-list-table')
    @livewire('trx.debt-list.mark-paid-modal')
 @endsection
+@section('page_script')
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+@endsection
