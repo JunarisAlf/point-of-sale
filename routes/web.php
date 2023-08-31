@@ -7,6 +7,7 @@ use App\Http\Controllers\CashController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GrafikController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PrintController;
 use App\Http\Controllers\SellController;
@@ -64,6 +65,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/supplier',  [SupplierController::class, 'index'])->name('admin.master.supplier');
         Route::get('/pelanggan',  [CustomerController::class, 'index'])->name('admin.master.customer')->withoutMiddleware('master');
     });
+
     Route::prefix('/gudang')->group(function(){
         Route::get('/stok-barang',  [ItemController::class, 'stock'])->name('admin.gudang.stock');
         Route::get('/cek-expired',  [ItemController::class, 'expired'])->name('admin.gudang.expired');
@@ -72,8 +74,13 @@ Route::middleware('auth')->group(function(){
         Route::get('/atur-barang',  [ItemController::class, 'manageItem'])->name('admin.gudang.manageItem');
         Route::get('/transfer-stok',  [ItemController::class, 'transfer'])->name('admin.gudang.transferStock');
     });
+
     Route::prefix('/setting')->middleware('master')->group(function(){
         Route::get('/informasi-toko',  [UtilsController::class, 'generalInfo'])->name('admin.master.generalInfo');
         Route::get('/lain-lain',  [UtilsController::class, 'otherInfo'])->name('admin.master.otherInfo');
+    });
+
+    Route::prefix('/grafik')->middleware('master')->group(function(){
+        Route::get('/penjualan',  [GrafikController::class, 'sell'])->name('admin.grafik.sell');
     });
 });
