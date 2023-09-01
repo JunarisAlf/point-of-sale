@@ -83,6 +83,8 @@ Route::middleware('auth')->group(function(){
     Route::prefix('/grafik')->middleware('master')->group(function(){
         Route::get('/penjualan',  [GrafikController::class, 'sell'])->name('admin.grafik.sell');
         Route::get('/pembelian',  [GrafikController::class, 'buy'])->name('admin.grafik.buy');
+        Route::get('/kategori',  [GrafikController::class, 'category'])->name('admin.grafik.category');
+
 
     });
 });

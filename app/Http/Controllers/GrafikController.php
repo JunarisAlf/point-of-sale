@@ -14,4 +14,8 @@ class GrafikController extends Controller{
         $user = Auth::user();
         return view('admin.pages.grafik.buy', compact('user'));
     }
+    public function category(){
+        $user = Auth::user();
+        return view('admin.pages.grafik.category', compact('user'));
+    }
 }

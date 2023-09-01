@@ -104,7 +104,7 @@
             }
             document.addEventListener("DOMContentLoaded", () => {
                 let series =[ @js($series)];
-                let xAxis = @js($xAxis);
+                let xAxis = @js($labels);
                 renderChart(series, xAxis);
             });
             window.addEventListener('refresh', data => {
