@@ -22,4 +22,8 @@ class GrafikController extends Controller{
         $user = Auth::user();
         return view('admin.pages.grafik.category', compact('user'));
     }
+    public function mostSell(){
+        $user = Auth::user();
+        return view('admin.pages.grafik.most-sell', compact('user'));
+    }
 }

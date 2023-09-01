@@ -85,7 +85,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/penjualan-online',  [GrafikController::class, 'sellOnline'])->name('admin.grafik.sellOnline');
         Route::get('/pembelian',  [GrafikController::class, 'buy'])->name('admin.grafik.buy');
         Route::get('/kategori',  [GrafikController::class, 'category'])->name('admin.grafik.category');
-
+        Route::get('/barang-terlaris',  [GrafikController::class, 'mostSell'])->name('admin.grafik.mostSell');
 
     });
 });
