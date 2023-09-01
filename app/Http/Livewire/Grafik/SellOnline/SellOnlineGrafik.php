@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Livewire\Grafik\Buy;
+namespace App\Http\Livewire\Grafik\SellOnline;
 
-use App\Models\Buy;
 use App\Models\Cabang;
 use App\Models\OnlineTrx;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
-class BuyGrafik extends Component{
+class SellOnlineGrafik extends Component{
     protected $listeners = ['rangeChange'];
     public $date_start, $date_end;
     public $series, $xAxis;
@@ -22,18 +21,16 @@ class BuyGrafik extends Component{
     }
     public function getData(){
         $cabang_id = $this->cabang_id;
-        $buys = Buy::
-            join('buy_details', 'buys.id', '=', 'buy_details.buy_id')
-            ->select(DB::raw('DATE(buys.created_at) as date'), DB::raw('SUM(buy_details.grand_price) as total'))
+        $sells = OnlineTrx::
+            select(DB::raw('DATE(date) as date'), DB::raw('SUM(total) as total'))
             ->when($cabang_id != 'all' , function($query) use($cabang_id){
                 $query->where('cabang_id', $cabang_id);
             })
-            ->where('is_paid', true)
-            ->whereBetween('buys.created_at', [$this->date_start, $this->date_end])->groupBy(DB::raw('DATE(buys.created_at)'))->get();
-        $data = $buys->pluck('total')->toArray();
-        $categories = $buys->pluck('date')->toArray();
+            ->whereBetween('date', [$this->date_start, $this->date_end])->groupBy(DB::raw('DATE(date)'))->get();
+        $data = $sells->pluck('total')->toArray();
+        $categories = $sells->pluck('date')->toArray();
         $this->series = [
-            'name'  => 'Pembelian',
+            'name'  => 'Penjualan',
             'data'  => $data
         ];
 
@@ -54,6 +51,6 @@ class BuyGrafik extends Component{
         $this->dispatchBrowserEvent('refresh', ['series' => json_encode($this->series), 'xAxis' => json_encode($this->xAxis)]);
     }
     public function render(){
-        return view('livewire.grafik.buy.buy-grafik');
+        return view('livewire.grafik.sell-online.sell-online-grafik');
     }
 }

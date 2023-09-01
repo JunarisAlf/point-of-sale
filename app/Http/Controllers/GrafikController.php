@@ -10,6 +10,10 @@ class GrafikController extends Controller{
         $user = Auth::user();
         return view('admin.pages.grafik.sell', compact('user'));
     }
+    public function sellOnline(){
+        $user = Auth::user();
+        return view('admin.pages.grafik.sell-online', compact('user'));
+    }
     public function buy(){
         $user = Auth::user();
         return view('admin.pages.grafik.buy', compact('user'));
