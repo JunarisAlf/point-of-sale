@@ -19,6 +19,7 @@ class EditUserModal extends Component {
         ['value' => 'admin', 'label' => 'Admin'],
         ['value' => 'gudang', 'label' => 'Gudang'],
         ['value' => 'general', 'label' => 'General'],
+        ['value' => 'finance', 'label' => 'Finance'],
     ];
     public $cabangSelect;
     public function mount(){
@@ -32,7 +33,7 @@ class EditUserModal extends Component {
         $this->show = true;
     }
     public function rules(){
-        $roleEnum = 'admin,gudang,general';
+        $roleEnum = 'admin,gudang,general,finance';
         return [
             'full_name'         => 'required|string',
             'username'          => ['required', 'string', Rule::unique('users', 'username')->ignore($this->data_id)],
@@ -64,7 +65,7 @@ class EditUserModal extends Component {
         }catch(Exception $e){
             $this->emit('showDangerAlert', 'Server ERROR!');
         }
-        
+
     }
     public function render() {
         return view('livewire.user.edit-user-modal');

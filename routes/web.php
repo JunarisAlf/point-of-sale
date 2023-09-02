@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/profile', [UserController::class, 'profile'])->name('profile');
 
 
-    Route::get('/dashboard',  [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/dashboard',  [DashboardController::class, 'index'])->name('admin.dashboard')->middleware('master');
     Route::get('/atur-pengguna',  [UserController::class, 'manageUserPage'])->name('admin.manageUser')->middleware('master');
     Route::get('/login-log',  [UserController::class, 'loginLog'])->name('admin.loginLog')->middleware('master');
 
@@ -48,13 +48,13 @@ Route::middleware('auth')->group(function(){
         Route::get('/tambah-pembelian',  [BuyController::class, 'entryBuy'])->name('admin.trx.buyEntry')->middleware('master');
         Route::get('/daftar-pembelian',  [BuyController::class, 'buyList'])->name('admin.trx.buyList');
         Route::get('/tambah-penjualan-online',  [SellController::class, 'entrySellOnline'])->name('admin.trx.sellEntryOnline')->middleware('master');
-        Route::get('/daftar-penjualan-online',  [SellController::class, 'sellOnlineList'])->name('admin.trx.sellOnlineList')->middleware('master');
-        Route::get('/daftar-hutang',  [BuyController::class, 'debtList'])->name('admin.trx.debtList')->middleware('master');
+        Route::get('/daftar-penjualan-online',  [SellController::class, 'sellOnlineList'])->name('admin.trx.sellOnlineList');
+        Route::get('/daftar-hutang',  [BuyController::class, 'debtList'])->name('admin.trx.debtList');
         Route::get('/daftar-piutang',  [SellController::class, 'piutangList'])->name('admin.trx.piutangList');
     });
     Route::prefix('/cash')->group(function(){
         Route::get('/in-out', [CashController::class, 'inOut'])->name('admin.cash.inOut');
-        Route::get('/asset', [CashController::class, 'assets'])->name('admin.cash.assets')->middleware('master');
+        Route::get('/asset', [CashController::class, 'assets'])->name('admin.cash.assets');
     });
 
     Route::prefix('/master-data')->middleware('master')->group(function(){
@@ -70,8 +70,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/stok-barang',  [ItemController::class, 'stock'])->name('admin.gudang.stock');
         Route::get('/cek-expired',  [ItemController::class, 'expired'])->name('admin.gudang.expired');
         Route::get('/stock-opname',  [ItemController::class, 'stockOpname'])->name('admin.gudang.stockOpname');
-        Route::get('/verifikasi-stock-opname',  [ItemController::class, 'verifStockOpname'])->name('admin.gudang.verifStockOpname');
-        Route::get('/atur-barang',  [ItemController::class, 'manageItem'])->name('admin.gudang.manageItem');
+        Route::get('/verifikasi-stock-opname',  [ItemController::class, 'verifStockOpname'])->name('admin.gudang.verifStockOpname')->middleware('master');
+        Route::get('/atur-barang',  [ItemController::class, 'manageItem'])->name('admin.gudang.manageItem')->middleware('master');
         Route::get('/transfer-stok',  [ItemController::class, 'transfer'])->name('admin.gudang.transferStock');
     });
 

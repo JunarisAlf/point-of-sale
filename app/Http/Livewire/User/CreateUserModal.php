@@ -18,6 +18,7 @@ class CreateUserModal extends Component{
         ['value' => 'admin', 'label' => 'Admin'],
         ['value' => 'gudang', 'label' => 'Gudang'],
         ['value' => 'general', 'label' => 'General'],
+        ['value' => 'finance', 'label' => 'Finance'],
     ];
     public $cabangSelect;
     public function mount(){
@@ -28,7 +29,7 @@ class CreateUserModal extends Component{
         $this->show = true;
     }
     public function rules(){
-        $roleEnum = 'admin,gudang,general';
+        $roleEnum = 'admin,gudang,general,finance';
         return [
             'full_name'         => 'required|string',
             'username'          => 'required|string|unique:users,username',
@@ -52,7 +53,7 @@ class CreateUserModal extends Component{
         }catch(Exception $e){
             $this->emit('showDangerAlert', 'Server ERROR!');
         }
-        
+
     }
     public function render(){
         return view('livewire.user.create-user-modal');

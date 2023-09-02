@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('full_name');
             $table->string('username')->unique();
-            $table->enum('role', ['master', 'admin', 'gudang', 'general']);
+            $table->enum('role', ['master', 'admin', 'gudang', 'general', 'finance']);
             $table->string('password');
             $table->string('profile_image');
-            $table->foreignId('cabang_id') 
+            $table->foreignId('cabang_id')
                   ->nullable()
                   ->constrained(table: 'cabangs', column: 'id',indexName: 'users_cabang')
                   ->onDelete('cascade')

@@ -1,15 +1,17 @@
 <div class="grid grid-cols-12 gap-5 ">
     @if (!$is_stored)
-        <div class="col-span-12">
-            <button wire:click="$emit('openCreateModal', {{$cabang_id}})" type="button" class="btn border-0 bg-green-500 p-0 align-middle text-white focus:ring-2 focus:ring-green-500/30 hover:bg-green-600">
-                <i class="bx bx-plus bg-white bg-opacity-20 w-10 h-full text-16 py-3 align-middle rounded-l"></i>
-                <span class="px-3 leading-[2.8]">Tambah Data</span>
-            </button>
-            <button wire:click="openSetorModal" type="button" class="btn border-0 bg-sky-500 p-0 align-middle text-white focus:ring-2 focus:ring-sky-500/30 hover:bg-sky-600">
-                <i class="bx bx-money-withdraw bg-white bg-opacity-20 w-10 h-full text-16 py-3 align-middle rounded-l"></i>
-                <span class="px-3 leading-[2.8]">Setoran</span>
-            </button>
-        </div>
+        @if ($user->role == 'master' || $user->role == 'admin')
+            <div class="col-span-12">
+                <button wire:click="$emit('openCreateModal', {{$cabang_id}})" type="button" class="btn border-0 bg-green-500 p-0 align-middle text-white focus:ring-2 focus:ring-green-500/30 hover:bg-green-600">
+                    <i class="bx bx-plus bg-white bg-opacity-20 w-10 h-full text-16 py-3 align-middle rounded-l"></i>
+                    <span class="px-3 leading-[2.8]">Tambah Data</span>
+                </button>
+                <button wire:click="openSetorModal" type="button" class="btn border-0 bg-sky-500 p-0 align-middle text-white focus:ring-2 focus:ring-sky-500/30 hover:bg-sky-600">
+                    <i class="bx bx-money-withdraw bg-white bg-opacity-20 w-10 h-full text-16 py-3 align-middle rounded-l"></i>
+                    <span class="px-3 leading-[2.8]">Setoran</span>
+                </button>
+            </div>
+        @endif
     @endif
     <div class="col-span-12">
        <div class="card dark:bg-zinc-800 dark:border-zinc-600">

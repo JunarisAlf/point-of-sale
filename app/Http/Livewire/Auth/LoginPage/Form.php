@@ -13,11 +13,15 @@ class Form extends Component{
             'username'      => 'required|string',
             'password'      => 'required|string'
         ]);
-        
+
         if (Auth::attempt($validated)) {
             session()->regenerate();
             UserLog::create(['user_id' => Auth::user()->id]);
-            return to_route('admin.dashboard');
+            if(Auth::user()->role == 'master'){
+                return to_route('admin.dashboard');
+            }else{
+                return to_route('profile');
+            }
         }
         $this->resetExcept('username');
         session()->flash('error', 'Login Gagal! Username atau Password Salah!');
