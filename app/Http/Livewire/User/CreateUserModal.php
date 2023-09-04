@@ -42,7 +42,7 @@ class CreateUserModal extends Component{
     public function store(){
         $validated = $this->validate();
         $img_filename = Str::random(40) . '.' . $this->file->getClientOriginalExtension();
-        $this->file->storeAs('public/images', $img_filename);
+        $this->file->storeAs('public/profile', $img_filename);
         $validated['profile_image'] = $img_filename;
         try{
             User::create($validated);
