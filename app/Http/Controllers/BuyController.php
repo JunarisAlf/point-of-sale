@@ -25,4 +25,5 @@ class BuyController extends Controller{
         }
         return view('admin.pages.trx.debt-list', compact('user'));
     }
+
 }
