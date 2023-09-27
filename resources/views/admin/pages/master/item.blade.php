@@ -59,11 +59,7 @@
             }));
             Alpine.data('barcode', () => ({
                 initBarcode(element, code){
-                    JsBarcode(element)
-                        .options({font: "OCR-B"}) // Will affect all barcodes
-                        .EAN13(code, {fontSize: 18, textMargin: 0})
-                        .blank(20) // Create space between the barcodes
-                        .render();
+                    JsBarcode(element, code, {format: 'CODE128', height:20});
                 }
             }))
 
@@ -73,7 +69,7 @@
     </script>
 @endsection
 @section('page_script')
-    <script src="{{asset('js/cdn.jsdelivr.net_npm_jsbarcode@3.11.0_dist_barcodes_JsBarcode.ean-upc.min.js')}}" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js" ></script>
     <script>JsBarcode(".barcode").init();</script>
     <!-- form mask -->
     <script src="{{asset('mania/libs/imask/imask.min.js')}}"></script>
