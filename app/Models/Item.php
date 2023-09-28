@@ -25,6 +25,8 @@ class Item extends Model{
     public function prices(){
         return $this->hasMany(MultiPrice::class, 'item_id', 'id');
     }
-  
+    public function qtyConverters(){
+        return $this->hasMany(QtyConverter::class, 'item_id', 'id');
+    }
 }
 

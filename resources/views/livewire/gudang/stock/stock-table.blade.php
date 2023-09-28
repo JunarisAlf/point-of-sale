@@ -159,7 +159,9 @@
                                             <button type="button" class="btn text-violet-500 hover:text-white border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:text-white focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600 w-full flex flex-row items-start justify-center">
                                                 Rp. {{number_format($item->selling_price, 0, ',', '.')}}
                                                 <span class="text-red-500 text-xs">
-                                                    +{{intVal(($item->selling_price - $item->stocks->avg('buying_price')) / $item->stocks->avg('buying_price') * 100)}}%
+                                                    +{{
+                                                        intVal(safeDivision($item->selling_price - $item->stocks->avg('buying_price') , $item->stocks->avg('buying_price') * 100))
+                                                        }}%
                                                 </span>
                                             </button>
                                         </td>

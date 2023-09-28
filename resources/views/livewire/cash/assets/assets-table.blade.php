@@ -75,7 +75,7 @@
                                                     foreach ($cbGroup as $key => $cbItem) {
                                                         $cbModal += $cbItem->avg('buying_price') * $cbItem->sum('quantity');
                                                     }
-                                                $sumModal = $cbModal / $item->stocks->sum('quantity');
+                                                $sumModal = safeDivision( $cbModal, $item->stocks->sum('quantity'))  ;
                                             @endphp
                                            <button type="button" class="btn text-sky-500 hover:text-white border-sky-500 hover:bg-sky-600 hover:border-sky-600 focus:bg-sky-600 focus:text-white focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 w-full">Rp. {{number_format($sumModal, 0, ',', '.')}}</button>
                                        </td>
@@ -83,7 +83,9 @@
                                            <button type="button" class="btn text-violet-500 hover:text-white border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:text-white focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600 w-full flex flex-row items-start justify-center">
                                                Rp. {{number_format($item->selling_price, 0, ',', '.')}}
                                                <span class="text-red-500 text-xs">
-                                                   +{{intVal(($item->selling_price - $item->stocks->avg('buying_price')) / $item->stocks->avg('buying_price') * 100)}}%
+                                                   +{{
+                                                    intVal( safeDivision(($item->selling_price - $item->stocks->avg('buying_price')) ,$item->stocks->avg('buying_price') * 100 ))
+                                                    }}%
                                                </span>
                                            </button>
                                        </td>

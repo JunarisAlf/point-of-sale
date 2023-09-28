@@ -11,4 +11,5 @@ class QtyConverter extends Model{
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $guarded = ['id'];
+
 }

@@ -1,6 +1,7 @@
 <?php
 namespace App\Imports;
 
+use App\Models\Cabang;
 use App\Models\Category;
 use App\Models\Item;
 use App\User;
@@ -22,12 +23,15 @@ class ProductImport implements ToCollection
                     'selling_price' => $row[5],
                     'category_id'   => $category->id
                ]);
-               print_r('Imported ' .  $row[1] . 'SUCCESS!' , "\n");
+               echo 'Imported ' .  $row[1] . 'SUCCESS!' . "\n";
             }catch (\Exception $e) {
-                print_r('FAIL!' , "\n");
+                echo "FAIL";
                 continue;
             }
-
         }
+
+
+
+
     }
 }
