@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Http\Livewire\Trx\SellEntryRev;
+
+use App\Models\Item;
+use Exception;
+use Livewire\Component;
+
+class EntryTable extends Component{
+    public $items = [];
+    protected $listeners = ['itemSubmit' => 'addItem'];
+    public function addItem($item){
+        $index = array_search($item['id'], array_column($this->items, 'id'));
+        $itemData = Item::find($item['id']);
+        $item['name'] = $itemData->name;
+        if($index !== false){
+            $this->items[$index] = $item;
+        }else{
+            array_push($this->items, $item);
+        }
+        $this->updateGrandPrice();
+    }
+    public function removeItem($id){
+        $index = array_search($id, array_column($this->items, 'id'));
+        unset($this->items[$index]);
+        $this->updateGrandPrice();
+    }
+
+    public function updateGrandPrice(){
+        $totalSum = array_reduce($this->items, function ($carry, $item) {
+            return $carry + $item['total_price'];
+        }, 0);
+        $subTotal = array_reduce($this->items, function ($carry, $item) {
+            return $carry + ($item['converted_qty'] * $item['price']) ;
+        }, 0);
+        $totalDisc = array_reduce($this->items, function ($carry, $item) {
+            return $carry + $item['discount'];
+        }, 0);
+        $this->emit('grandPriceUpdate', compact('totalSum', 'totalDisc', 'subTotal'));
+    }
+
+    public function store(){
+        $this->emit('validateMetaInfo', $this->items);
+    }
+    public function render(){
+        return view('livewire.trx.sell-entry-rev.entry-table');
+    }
+}

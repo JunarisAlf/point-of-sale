@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Gate;
 class SellController extends Controller{
     public function entrySell(){
         $user = Auth::user();
+        return view('admin.pages.trx.sell-entry-rev', compact('user'));
+    }
+    public function entrySellOld(){
+        $user = Auth::user();
         return view('admin.pages.trx.sell-entry', compact('user'));
     }
     public function sellList(){
