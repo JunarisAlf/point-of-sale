@@ -12,6 +12,7 @@
 @section('page_css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="//unpkg.com/alpinejs" defer></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/mask@3.x.x/dist/cdn.min.js"></script>
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('overscroll', () => ({
@@ -83,6 +84,7 @@
         });
         window.addEventListener('itemSubmited', event => {
             $('#item-select').val(null).trigger('change');
+            $('#item-select').next('.select2-container').find('.select2-search__field').focus();
         })
 
     </script>

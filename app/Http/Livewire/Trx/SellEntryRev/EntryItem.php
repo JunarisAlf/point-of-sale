@@ -15,20 +15,22 @@ class EntryItem extends Component{
     protected $listeners = ['itemChanged'];
     public function itemChanged($item_id){
         if($item_id !== null){
-            $this->item_id = $item_id;
-            $this->quantity = 1;
-            $qtyAlias = QtyConverter::where('item_id', $item_id)->orderBy('quantity', 'ASC')->first();
-            $this->qtyAlias_id = $qtyAlias?->id;
-            $this->converted_qty = $qtyAlias->quantity * $this->quantity;
-            $this->price = Item::find($item_id)->selling_price;
-            $this->total_price = $this->price * $this->quantity;
             $cabang_id = Auth::user()->cabang?->id == null ? 1 : Auth::user()->cabang->id;
             $this->maxQuantity = StockItem::where('item_id', $item_id)->where('cabang_id', $cabang_id)->where('quantity', '>', 0)->sum('quantity');
-            $this->submit();
+            if($this->maxQuantity > 0 ){
+                $this->item_id = $item_id;
+                $this->quantity = 1;
+                $qtyAlias = QtyConverter::where('item_id', $item_id)->orderBy('quantity', 'ASC')->first();
+                $this->qtyAlias_id = $qtyAlias?->id;
+                $this->converted_qty = $qtyAlias->quantity * $this->quantity;
+                $this->price = Item::find($item_id)->selling_price;
+                $this->total_price = $this->price * $this->quantity;
+                $this->submit();
+            }else{
+                $this->addError('item_id', 'Stok tidak tersedia');
+            }
         }
-
     }
-
 
     public function mount(){
         $this->items = Item::all();
