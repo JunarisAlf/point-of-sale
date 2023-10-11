@@ -10,7 +10,7 @@
             <div class="card-body">
                 <div class="w-full overflow-x-auto">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 mt-4 p-2 items-end justify-between">
-                        
+
                         <div class="col-span-1 sm:col-span-1  min-w-max">
                             <div class="flex flex-row items-center gap-2">
                                 <label>Show</label>
@@ -23,7 +23,7 @@
                             <div class="flex">
                                 <button  style="z-index: 0 !important" id="dropdown-button" data-dropdown-toggle="dropdown" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-zinc-200 border border-gray-300 rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600 " type="button">Cari
                                 </button>
-                               
+
                                 <div class="relative w-full">
                                     <input wire:model="searchQuery" type="search" id="search-dropdown" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-white rounded-r-lg border-l-zinc-100 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-zinc-500 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Nama, Telp, Alamat" required>
                                     <button type="button" class="absolute top-0 right-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -69,7 +69,7 @@
                                     <td colspan="6" class="w-4 p-4 text-center">Tidak ada data</td>
                                 </tr>
                             @else
-                                
+
                                 @foreach ($suppliers as $key => $supplier)
                                     @php
                                         $tableNumber = ($page - 1) * $suppliers->perPage() + $loop->index + 1;
@@ -78,7 +78,7 @@
                                         <td class="w-4 p-4 text-center">
                                             {{$tableNumber}}
                                         </td>
-                                        
+
                                         <td class="px-6 py-4 dark:text-zinc-100/80 ">
                                             {{$supplier->name}}
                                         </td>
@@ -87,11 +87,11 @@
                                         </td>
                                         <td class="px-6 py-4 dark:text-zinc-100/80 ">
                                             <ul class="list-disc">
-                                                @foreach (json_decode($supplier->rekening) as $rekening)
+                                                @foreach (json_decode($supplier->rekening == null ? '{}' : $supplier->rekening) as $rekening)
                                                     <li>{{$rekening}}</li>
                                                 @endforeach
                                             </ul>
-                                            
+
                                         </td>
                                         <td class="px-6 py-4 dark:text-zinc-100/80 ">
                                             <button type="button" class="btn text-sky-500 bg-sky-50 border-sky-50 hover:text-white hover:bg-sky-600 hover:border-sky-600 focus:text-white focus:bg-sky-600 focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 dark:focus:ring-sky-500/10 dark:bg-sky-500/20 dark:border-transparent">{{$supplier->address}}</button>
@@ -105,7 +105,7 @@
                                     </tr>
                                 @endforeach
                             @endif
-                           
+
                         </tbody>
                     </table>
                 </div>
@@ -115,7 +115,7 @@
             </div>
         </div>
     </div>
-    
 
-  
+
+
 </div>

@@ -16,7 +16,7 @@ class SupplierTable extends Component{
     public $page = 1; // for page number
     // search
     public $searchQuery = '';
-   
+
     public function mount(){
         $this->resetPage();
         $this->data = $this->getData();
@@ -26,17 +26,18 @@ class SupplierTable extends Component{
     public function updatingPaginateCount() {
         $this->resetPage();
     }
-   
+
     public function getData(){
-        $suppliers = 
+        $suppliers =
             Supplier::
                     where('name', 'like', "%$this->searchQuery%")
                     ->orWhere('address', 'like', "%$this->searchQuery%")
                     ->orWhere('telp', 'like', "%$this->searchQuery%")
                     ->orWhere('address', 'like', "%$this->searchQuery%");
+        $this->data_count = $suppliers->count();
         return $suppliers;
     }
-  
+
     public function render(){
         $this->data = $this->getData();
         return view('livewire.master.supplier.supplier-table', [

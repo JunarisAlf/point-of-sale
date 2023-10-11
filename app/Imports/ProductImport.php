@@ -11,9 +11,6 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 class ProductImport implements ToCollection
 {
     public function collection(Collection $rows) {
-        $category = Category::create([
-            'name'  => 'Produk'
-        ]);
         foreach ($rows as $row)  {
             try{
                 $item = Item::create([
@@ -21,7 +18,7 @@ class ProductImport implements ToCollection
                     'name'          => $row[2],
                     'has_expired'   => false,
                     'selling_price' => $row[5],
-                    'category_id'   => $category->id
+                    'category_id'   => $row[9]
                ]);
                echo 'Imported ' .  $row[1] . 'SUCCESS!' . "\n";
             }catch (\Exception $e) {
@@ -29,7 +26,6 @@ class ProductImport implements ToCollection
                 continue;
             }
         }
-
 
 
 

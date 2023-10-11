@@ -12,16 +12,19 @@ class CabangSeeder extends Seeder{
      */
     public function run(): void{
         Cabang::create([
-            'name'      => 'cabang 1',
-            'address'   => 'Jl. Rajawali'
+            'id'        => 1,
+            'name'      => 'Cabang Karya',
+            'address'   => '-'
         ]);
         Cabang::create([
-            'name'      => 'cabang 2',
-            'address'   => 'Jl. Rajawali'
+            'id'        => 2,
+            'name'      => 'Cabang Paus',
+            'address'   => '-'
         ]);
         Cabang::create([
-            'name'      => 'cabang 3',
-            'address'   => 'Jl. Rajawali'
+            'id'        => 3,
+            'name'      => 'Cabang Sukakarya',
+            'address'   => '-'
         ]);
     }
 }

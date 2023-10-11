@@ -15,7 +15,7 @@ class CustomerTable extends Component{
     public $page = 1; // for page number
     // search
     public $searchQuery = '';
-   
+
     public function mount(){
         $this->resetPage();
         $this->data = $this->getData();
@@ -25,14 +25,16 @@ class CustomerTable extends Component{
     public function updatingPaginateCount() {
         $this->resetPage();
     }
-   
+
     public function getData(){
-        $customers = 
+        $customers =
             Customer::
                     where('name', 'like', "%$this->searchQuery%")
                     ->orWhere('address', 'like', "%$this->searchQuery%")
                     ->orWhere('wa', 'like', "%$this->searchQuery%")
                     ->orWhere('address', 'like', "%$this->searchQuery%");
+        $this->data_count = $customers->count();
+
         return $customers;
     }
 

@@ -97,75 +97,49 @@
                            @else
 
                                @foreach ($items as $key => $item)
-                                   @php
-                                       $tableNumber = ($page - 1) * $items->perPage() + $loop->index + 1;
-                                       $stocks_count = $item->stocks->count()
-                                   @endphp
-                                    <tr >
-                                        <td class="w-4 p-4 text-center border-[1px] " rowspan="{{$item->stocks->count()}}">
-                                            {{$tableNumber}}
-                                        </td>
-                                        <td class="px-6 py-4 dark:text-zinc-100/80  w-[350px] border-[1px]" rowspan="{{$item->stocks->count()}}">
-                                            <button type="button" class="btn text-gray-500 hover:text-white border-gray-500 hover:bg-gray-600 hover:border-gray-600 focus:bg-gray-600 focus:text-white focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 w-full text-start">{{$item->barcode}} - {{$item->name}}</button>
-                                        </td>
-                                        @if($stocks_count > 0)
-                                            <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
-                                                {{Carbon\Carbon::parse($item->stocks[0]->expired_date)->format('d/m/Y ') }}
-                                            </td>
-                                            <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
-                                                <div class="flex items-center dark:text-zinc-100/80">
-                                                    @php
-                                                        $diffMonth = Carbon\Carbon::parse($item->stocks[0]->expired_date)->diffInMonths()
-                                                    @endphp
-                                                    @if ($diffMonth <= 1)
-                                                        <div class="h-2.5 w-2.5 rounded-full bg-red-500 ltr:mr-2 rtl:ml-2"></div>
-                                                    @elseif($diffMonth > 1 && $diffMonth < 3)
-                                                        <div class="h-2.5 w-2.5 rounded-full bg-yellow-500 ltr:mr-2 rtl:ml-2"></div>
-                                                    @elseif($diffMonth >= 3)
-                                                        <div class="h-2.5 w-2.5 rounded-full bg-green-500 ltr:mr-2 rtl:ml-2"></div>
-                                                    @endif
-                                                    {{Carbon\Carbon::parse($item->stocks[0]->expired_date)->diffForHumans() }}
-                                                </div>
-                                            </td>
-                                            <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
-                                                <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full">{{$item->stocks[0]->quantity}}</button>
-                                            </td>
-                                            <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
-                                                <button wire:click="openTransferModal({{$item->stocks[0]->id}})" type="button" class="btn text-white bg-violet-500 border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600"><i class="bx bx-transfer-alt text-16 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Transfer</span></button>
-                                            </td>
+                                @foreach ($item->stocks as $d)
+                                @php
+                                $tableNumber = ($page - 1) * $items->perPage() + $loop->index + 1;
+                                $stocks_count = $item->stocks->count()
+                            @endphp
+                             <tr >
+                                 <td class="w-4 p-4 text-center border-[1px] ">
+                                     {{$tableNumber}}
+                                 </td>
+                                 <td class="px-6 py-4 dark:text-zinc-100/80  w-[350px] border-[1px]">
+                                     <button type="button" class="btn text-gray-500 hover:text-white border-gray-500 hover:bg-gray-600 hover:border-gray-600 focus:bg-gray-600 focus:text-white focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 w-full text-start">{{$item->barcode}} - {{$item->name}}</button>
+                                 </td>
+                                     <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
+                                         {{$d->expired_date !== null ? Carbon\Carbon::parse($d->expired_date)->format('d/m/Y ') : '-'}}
+                                     </td>
+                                     <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
+                                        @if ($d->expired_date !== null)
+                                            <div class="flex items-center dark:text-zinc-100/80">
+                                                @php
+                                                    $diffMonth = Carbon\Carbon::parse($d->expired_date)->diffInMonths()
+                                                @endphp
+                                                @if ($diffMonth <= 1)
+                                                    <div class="h-2.5 w-2.5 rounded-full bg-red-500 ltr:mr-2 rtl:ml-2"></div>
+                                                @elseif($diffMonth > 1 && $diffMonth < 3)
+                                                    <div class="h-2.5 w-2.5 rounded-full bg-yellow-500 ltr:mr-2 rtl:ml-2"></div>
+                                                @elseif($diffMonth >= 3)
+                                                    <div class="h-2.5 w-2.5 rounded-full bg-green-500 ltr:mr-2 rtl:ml-2"></div>
+                                                @endif
+                                                {{Carbon\Carbon::parse($d->expired_date)->diffForHumans() }}
+                                            </div>
+                                        @else
+                                            -
                                         @endif
-                                    </tr>
 
-                                        @if($stocks_count > 1)
-                                            @for($i = 1; $i < $stocks_count; $i++)
-                                                </tr>
-                                                    <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
-                                                        {{Carbon\Carbon::parse($item->stocks[$i]->expired_date)->format('d-m-Y ') }}
-                                                    </td>
-                                                    <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
-                                                        <div class="flex items-center dark:text-zinc-100/80">
-                                                            @php
-                                                                $diffMonth = Carbon\Carbon::parse($item->stocks[$i]->expired_date)->diffInMonths()
-                                                            @endphp
-                                                            @if ($diffMonth <= 1)
-                                                                <div class="h-2.5 w-2.5 rounded-full bg-red-500 ltr:mr-2 rtl:ml-2"></div>
-                                                            @elseif($diffMonth > 1 && $diffMonth < 3)
-                                                                <div class="h-2.5 w-2.5 rounded-full bg-yellow-500 ltr:mr-2 rtl:ml-2"></div>
-                                                            @elseif($diffMonth >= 3)
-                                                                <div class="h-2.5 w-2.5 rounded-full bg-green-500 ltr:mr-2 rtl:ml-2"></div>
-                                                            @endif
-                                                            {{Carbon\Carbon::parse($item->stocks[$i]->expired_date)->diffForHumans() }}
-                                                        </div>
-                                                    </td>
-                                                    <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
-                                                        <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full">{{$item->stocks[$i]->quantity}}</button>
-                                                    </td>
-                                                    <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
-                                                        <button wire:click="openTransferModal({{$item->stocks[$i]->id}})" type="button" class="btn text-white bg-violet-500 border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600"><i class="bx bx-transfer-alt text-16 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Transfer</span></button>
-                                                    </td>
-                                                </tr>
-                                            @endfor
-                                        @endif
+                                     </td>
+                                     <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
+                                         <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full">{{$d->quantity}}</button>
+                                     </td>
+                                     <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
+                                         <button wire:click="openTransferModal({{$d->id}})" type="button" class="btn text-white bg-violet-500 border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600"><i class="bx bx-transfer-alt text-16 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Transfer</span></button>
+                                     </td>
+                             </tr>
+                                @endforeach
                                @endforeach
                            @endif
 

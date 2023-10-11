@@ -19,7 +19,7 @@ return new class extends Migration
                   ->onUpdate('cascade');
             $table->unsignedInteger('quantity');
             $table->unsignedBigInteger('price');
-            $table->decimal('percentage', 4, 2, true);
+            $table->decimal('percentage', 4, 2, true)->unsigned(false);
             $table->timestamps();
         });
     }
