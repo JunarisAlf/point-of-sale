@@ -101,14 +101,7 @@ class ImportSeeder extends Seeder
             }
         }
 
-        $items = Item::all();
-        foreach($items as $item){
-            $item->prices()->create(['quantity' => 1, 'price' => $item->selling_price , 'percentage' => 0]);
-            $item->qtyConverters()->create([
-                'name'      => 'pcs',
-                'quantity'  => 1
-            ]);
-        }
+
 
         // IMPORT MULTIPRICE AND QTY CONVERTER
         $dataMultiPrices = Excel::toCollection([], base_path('database/import/multiprices.xlsx'));
