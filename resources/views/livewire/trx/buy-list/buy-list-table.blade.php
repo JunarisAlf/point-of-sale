@@ -163,9 +163,10 @@
                                                         <button {{$buy->is_arrived ? 'disabled' : ''}} wire:click="$emit('openExpiredModal', {{$buy->id}})" type="button" class="btn text-white bg-yellow-500 border-yellow-500 hover:bg-yellow-600 hover:border-yellow-600 focus:bg-yellow-600 focus:border-yellow-600 focus:ring focus:ring-yellow-500/30 active:bg-yellow-600 active:border-yellow-600"><i class="mdi mdi-package-variant-closed-check text-22 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Tandai Tiba</span></button>
                                                     @endif
                                                 @endif
-
+                                                @if ( $user->role === 'master' || $user->role === 'admin')
+                                                    <button wire:click="$emit('openDeleteModal', {{$buy->id}})" type="button" class="btn text-white bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 focus:bg-red-600 focus:border-red-600 focus:ring focus:ring-red-500/30 active:bg-red-600 active:border-red-600"><i class="mdi mdi-delete-outline text-22 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Hapus</span></button>
+                                                @endif
                                             </div>
-
                                         </td>
                                     </tr>
                                @endforeach

@@ -7,6 +7,7 @@
    @livewire('trx.buy-list.mark-arrived-modal')
    @livewire('trx.buy-list.detail-modal')
    @livewire('trx.buy-list.expired-modal')
+   @livewire('trx.buy-list.delete-buy-modal')
 
    @livewire('trx.buy-list.buy-list-table', ['user' => $user])
 @endsection
