@@ -11,15 +11,18 @@ class Entry extends Component{
     public $suppliers = [], $supplier_id;
     public $cabangs = [], $cabang_id;
     public $is_paid = 0, $is_arrived = 0;
-    public $date, $grand_price = 0;
-    protected $listeners = ['grandPriceUpdate', 'submited'];
+    public $date, $grand_price = 0, $note;
+    protected $listeners = ['grandPriceUpdate', 'submited', 'supplierChange'];
     public function submited(){
         $this->reset();
     }
     public function grandPriceUpdate($val){
         $this->grand_price = $val;
     }
-
+    public function supplierChange($val){
+        $this->supplier_id = $val;
+        $this->updated();
+    }
     public function updated(){
         session()->put('buy', [
             'supplier_id'   => $this->supplier_id,
@@ -27,6 +30,7 @@ class Entry extends Component{
             'date'          => $this->date,
             'is_paid'       => $this->is_paid,
             'is_arrived'    => $this->is_arrived,
+            'note'          => $this->note,
             'grand_price'   => $this->grand_price
         ]);
     }

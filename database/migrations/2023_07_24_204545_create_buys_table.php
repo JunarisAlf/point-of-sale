@@ -22,6 +22,7 @@ return new class extends Migration
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
             $table->datetime('paid_date')->nullable();
+            $table->string('note')->nullable();
             $table->boolean('is_paid');
             $table->boolean('is_arrived');
             $table->timestamps();

@@ -44,6 +44,7 @@ class EntryTable extends Component{
                 'supplier_id'       => $buyData['supplier_id'],
                 'cabang_id'         => $buyData['cabang_id'],
                 'created_at'        => $buyData['date'],
+                'note'              => $buyData['note'],
                 'is_paid'           => $buyData['is_paid'],
                 'paid_date'         => $buyData['is_paid'] === "1" ? Carbon::now()->format('Y-m-d H:i:s') : null,
                 'is_arrived'        => $buyData['is_arrived']
@@ -65,7 +66,6 @@ class EntryTable extends Component{
             $this->emit('submited');
         }catch(Exception $e){
             DB::rollback();
-            dd($e);
             $this->emit('showDangerAlert', 'Server ERROR!');
         }
     }

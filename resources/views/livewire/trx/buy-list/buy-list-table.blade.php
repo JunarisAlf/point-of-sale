@@ -85,7 +85,7 @@
                        <thead class="text-xs text-gray-700 dark:text-gray-100 uppercase bg-gray-50/50 dark:bg-zinc-700">
                            <tr>
                                 <th scope="col" class="p-4 text-center">
-                                   Nomor
+                                   Catatan
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
                                    Supplier
@@ -123,7 +123,7 @@
                                    @endphp
                                     <tr >
                                         <td class="w-4 p-4 text-center border-[1px] ">
-                                            {{$tableNumber}}
+                                            {{$buy->note}}
                                         </td>
                                         <td class="w-4 p-4 text-center border-[1px] ">
                                             {{$buy->supplier->name}}
