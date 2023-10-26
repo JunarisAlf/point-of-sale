@@ -68,6 +68,8 @@ Route::middleware('auth')->group(function(){
     });
 
     Route::prefix('/gudang')->group(function(){
+        Route::get('/retur',  [ItemController::class, 'retur'])->name('admin.gudang.retur');
+        Route::get('/daftar-retur',  [ItemController::class, 'returList'])->name('admin.gudang.returList');
         Route::get('/stok-barang',  [ItemController::class, 'stock'])->name('admin.gudang.stock');
         Route::get('/cek-expired',  [ItemController::class, 'expired'])->name('admin.gudang.expired');
         Route::get('/stock-opname',  [ItemController::class, 'stockOpname'])->name('admin.gudang.stockOpname');
