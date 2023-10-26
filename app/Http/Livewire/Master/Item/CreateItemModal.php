@@ -52,7 +52,7 @@ class CreateItemModal extends Component{
     }
     public function rules(){
         return [
-            'barcode'       => 'required|string|min:13|max:13',
+            'barcode'       => 'required|string',
             'name'          => 'required|string',
             'category_id'   => 'required|exists:categories,id',
             'has_expired'   => 'required|boolean',

@@ -32,6 +32,23 @@
                                     @enderror
                                 </div>
 
+                                <div class="mb-4">
+                                    <label for="example-text-input"
+                                        class="mb-2 block font-medium text-gray-700 dark:text-gray-100">Barcode</label>
+                                    <div class="relative">
+                                        <input name="name"
+                                            class="@error('barcode') border-red-500 @enderror w-full rounded border-gray-100 placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:border-zinc-600 dark:bg-zinc-700/50 dark:text-zinc-100 dark:placeholder:text-zinc-100"
+                                            wire:model="barcode" type="text">
+                                        @error('barcode')
+                                            <i class='bx bx-error-circle absolute top-2 text-xl text-red-500 ltr:right-2 rtl:left-2'></i>
+                                        @enderror
+                                    </div>
+                                    @error('barcode')
+                                        <div class="mt-2 text-xs text-red-500">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+
                                 <div class="mb-4" >
                                     <div class="mb-3">
                                         <div class="mb-2">
@@ -39,20 +56,20 @@
                                         </div>
                                         <div class="rounded @error('category_id') border-red-500 border-[0.5px] @enderror">
                                             <div wire:ignore>
-                                                <select  class="" data-trigger name="category_id"   placeholder="This is a search placeholder" id="category-select-edit" wire:model="category_id"> 
+                                                <select  class="" data-trigger name="category_id"   placeholder="This is a search placeholder" id="category-select-edit" wire:model="category_id">
                                                     @foreach ($categoriesSelect as $category)
                                                         <option  value="{{$category->id}}">{{$category->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
-                                        </div>  
-                                    
+                                        </div>
+
                                         @error('category_id')
                                             <div class="mt-2 text-xs text-red-500">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-                            
+
                                 <div class="mb-4">
                                     <div class="mb-3">
                                         <label class="mb-2 block font-medium text-gray-700 dark:text-zinc-100">Jenis

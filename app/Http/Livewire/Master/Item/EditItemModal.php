@@ -10,7 +10,7 @@ use Livewire\Component;
 class EditItemModal extends Component {
     public $show = false;
     public $data_id;
-    public $name, $category, $category_id, $has_expired, $selling_price;
+    public $name, $barcode, $category, $category_id, $has_expired, $selling_price;
     public $categoriesSelect ;
     public function mount(){
         $this->categoriesSelect = Category::orderBy('name', 'DESC')->get();
@@ -36,6 +36,7 @@ class EditItemModal extends Component {
     public function rules(){
         return [
             'name'          => 'required|string',
+            'barcode'       => 'required|string',
             'category_id'   => 'required|exists:categories,id',
             'has_expired'   => 'required|boolean',
             'selling_price' => 'required|integer|min:0',
