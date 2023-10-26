@@ -44,7 +44,7 @@ class ItemController extends Controller{
     }
     public function returList(){
         $user = Auth::user();
-        return view('admin.pages.gudang.transfer', compact('user'));
+        return view('admin.pages.gudang.retur-list', compact('user'));
     }
 
 }
