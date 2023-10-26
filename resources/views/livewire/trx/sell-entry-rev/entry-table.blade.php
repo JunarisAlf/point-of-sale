@@ -24,7 +24,7 @@
                                     Satuan
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
-                                    Harga Satuan
+                                    Harga Satuan (Rp.)
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
                                     Diskon
@@ -100,7 +100,12 @@
 
                                         </td> --}}
                                         <td class="w-[200px] border-[1px] p-4 text-center">
-                                            Rp. {{ number_format($item['price'], 0, ',', '.') }}
+                                            @php
+                                                $selected_satuan = $qtyAliases->where('id', $items[$key]['satuan_id'])->first()->quantity;
+                                            @endphp
+                                            <span class="font-bold"> {{ number_format($item['price'] * $selected_satuan  , 0, ',', '.') }}</span>
+
+                                            ({{ number_format($item['price'], 0, ',', '.') }})
                                         </td>
                                         <td class="w-[150px] border-[1px] p-4 text-center">
                                             <input name="discount" type="number"  id="discount_mask"

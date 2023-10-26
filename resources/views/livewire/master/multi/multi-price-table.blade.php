@@ -53,6 +53,9 @@
                                    Harga Satuan
                                </th>
                                <th scope="col" class="px-6 py-3 text-center">
+                                    Harga Total
+                                </th>
+                               <th scope="col" class="px-6 py-3 text-center">
                                    Persentase
                                </th>
                                <th scope="col" class="px-6 py-3 text-center">
@@ -75,6 +78,9 @@
                                         </td>
                                         <td class="w-4 p-4 text-center">
                                             <button type="button" class="btn text-violet-500 hover:text-white border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:text-white focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600 w-full">Rp. {{number_format($price->price, 0,',', '.')}}</button>
+                                        </td>
+                                        <td class="w-4 p-4 text-center">
+                                            <button type="button" class="btn text-violet-500 hover:text-white border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:text-white focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600 w-full">Rp. {{number_format($price->price * $price->quantity, 0,',', '.')}}</button>
                                         </td>
                                         <td class="w-4 p-4 text-center">
                                             <button type="button" class="btn text-red-500 bg-red-50 border-red-50 hover:text-white hover:bg-red-600 hover:border-red-600 focus:text-white focus:bg-red-600 focus:border-red-600 focus:ring focus:ring-red-500/30 active:bg-red-600 active:border-red-600 dark:focus:ring-red-500/10 dark:bg-red-500/20 dark:border-transparent">- {{$price->percentage}} %</button>
