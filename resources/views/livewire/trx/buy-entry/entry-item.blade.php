@@ -10,7 +10,7 @@
                             <select  class="" data-trigger name="supplier_id" placeholder="This is a search placeholder" id="item-select" wire:model="supplier_id">
                                 <option value="" selected>Pilih Barang</option>
                                 @foreach ($items as $item)
-                                    <option  value="{{$item->id}}">{{$item->name}}</option>
+                                    <option  value="{{$item->id}}">{{$item->barcode}} - {{$item->name}}</option>
                                 @endforeach
                             </select>
                         </div>
