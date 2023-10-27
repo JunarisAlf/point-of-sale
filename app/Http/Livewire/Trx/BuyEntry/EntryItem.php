@@ -62,7 +62,7 @@ class EntryItem extends Component {
             'satuan_id'     => $this->qtyAlias_id,
             'quantity'      => $this->quantity,
             'total_price'   => $this->total_price,
-            'price'         => $this->total_price / $this->converted_qty
+            'price'         => safeDivision($this->total_price, $this->converted_qty)
         ];
         $this->emit('itemSubmit', $item);
         $this->dispatchBrowserEvent('itemSubmited');

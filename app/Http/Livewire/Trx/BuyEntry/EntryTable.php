@@ -13,15 +13,18 @@ class EntryTable extends Component{
     public $items = [];
     protected $listeners = ['itemSubmit' => 'addItem'];
     public function addItem($item){
-        $index = array_search($item['id'], array_column($this->items, 'id'));
-        $itemName = Item::find($item['id'])->name;
-        $item['name'] = $itemName;
-        if($index !== false){
-            $this->items[$index] = $item;
-        }else{
-            array_push($this->items, $item);
-        }
-        $this->updateGrandPrice();
+        try{
+            $index = array_search($item['id'], array_column($this->items, 'id'));
+            $itemName = Item::find($item['id'])->name;
+            $item['name'] = $itemName;
+            if($index !== false){
+                $this->items[$index] = $item;
+            }else{
+                array_push($this->items, $item);
+            }
+            $this->updateGrandPrice();
+        }catch(\Exception $e){}
+
     }
     public function removeItem($id){
         $index = array_search($id, array_column($this->items, 'id'));

@@ -109,10 +109,10 @@
                                         @if ($has_stock == false)
                                             <td class="px-6 py-4 dark:text-zinc-100/80  w-[350px] border-[1px] text-center">-</td>
                                             <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
-                                                <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full">-</button>
+                                                <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full">0</button>
                                             </td>
                                             <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
-                                                <button type="button" class="btn text-sky-500 hover:text-white border-sky-500 hover:bg-sky-600 hover:border-sky-600 focus:bg-sky-600 focus:text-white focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 w-full">-</button>
+                                                <button type="button" class="btn text-sky-500 hover:text-white border-sky-500 hover:bg-sky-600 hover:border-sky-600 focus:bg-sky-600 focus:text-white focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 w-full">{{$item->buying_price}}</button>
                                             </td>
                                             <td class="w-4 p-4 text-center border-[1px] min-w-max">
                                                 <div class="flex flex-row justify-center min-w-[300px]">
@@ -123,10 +123,10 @@
                                         @endif
                                         @if ($has_stock == true && $stocks_count > 0)
                                             <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
-                                                @if ($item->stocks[0]->expired_date == null)
+                                                @if ($item->has_expired == false)
                                                     <button type="button" class="btn text-sky-500 bg-sky-50 border-sky-50 hover:text-white hover:bg-sky-600 hover:border-sky-600 focus:text-white focus:bg-sky-600 focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 dark:focus:ring-sky-500/10 dark:bg-sky-500/20 dark:border-transparent">Non-Expiredable</button>
                                                 @else
-                                                    {{Carbon\Carbon::parse($item->stocks[0]->expired_date)->format('d/m/Y') }}
+                                                    {{$item->stocks[0]->expired_date !== null ? Carbon\Carbon::parse($item->stocks[0]->expired_date)->format('d/m/Y') : '-' }}
                                                 @endif
                                             </td>
                                             <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
@@ -148,7 +148,11 @@
                                         @for($i = 1; $i < $stocks_count; $i++)
                                             <tr>
                                                 <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
-                                                    {{Carbon\Carbon::parse($item->stocks[$i]->expired_date)->format('d/m/Y ') }}
+                                                    @if ($item->has_expired == false)
+                                                        <button type="button" class="btn text-sky-500 bg-sky-50 border-sky-50 hover:text-white hover:bg-sky-600 hover:border-sky-600 focus:text-white focus:bg-sky-600 focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 dark:focus:ring-sky-500/10 dark:bg-sky-500/20 dark:border-transparent">Non-Expiredable</button>
+                                                    @else
+                                                        {{$item->stocks[$i]->expired_date !== null ? Carbon\Carbon::parse($item->stocks[$i]->expired_date)->format('d/m/Y ') : '-' }}
+                                                    @endif
                                                 </td>
                                                 <td class="px-6 py-4 dark:text-zinc-100/80 text-center border-[1px]">
                                                     <button type="button" class="btn text-neutral-800 bg-neutral-50 hover:text-white border-neutral-50 hover:bg-neutral-900 focus:text-white hover:border-neutral-900 focus:bg-neutral-900 focus:border-neutral-900 focus:ring focus:ring-neutral-500/30 active:bg-neutral-900 active:border-neutral-900 dark:focus:ring-neutral-500/10 dark:bg-neutral-500/20 dark:border-transparent w-full">{{$item->stocks[$i]->quantity}}</button>
