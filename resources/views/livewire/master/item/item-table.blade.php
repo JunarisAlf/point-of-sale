@@ -125,7 +125,7 @@
                                         </td>
                                         <td class="px-6 py-4 dark:text-zinc-100/80 text-center flex flex-col items-center " x-data="barcode">
                                             <div class="print:hidden">
-                                                <img   x-init="initBarcode($el, '{{$item->barcode}}')"  @generate-barcode.window="initBarcode($el, '{{$item->barcode}}')"  class="hidden sm:block " >
+                                                <img  x-init="initBarcode($el, '{{$item->barcode}}')"  @generate-barcode.window="initBarcode($el, '{{$item->barcode}}')"  class="hidden sm:block " >
                                             </div>
                                             <button type="button" class="btn text-gray-500 hover:text-white border-gray-500 hover:bg-gray-600 hover:border-gray-600 focus:bg-gray-600 focus:text-white focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600">{{$item->barcode}}</button>
                                         </td>
