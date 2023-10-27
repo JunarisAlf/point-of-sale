@@ -15,19 +15,18 @@ class ItemFillModal extends Component {
     public function cabangChanged($id){
         $this->show = false;
         $this->cabang_id = $id;
-
     }
     public function openModal($id){
         $this->dispatchBrowserEvent('empty-fill-mask');
         $this->item_id = $id;
         $item = Item::find($id);
-        $this->has_expired = $item->has_expired;
+        $this->has_expired = $item->has_expired == '1' ? true : false;
         $this->show = true;
     }
     public function rules(){
         return [
-            'quantity'      => 'required|integer|min:1',
-            'buying_price'  => 'required|integer|min:1',
+            'quantity'      => 'required|integer|min:0',
+            'buying_price'  => 'required|integer|min:0',
             'expired_date'  =>  [Rule::requiredIf($this->has_expired)]
         ];
     }
