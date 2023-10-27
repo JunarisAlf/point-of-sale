@@ -19,6 +19,9 @@
                     window.addEventListener('itemSubmited', event => {
                         this.updateVal('');
                     })
+                    window.addEventListener('totalPriceUpdated', event => {
+                        this.updateVal(event.detail.totalPrice);
+                    })
                 },
                 test: 'fsfs',
                 imaskOpt: {
@@ -32,8 +35,7 @@
                 },
                 imaskObj: '',
                 handleChange(event){
-                    let val = this.imaskObj.unmaskedValue
-                    console.log(val);
+                    let val = this.imaskObj.unmaskedValue;
                     Livewire.emit(event, val)
                 },
                 updateVal(val){

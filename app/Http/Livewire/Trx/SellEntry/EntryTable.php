@@ -23,6 +23,7 @@ class EntryTable extends Component{
     public function removeItem($id){
         $index = array_search($id, array_column($this->items, 'id'));
         unset($this->items[$index]);
+        $this->items = array_values($this->items);
         $this->updateGrandPrice();
     }
 
