@@ -14,6 +14,7 @@ class EntryItem extends Component {
 
     protected $listeners = ['itemChange'];
     public function itemChange($id){
+        $test = 100 / 0;
         try{
             $this->item_id = $id;
             $this->qtyAliases = QtyConverter::where('item_id', $id)->orderBy('quantity', 'ASC')->get();
