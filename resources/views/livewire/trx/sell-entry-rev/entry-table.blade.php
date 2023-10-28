@@ -60,7 +60,7 @@
                                                 <input name="quantity"
                                                     class="@error('quantity-{{ $key }}') border-red-500 @enderror w-[80px] rounded border-gray-100 placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:border-zinc-600 dark:bg-zinc-700/50 dark:text-zinc-100 dark:placeholder:text-zinc-100"
                                                     wire:model="items.{{ $key }}.quantity" type="number"
-                                                    min="1">
+                                                    min="1" max="{{@$item['stock']}}">
                                                 <span class="text-pink-500 font-bold text-lg pl-2">{{$item['converted_qty']}}</span>
                                                 @error('quantity-{{ $key }}')
                                                     <i
@@ -108,7 +108,7 @@
                                             ({{ number_format($item['price'], 0, ',', '.') }})
                                         </td>
                                         <td class="w-[150px] border-[1px] p-4 text-center">
-                                            <input name="discount" type="number"  id="discount_mask"
+                                            <input name="discount" type="number"
                                                 class="w-full rounded border-gray-100 placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:border-zinc-600 dark:bg-zinc-700/50 dark:text-zinc-100 dark:placeholder:text-zinc-100" wire:model="items.{{ $key }}.discount">
                                         </td>
                                         <td class="w-[250px] border-[1px] p-4 text-center font-bold">

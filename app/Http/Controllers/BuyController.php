@@ -20,7 +20,7 @@ class BuyController extends Controller{
     }
     public function debtList(){
         $user = Auth::user();
-        if(!Gate::any(['isMaster',  'isFinance'])){
+        if(!Gate::any(['isMaster',  'isFinance', 'isAdmin'])){
             abort(403);
         }
         return view('admin.pages.trx.debt-list', compact('user'));

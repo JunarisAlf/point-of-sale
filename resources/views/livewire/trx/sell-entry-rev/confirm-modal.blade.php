@@ -17,15 +17,15 @@
                         <table class="w-full">
                             <tr class="uppercase text-gray-600 dark:text-gray-100 font-bold text-md">
                                 <td class="w-1/2 ">Sub Total</td>
-                                <td class="w-1/2 text-end">Rp. {{number_format($sub_total, 0, ',', '.')}}</td>
+                                <td class="w-1/2 text-end text-red-500 text-[24px]">Rp. {{number_format($sub_total, 0, ',', '.')}}</td>
                             </tr>
                             <tr class="uppercase text-gray-600 dark:text-gray-100 font-bold text-md">
                                 <td class="w-1/2">Diskon</td>
-                                <td class="w-1/2 text-end">Rp. {{number_format($discount + $globalDisc, 0, ',', '.')}}</td>
+                                <td class="w-1/2 text-end text-red-500 text-[18px]">- Rp. {{number_format($discount + $globalDisc, 0, ',', '.')}}</td>
                             </tr>
                             <tr class="uppercase text-gray-600 dark:text-gray-100 font-bold text-lg">
                                 <td class="w-1/2">Total</td>
-                                <td class="w-1/2 text-end">Rp. {{number_format($grand_total - $globalDisc , 0, ',', '.')}}</td>
+                                <td class="w-1/2 text-end text-red-600 text-[34px]">Rp. {{number_format($grand_total - $globalDisc , 0, ',', '.')}}</td>
                             </tr>
                         </table>
 
@@ -39,9 +39,9 @@
                                 @error('is_paid')
                                     <div class="mt-2 text-xs text-red-500">{{ $message }}</div>
                                 @enderror
-                            </div> 
+                            </div>
                         @endif
-                        
+
                         @if ($is_paid)
                             <div class="mb-3" >
                                 <label class="mb-2 block font-medium text-gray-700 dark:text-zinc-100">Bayar</label>
@@ -58,7 +58,7 @@
                                 @enderror
                             </div>
                         @endif
-                       
+
 
                         <div class="mb-3" >
                             <label class="mb-2 block font-medium text-gray-700 dark:text-zinc-100">Diskon</label>
@@ -79,20 +79,20 @@
                             <table class="w-full">
                                 <tr class="uppercase text-gray-600 dark:text-gray-100 font-bold text-lg">
                                     <td class="w-1/2">Kembalian</td>
-                                    <td class="w-1/2 text-end">Rp. {{number_format($change, 0, ',', '.')}}</td>
+                                    <td class="w-1/2 text-end text-red-500 text-[24px]">Rp. {{number_format($change, 0, ',', '.')}}</td>
                                 </tr>
                             </table>
                         @endif
-                        
+
                    </div>
                    <!-- Modal footer -->
                    <div class="flex items-center p-5 gap-3 space-x-2 border-t rounded-b border-gray-50 dark:border-zinc-600">
                         <button wire:click="store" type="submit" class="btn inline-flex w-full justify-center border-0 bg-violet-500 p-0 align-middle text-white focus:ring-2 focus:ring-violet-500/30 hover:bg-violet-600">
                             <i class="bx bx-subdirectory-right  bg-opacity-20 w-10 h-full text-16 py-3 align-middle rounded-l"></i>
                             <span class="px-3 leading-[2.8]">Simpan</span>
-                        </button>   
+                        </button>
                         <button type="button" class="btn inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 dark:text-gray-100 shadow-sm hover:bg-gray-50/50 focus:outline-none focus:ring-2 focus:ring-gray-500/30 sm:mt-0 sm:w-auto sm:text-sm dark:bg-zinc-700 dark:border-zinc-600 dark:hover:bg-zinc-600 dark:focus:bg-zinc-600 dark:focus:ring-zinc-700 dark:focus:ring-gray-500/20" data-tw-dismiss="modal">Tutup</button>
-                       
+
                    </div>
                </div>
            </div>
@@ -101,7 +101,7 @@
    <script>
         document.addEventListener('livewire:load', function () {
             const payMask = document.getElementById('pay_mask');
-            let payMaskObj = new IMask(payMask, 
+            let payMaskObj = new IMask(payMask,
                 {
                     mask: 'Rp.  num',
                     blocks: {
@@ -117,9 +117,9 @@
             window.addEventListener('pay-updated', event => {
                 payMaskObj.unmaskedValue = '' + @this.pay;
             })
-         
+
             const globalDiscMask = document.getElementById('global_discount_mask');
-            let globalDiscObj = new IMask(globalDiscMask, 
+            let globalDiscObj = new IMask(globalDiscMask,
                 {
                     mask: 'Rp.  num',
                     blocks: {
@@ -135,7 +135,7 @@
             window.addEventListener('globalDisc-updated', event => {
                 globalDiscObj.unmaskedValue = '' + @this.globalDisc;
             })
-            
+
         })
     </script>
 </div>

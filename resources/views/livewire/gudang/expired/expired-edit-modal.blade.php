@@ -14,7 +14,7 @@
                    </div>
                    <div class="p-6 space-y-6 ltr:text-left rtl:text-right">
                         <div class="relative overflow-x-auto overflow-y-auto">
-                            <input wire:ignore wire:change="dateInputed($event.target.value)" class="w-full rounded border-gray-100 placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:bg-zinc-700/50 dark:border-zinc-600 dark:text-zinc-100" type="date" id="example-date-input">
+                            <input wire:change="dateInputed($event.target.value)" class="w-full rounded border-gray-100 placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:bg-zinc-700/50 dark:border-zinc-600 dark:text-zinc-100" type="date" id="example-date-input" value="{{$expired_date}}">
                         </div>
                     </div>
                    <!-- Modal footer -->

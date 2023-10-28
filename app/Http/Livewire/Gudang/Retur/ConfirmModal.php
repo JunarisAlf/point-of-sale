@@ -69,6 +69,10 @@ class ConfirmModal extends Component {
                 ]);
                 foreach ($retur_details as  $detail) {
                     $retur->details()->create($detail);
+                    $item_stocks = Item::find($detail['item_id'])->stocks()->where('cabang_id', $cabang_id)->first();
+                    // Tambah stok di database
+                    $item_stocks->quantity += intval($detail['quantity']);
+                    $item_stocks->save();
                 }
             }
             DB::commit();

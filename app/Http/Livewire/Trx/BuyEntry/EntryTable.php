@@ -14,7 +14,7 @@ class EntryTable extends Component{
     protected $listeners = ['itemSubmit' => 'addItem'];
     public function addItem($item){
         try{
-            $index = array_search($item['id'], array_column($this->items, 'id'));
+            $index = custom_array_search($this->items, $item['id']);
             $itemName = Item::find($item['id'])->name;
             $item['name'] = $itemName;
             if($index !== false){
@@ -27,9 +27,8 @@ class EntryTable extends Component{
 
     }
     public function removeItem($id){
-        $index = array_search($id, array_column($this->items, 'id'));
+        $index = custom_array_search($this->items, $id);
         unset($this->items[$index]);
-        $this->items = array_values($this->items);
         $this->updateGrandPrice();
     }
 

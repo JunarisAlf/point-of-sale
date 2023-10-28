@@ -12,6 +12,10 @@ class MetaInfo extends Component{
     protected $listeners = ['grandPriceUpdate', 'validateMetaInfo', 'customerChange'];
     public function mount(){
         $this->customerSelect = Customer::all();
+        $this->metainfo = session()->get('metainfo');
+        $this->grand_price = @$this->metainfo['totalSum'];
+        $this->grand_discount = @$this->metainfo['totalDisc'];
+        $this->sub_total = @$this->metainfo['subTotal'];
     }
     public function customerChange($val){
         $this->customer_id = $val;
@@ -28,6 +32,7 @@ class MetaInfo extends Component{
             'subTotal'      => $val['subTotal'],
             'customer_id'   => $this->customer_id == null ? null : $this->customer_id
         ];
+        session()->put('metainfo', $this->metainfo, 10);
     }
     public function validateMetaInfo($items){
         $this->emit('openConfirmModal', ['metainfo' => $this->metainfo, 'items' => $items]);

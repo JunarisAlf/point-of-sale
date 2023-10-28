@@ -114,24 +114,30 @@
                                         </td>
                                         @if($stocks_count > 0)
                                             <td class="px-2 dark:text-zinc-100/80 text-center border-[1px]">
-                                                <div wire:click="$emit('openExpDateEditModal', {{$item->stocks[0]->id}})" class="inline p-1 bg-yellow-500 rounded-sm mr-2 cursor-pointer hover:bg-yellow-600 print:hidden">
-                                                    <span class="mdi mdi-calendar-edit text-white"></span>
-                                                </div>
-                                                {{Carbon\Carbon::parse($item->stocks[0]->expired_date)->format('d/m/Y ') }}
+                                                @if($user->role == 'master' || $user->role == 'gudang')
+                                                    <div wire:click="$emit('openExpDateEditModal', {{$item->stocks[0]->id}})" class="inline p-1 bg-yellow-500 rounded-sm mr-2 cursor-pointer hover:bg-yellow-600 print:hidden">
+                                                        <span class="mdi mdi-calendar-edit text-white"></span>
+                                                    </div>
+                                                @endif
+                                                {{$item->stocks[0]->expired_date != null ? Carbon\Carbon::parse($item->stocks[0]->expired_date)->format('d/m/Y ') : '-' }}
                                             </td>
                                             <td class="px-2 dark:text-zinc-100/80 text-center border-[1px]">
                                                 <div class="flex items-center dark:text-zinc-100/80">
                                                     @php
                                                         $diffMonth = Carbon\Carbon::parse($item->stocks[0]->expired_date)->diffInMonths()
                                                     @endphp
-                                                    @if ($diffMonth <= 1)
-                                                        <div class="h-2.5 w-2.5 rounded-full bg-red-500 ltr:mr-2 rtl:ml-2 print:hidden"></div>
-                                                    @elseif($diffMonth > 1 && $diffMonth < 3)
-                                                        <div class="h-2.5 w-2.5 rounded-full bg-yellow-500 ltr:mr-2 rtl:ml-2 print:hidden"></div>
-                                                    @elseif($diffMonth >= 3)
-                                                        <div class="h-2.5 w-2.5 rounded-full bg-green-500 ltr:mr-2 rtl:ml-2 print:hidden"></div>
+                                                    @if ($item->stocks[0]->expired_date != null)
+                                                        @if ($diffMonth <= 1)
+                                                            <div class="h-2.5 w-2.5 rounded-full bg-red-500 ltr:mr-2 rtl:ml-2 print:hidden"></div>
+                                                        @elseif($diffMonth > 1 && $diffMonth < 3)
+                                                            <div class="h-2.5 w-2.5 rounded-full bg-yellow-500 ltr:mr-2 rtl:ml-2 print:hidden"></div>
+                                                        @elseif($diffMonth >= 3)
+                                                            <div class="h-2.5 w-2.5 rounded-full bg-green-500 ltr:mr-2 rtl:ml-2 print:hidden"></div>
+                                                        @endif
+                                                        {{Carbon\Carbon::parse($item->stocks[0]->expired_date)->diffForHumans() }}
+                                                    @else
+                                                        -
                                                     @endif
-                                                    {{Carbon\Carbon::parse($item->stocks[0]->expired_date)->diffForHumans() }}
                                                 </div>
                                             </td>
                                             <td class=" dark:text-zinc-100/80 text-center border-[1px]">
@@ -153,24 +159,30 @@
                                             @for($i = 1; $i < $stocks_count; $i++)
                                                 </tr>
                                                     <td class="px-2 dark:text-zinc-100/80 text-center border-[1px]">
-                                                        <div wire:click="$emit('openExpDateEditModal', {{$item->stocks[$i]->id}})" class="inline p-1 bg-yellow-500 rounded-sm mr-2 cursor-pointer hover:bg-yellow-600 print:hidden">
-                                                            <span class="mdi mdi-calendar-edit text-white"></span>
-                                                        </div>
-                                                        {{Carbon\Carbon::parse($item->stocks[$i]->expired_date)->format('d/m/Y ') }}
+                                                        @if($user->role == 'master' || $user->role == 'gudang')
+                                                            <div wire:click="$emit('openExpDateEditModal', {{$item->stocks[$i]->id}})" class="inline p-1 bg-yellow-500 rounded-sm mr-2 cursor-pointer hover:bg-yellow-600 print:hidden">
+                                                                <span class="mdi mdi-calendar-edit text-white"></span>
+                                                            </div>
+                                                        @endif
+                                                        {{$item->stocks[$i]->expired_date != null ? Carbon\Carbon::parse($item->stocks[$i]->expired_date)->format('d/m/Y ') : '-' }}
                                                     </td>
                                                     <td class="px-2 dark:text-zinc-100/80 text-center border-[1px]">
                                                         <div class="flex items-center dark:text-zinc-100/80">
                                                             @php
                                                                 $diffMonth = Carbon\Carbon::parse($item->stocks[$i]->expired_date)->diffInMonths()
                                                             @endphp
-                                                            @if ($diffMonth <= 1)
-                                                                <div class="h-2.5 w-2.5 rounded-full bg-red-500 ltr:mr-2 rtl:ml-2 print:hidden"></div>
-                                                            @elseif($diffMonth > 1 && $diffMonth < 3)
-                                                                <div class="h-2.5 w-2.5 rounded-full bg-yellow-500 ltr:mr-2 rtl:ml-2 print:hidden"></div>
-                                                            @elseif($diffMonth >= 3)
-                                                                <div class="h-2.5 w-2.5 rounded-full bg-green-500 ltr:mr-2 rtl:ml-2 print:hidden"></div>
+                                                           @if ($item->stocks[$i]->expired_date != null)
+                                                                @if ($diffMonth <= 1)
+                                                                    <div class="h-2.5 w-2.5 rounded-full bg-red-500 ltr:mr-2 rtl:ml-2 print:hidden"></div>
+                                                                @elseif($diffMonth > 1 && $diffMonth < 3)
+                                                                    <div class="h-2.5 w-2.5 rounded-full bg-yellow-500 ltr:mr-2 rtl:ml-2 print:hidden"></div>
+                                                                @elseif($diffMonth >= 3)
+                                                                    <div class="h-2.5 w-2.5 rounded-full bg-green-500 ltr:mr-2 rtl:ml-2 print:hidden"></div>
+                                                                @endif
+                                                                {{Carbon\Carbon::parse($item->stocks[$i]->expired_date)->diffForHumans() }}
+                                                            @else
+                                                                -
                                                             @endif
-                                                            {{Carbon\Carbon::parse($item->stocks[$i]->expired_date)->diffForHumans() }}
                                                         </div>
                                                     </td>
                                                     <td class="dark:text-zinc-100/80 text-center border-[1px]">

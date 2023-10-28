@@ -55,7 +55,7 @@
             <span class="block w-full text-center font-bold text-sm">Tlp & WA: {{App\Models\KeyValue::where('key', 'toko_wa')->first()->value}}</span>
 
             <p class="totals"><span class="font-bold">Tanggal: </span> <span>{{Carbon\Carbon::parse($trx->date)->format('d-m-y H:i:s')}}</span></p>
-            <p><span class="font-bold">Kasur: </span> <span id="address">#{{$trx->user->id}} {{$trx->user->full_name}}</span></p>
+            <p><span class="font-bold">Kasir: </span> <span id="address">#{{$trx->user->id}} {{$trx->user->full_name}}</span></p>
             <p><span class="font-bold">Pelanggan: </span> <span id="address">{{$trx->customer?->name === null ? "-" : $trx->customer?->name}}</span></p>
         </div>
         <div class="items ">

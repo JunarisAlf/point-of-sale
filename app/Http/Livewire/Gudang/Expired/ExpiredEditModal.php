@@ -11,6 +11,8 @@ class ExpiredEditModal extends Component{
     public function openExpDateEditModal($id){
         $this->show = true;
         $this->data_id = $id;
+        $stockItem = StockItem::find($this->data_id);
+        $this->expired_date =  $stockItem->expired_date;
     }
     public function dateInputed($date){
         $this->expired_date = $date;

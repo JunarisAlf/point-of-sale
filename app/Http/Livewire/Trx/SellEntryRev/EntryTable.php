@@ -11,10 +11,13 @@ use Livewire\Component;
 
 class EntryTable extends Component{
     public $items = [];
-
     protected $listeners = ['itemSubmit' => 'addItem'];
+    public function mount(){
+        $this->items = session()->get('entry-item', [], 10);
+    }
+
     public function addItem($item){
-        $index = array_search($item['id'], array_column($this->items, 'id'));
+        $index = custom_array_search($this->items, $item['id']);
         $itemData = Item::find($item['id']);
         $item['name'] = $itemData->name;
         if($index !== false){
@@ -42,17 +45,18 @@ class EntryTable extends Component{
                 'converted_qty' => $converted_qty ,
                 'discount'      => $i['discount'],
                 'price'         => $price,
-                'total_price'   => ($price * $converted_qty) - $i['discount'],
+                'total_price'   => ($price * $converted_qty) - intval( $i['discount']),
                 'stock'         => $maxQuantity
             ];
         }, $this->items);
+        session()->put('entry-item', $this->items);
         $this->updateGrandPrice();
 
     }
     public function removeItem($id){
-        $index = array_search($id, array_column($this->items, 'id'));
+        $index = custom_array_search($this->items, $id);
         unset($this->items[$index]);
-        $this->items = array_values($this->items);
+        session()->put('entry-item', $this->items);
         $this->updateGrandPrice();
     }
 
@@ -70,6 +74,7 @@ class EntryTable extends Component{
     }
 
     public function store(){
+
         $this->emit('validateMetaInfo', $this->items);
     }
     public function render(){

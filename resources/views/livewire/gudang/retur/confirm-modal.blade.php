@@ -15,7 +15,7 @@
                    <div class="p-6 space-y-6 ltr:text-left rtl:text-right">
                         <bold>NOTE:</bold>
                         <p>Retur ke Supplier akan mengurangi stok di gudang sejumlah barang yang diretur.</p>
-                        <p>Sedangkan retur dari Pelanggan tidak berpengaruh ke stok</p>
+                        <p>Retur dari Pelanggan akan menambahkan stok di gudang sejumlah barang yang diretur.</p>
                    </div>
                    <!-- Modal footer -->
                    <div class="flex items-center p-5 gap-3 space-x-2 border-t rounded-b border-gray-50 dark:border-zinc-600">

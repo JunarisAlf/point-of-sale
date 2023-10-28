@@ -88,7 +88,7 @@
                         </li>
                     @endif
 
-                    @if ($user->role == 'master' || $user->role == 'finance')
+                    @if ($user->role == 'master' || $user->role == 'finance' || $user->role == 'admin')
                         <li>
                             <a href="{{route('admin.trx.debtList')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Daftar Hutang</a>
                         </li>
@@ -167,21 +167,25 @@
                             <span>Gudang</span>
                         </a>
                         <ul>
+                            @if ($user->role !== 'admin')
                             <li>
                                 <a href="{{route('admin.gudang.retur')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Retur</a>
                             </li>
                             <li>
                                 <a href="{{route('admin.gudang.returList')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Daftar Retur</a>
                             </li>
+                            @endif
                             <li>
-                                <a href="{{route('admin.gudang.stock')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Stok Barang</a>
+                                <a href="{{route('admin.gudang.stock')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Stok Barang dan Harga</a>
                             </li>
                             <li>
                                 <a href="{{route('admin.gudang.expired')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Expired Date</a>
                             </li>
+                            @if ($user->role !== 'admin')
                             <li>
                                 <a href="{{route('admin.gudang.stockOpname')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Stock Opname</a>
                             </li>
+                            @endif
                         @if ($user->role === 'master')
                             <li>
                                 <a href="{{route('admin.gudang.verifStockOpname')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Verifikasi Stock Opname</a>
@@ -190,7 +194,6 @@
                                 <a href="{{route('admin.gudang.manageItem')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Atur Barang</a>
                             </li>
                         @endif
-
                             <li>
                                 <a href="{{route('admin.gudang.transferStock')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Transfer Stok</a>
                             </li>

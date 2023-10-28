@@ -9,6 +9,7 @@ use Livewire\Component;
 class EntryTable extends Component{
     public $items = [];
     protected $listeners = ['itemSubmit' => 'addItem'];
+
     public function addItem($item){
         $index = array_search($item['id'], array_column($this->items, 'id'));
         $itemName = Item::find($item['id'])->name;

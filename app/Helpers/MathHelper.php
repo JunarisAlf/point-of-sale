@@ -10,3 +10,12 @@ function safeDivision($numerator, $denominator) {
         return 0;
     }
 }
+
+function custom_array_search($array, $searchValue) {
+    foreach ($array as $key => $value) {
+        if ($value['id'] == $searchValue) {
+            return $key;
+        }
+    }
+    return false;
+}
