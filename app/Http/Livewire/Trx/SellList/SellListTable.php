@@ -54,6 +54,9 @@ class SellListTable extends Component{
     public function openDetailModal($id){
         $this->emit('openDetailModal', $id);
     }
+    public function openDeleteModal($id){
+        $this->emit('openDeleteModal', $id);
+    }
     // cabang
     public $cabang_id;
     public $cabangSelect;

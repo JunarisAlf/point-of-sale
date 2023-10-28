@@ -5,6 +5,8 @@
 @section('HTML_Main')
    @livewire('trx.sell-list.sell-list-table', ['user' => $user])
    @livewire('trx.sell-list.sell-detail-modal')
+   @livewire('trx.sell-list.delete-sell-modal')
+
 @endsection
 
 @section('page_css')

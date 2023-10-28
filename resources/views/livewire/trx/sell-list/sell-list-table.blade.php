@@ -127,6 +127,9 @@
                                                 <div class="btn text-white bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 focus:bg-green-600 focus:border-green-600 focus:ring focus:ring-green-500/30 active:bg-green-600 active:border-green-600"><i class="mdi mdi-receipt-text-check-outline text-22 align-middle ltr:mr-1 rtl:ml-1 "></i>
                                                     <a class="align-middle" href="{{route('receipt', ['id' => $sell->id ])}}" target="_blank">Struk Belanja</a>
                                                 </div>
+                                                @if ($user->role == 'master')
+                                                    <button wire:click="openDeleteModal({{$sell->id}})" type="button" class="btn text-white bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 focus:bg-red-600 focus:border-red-600 focus:ring focus:ring-red-500/30 active:bg-red-600 active:border-red-600"><i class="mdi mdi-delete text-22 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Hapus</span></button>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>
