@@ -52,6 +52,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/daftar-penjualan-online',  [SellController::class, 'sellOnlineList'])->name('admin.trx.sellOnlineList');
         Route::get('/daftar-hutang',  [BuyController::class, 'debtList'])->name('admin.trx.debtList');
         Route::get('/daftar-piutang',  [SellController::class, 'piutangList'])->name('admin.trx.piutangList');
+        Route::get('/invoice-piutang/{id}',  [SellController::class, 'invoicePiutang'])->name('admin.trx.invoicePiutang');
+
     });
     Route::prefix('/cash')->group(function(){
         Route::get('/in-out', [CashController::class, 'inOut'])->name('admin.cash.inOut');

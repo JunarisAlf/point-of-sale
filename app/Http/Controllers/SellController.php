@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CustomerTrx;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -39,5 +40,11 @@ class SellController extends Controller{
             abort(403);
         }
         return view('admin.pages.trx.piutang-list', compact('user'));
+    }
+    public function invoicePiutang($id){
+        $user = Auth::user();
+        $piutang = CustomerTrx::findOrFail($id);
+        // dd($piutang);
+        return view('admin.pages.trx.piutang-invoice', compact('piutang', 'user'));
     }
 }

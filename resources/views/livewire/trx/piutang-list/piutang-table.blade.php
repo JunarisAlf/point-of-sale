@@ -77,9 +77,7 @@
                    <table id="tbl_exporttable_to_xls" class="w-full text-sm text-left text-gray-500 min-w-max" >
                        <thead class="text-xs text-gray-700 dark:text-gray-100 uppercase bg-gray-50/50 dark:bg-zinc-700">
                            <tr>
-                                <th scope="col" class="p-4 text-center">
-                                   Nomor
-                                </th>
+
                                 <th scope="col" class="px-6 py-3 text-center">
                                     Tanggal Pembelian
                                 </th>
@@ -118,9 +116,7 @@
                                        $tableNumber = ($page - 1) * $sells->perPage() + $loop->index + 1;
                                    @endphp
                                     <tr >
-                                        <td class="w-4 p-4 text-center border-[1px] ">
-                                            {{$tableNumber}}
-                                        </td>
+
                                         <td class="w-4 p-4 text-center border-[1px] ">
                                             <button type="button" class="btn text-gray-500 bg-gray-50 border-gray-50 hover:text-white hover:bg-gray-600 hover:border-gray-600 focus:text-white focus:bg-gray-600 focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 dark:bg-gray-500/20 dark:focus:ring-gray-500/10 dark:border-transparent w-full"> {{Carbon\Carbon::parse($sell->date)->format('d/m/Y H:i:s')}}</button>
                                         </td>
@@ -146,6 +142,7 @@
                                         <td class="w-4 p-4 text-center border-[1px] min-w-max print:hidden">
                                             <div class="flex flex-row gap-2">
                                                 <button wire:click="openDetailModal({{$sell->id}})" type="button" class="btn text-white bg-violet-500 border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600"><i class="mdi mdi-eye-outline text-22 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Detail</span></button>
+                                                <a target="_blank" href="{{route('admin.trx.invoicePiutang', ['id' => $sell->id ])}}" class="btn text-white bg-yellow-500 border-yellow-500 hover:bg-yellow-600 hover:border-yellow-600 focus:bg-yellow-600 focus:border-yellow-600 focus:ring focus:ring-yellow-500/30 active:bg-yellow-600 active:border-yellow-600"><i class="mdi mdi-receipt-text text-22 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Invoice</span></a>
                                                 @if ($user->role == 'master' || $user->role == 'finance')
                                                     <button  wire:click="$emit('openMarkPaidModal', {{$sell->id}})" type="button" class="btn text-white bg-green-500 border-green-500 hover:bg-green-600 hover:border-green-600 focus:bg-green-600 focus:border-green-600 focus:ring focus:ring-green-500/30 active:bg-green-600 active:border-green-600"><i class="mdi mdi-cash-check text-22 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Tandai Lunas</span></button>
                                                 @endif
