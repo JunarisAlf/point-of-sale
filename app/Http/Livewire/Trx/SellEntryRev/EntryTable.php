@@ -29,7 +29,9 @@ class EntryTable extends Component{
 
     }
     public function updatedItems(){
-        $this->items = array_map(function($i){
+        $errors = $this->getErrorBag();
+        $keys = array_keys($this->items);
+        $this->items = array_map(function($i, $key) use($errors){
             $converted_qty = $i['quantity'] * QtyConverter::find($i['satuan_id'])->quantity;
             $item = Item::find($i['id']);
             $multiprice = $item->prices()->where('quantity', '<=', $converted_qty)->orderByDesc('quantity')->first();
@@ -37,6 +39,9 @@ class EntryTable extends Component{
 
             $cabang_id = Auth::user()->cabang?->id == null ? 1 : Auth::user()->cabang->id;
             $maxQuantity = StockItem::where('item_id', $i['id'])->where('cabang_id', $cabang_id)->where('quantity', '>', 0)->sum('quantity');
+            if( $converted_qty >  $maxQuantity){
+                $errors->add('quantity-' . $key, 'Out Of Stock');
+            }
             return [
                 'id'            => $i['id'],
                 'name'          => $i['name'],
@@ -48,10 +53,9 @@ class EntryTable extends Component{
                 'total_price'   => ($price * $converted_qty) - intval( $i['discount']),
                 'stock'         => $maxQuantity
             ];
-        }, $this->items);
+        }, $this->items, $keys);
         session()->put('entry-item', $this->items);
         $this->updateGrandPrice();
-
     }
     public function removeItem($id){
         $index = custom_array_search($this->items, $id);
@@ -74,8 +78,13 @@ class EntryTable extends Component{
     }
 
     public function store(){
-
-        $this->emit('validateMetaInfo', $this->items);
+        $this->updatedItems();
+        $errors = $this->getErrorBag();
+        if($errors->isEmpty()){
+            $this->emit('validateMetaInfo', $this->items);
+        }else{
+            $this->emit('showDangerAlert', 'Out Of Stock!');
+        }
     }
     public function render(){
         return view('livewire.trx.sell-entry-rev.entry-table');

@@ -56,18 +56,17 @@
                                             <span class="text-pink-500 mt-2 text-lg">{{@$item['stock']}}</span>
                                         </td>
                                         <td class="w-[150px] border-[1px] text-center">
-                                            <div>
-                                                <input name="quantity"
-                                                    class="@error('quantity-{{ $key }}') border-red-500 @enderror w-[80px] rounded border-gray-100 placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:border-zinc-600 dark:bg-zinc-700/50 dark:text-zinc-100 dark:placeholder:text-zinc-100"
+                                            <div class="flex flex-col items-center justify-center">
+                                                <div>
+                                                    <input name="quantity"
+                                                    class="@error('quantity-'.$key) border-red-500 @enderror w-[80px] rounded border-gray-100 placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:border-zinc-600 dark:bg-zinc-700/50 dark:text-zinc-100 dark:placeholder:text-zinc-100"
                                                     wire:model="items.{{ $key }}.quantity" type="number"
                                                     min="1" max="{{@$item['stock']}}">
-                                                <span class="text-pink-500 font-bold text-lg pl-2">{{$item['converted_qty']}}</span>
-                                                @error('quantity-{{ $key }}')
-                                                    <i
-                                                        class='bx bx-error-circle absolute top-2 text-xl text-red-500 ltr:right-2 rtl:left-2'></i>
+                                                    <span class="text-pink-500 font-bold text-lg pl-2">{{$item['converted_qty']}}</span>
+                                                </div>
+                                                @error('quantity-' .$key)
+                                                    <span class="block text-red-500 text-md pl-2">Out Stock</span>
                                                 @enderror
-                                                <br>
-
                                             </div>
                                             @error('quantity-{{ $key }}')
                                                 <div class="mt-2 text-xs text-red-500">{{ $message }}</div>
