@@ -76,6 +76,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/verifikasi-stock-opname',  [ItemController::class, 'verifStockOpname'])->name('admin.gudang.verifStockOpname')->middleware('master');
         Route::get('/atur-barang',  [ItemController::class, 'manageItem'])->name('admin.gudang.manageItem')->middleware('master');
         Route::get('/transfer-stok',  [ItemController::class, 'transfer'])->name('admin.gudang.transferStock');
+        Route::get('/daftar-transfer-stock',  [ItemController::class, 'transferList'])->name('admin.gudang.transferList');
+
     });
 
     Route::prefix('/setting')->middleware('master')->group(function(){

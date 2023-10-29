@@ -28,5 +28,8 @@ class Item extends Model{
     public function qtyConverters(){
         return $this->hasMany(QtyConverter::class, 'item_id', 'id');
     }
+    public function transferStock(){
+        return $this->hasMany(TransferStock::class, 'item_id', 'id');
+    }
 }
 
