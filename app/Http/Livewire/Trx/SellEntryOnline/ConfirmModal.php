@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Trx\SellEntryOnline;
 
+use App\Models\Cash;
 use App\Models\CustomerTrx;
 use App\Models\OnlineTrx;
 use App\Models\StockItem;
@@ -69,7 +70,13 @@ class ConfirmModal extends Component {
                     }
                 });
             }
-
+            // Cash::create([
+            //     'cabang_id'     => $cabang_id,
+            //     'date'          => Carbon::now()->format('Y-m-d H:i:s'),
+            //     'flow'          => 'in',
+            //     'total'         => $customer_trx['total'],
+            //     'name'          => "Penjualan Online "
+            // ]);
             DB::commit();
             $this->emit('refreshPage');
             $this->emit('showSuccessAlert', 'Berhasil Menambahkan Data!');

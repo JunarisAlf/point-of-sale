@@ -2,9 +2,12 @@
 
 namespace App\Http\Livewire\Trx\PiutangList;
 
+use App\Models\Cash;
+use App\Models\Customer;
 use App\Models\CustomerTrx;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class MarkPaidModal extends Component{
@@ -22,15 +25,25 @@ class MarkPaidModal extends Component{
         }
     }
     public function markPaid($id){
+        DB::beginTransaction();
         try{
             $trx = CustomerTrx::find($id);
             $trx->is_paid = true;
             $trx->paid_date = Carbon::now()->format('Y-m-d H:i:s');
             $trx->save();
+            Cash::create([
+                'cabang_id'     => $trx->cabang_id,
+                'date'          => Carbon::now()->format('Y-m-d H:i:s'),
+                'flow'          => 'in',
+                'total'         => $trx->total,
+                'name'          => "Pelunasan dari Customer " . @Customer::find($trx->customer_id)->name
+            ]);
             $this->show = false;
+            DB::commit();
             $this->emit('showSuccessAlert', 'Berhasil Melakukan Pelunasan!');
             $this->emit('refresh_piutang_table');
         }catch(Exception $e){
+            DB::rollBack();
             $this->emit('showDangerAlert', 'Server ERROR!');
         }
     }

@@ -14,6 +14,20 @@ class CashController extends Controller{
         }
         return view('admin.pages.cash.in-out', compact('user'));
     }
+    public function cashIn(){
+        $user = Auth::user();
+        if(!Gate::any(['isMaster',  'isFinance', 'isAdmin'])){
+            abort(403);
+        }
+        return view('admin.pages.cash.cash-in', compact('user'));
+    }
+    public function cashOut(){
+        $user = Auth::user();
+        if(!Gate::any(['isMaster',  'isFinance', 'isAdmin'])){
+            abort(403);
+        }
+        return view('admin.pages.cash.cash-out', compact('user'));
+    }
     public function assets(){
         $user = Auth::user();
         if(!Gate::any(['isMaster',  'isFinance'])){

@@ -3,8 +3,11 @@
 namespace App\Http\Livewire\Trx\DebtList;
 
 use App\Models\Buy;
+use App\Models\Cash;
+use App\Models\Supplier;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class MarkPaidModal extends Component{
@@ -22,15 +25,25 @@ class MarkPaidModal extends Component{
         }
     }
     public function markPaid($id){
+        DB::beginTransaction();
         try{
             $buy = Buy::find($id);
             $buy->is_paid = true;
             $buy->paid_date = Carbon::now()->format('Y-m-d H:i:s');
             $buy->save();
+            Cash::create([
+                'cabang_id'     => $buy->cabang_id,
+                'date'          => Carbon::now()->format('Y-m-d H:i:s'),
+                'flow'          => 'out',
+                'total'         => $buy->details()->sum('grand_price'),
+                'name'          => "Pelunasan Ke Supplier " . @Supplier::find($buy->supplier_id)->name
+            ]);
             $this->show = false;
+            DB::commit();
             $this->emit('showSuccessAlert', 'Berhasil Melakukan Pelunasan!');
             $this->emit('refresh_debt_table');
         }catch(Exception $e){
+            DB::rollBack();
             $this->emit('showDangerAlert', 'Server ERROR!');
         }
     }

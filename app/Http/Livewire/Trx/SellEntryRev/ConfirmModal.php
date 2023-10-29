@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\Trx\SellEntryRev;
 
+use App\Models\Cash;
+use App\Models\Customer;
 use App\Models\CustomerTrx;
 use App\Models\StockItem;
 use Carbon\Carbon;
@@ -33,7 +35,8 @@ class ConfirmModal extends Component {
         $this->change = $this->pay - ($this->grand_total - $this->globalDisc) ;
     }
     public function store(){
-        $cabang_id = Auth::user()->cabang?->id == null ? 1 : Auth::user()->cabang->id;
+        // $cabang_id = Auth::user()->cabang?->id == null ? 1 : Auth::user()->cabang->id;
+        $cabang_id = Auth::user()->cabang->id;
         $customer_trx = [
             'customer_id'       => $this->customer_id,
             'cabang_id'         => $cabang_id,
@@ -85,7 +88,17 @@ class ConfirmModal extends Component {
                     }
                 });
             }
-
+            if($this->is_paid){
+                Cash::create([
+                    'cabang_id'     => $cabang_id,
+                    'date'          => Carbon::now()->format('Y-m-d H:i:s'),
+                    'flow'          => 'in',
+                    'total'         => $customer_trx['total'],
+                    'name'          => "Penjualan AN. " . @Customer::find(@$customer_trx['customer_id'])->name
+                ]);
+            }
+            session()->forget('entry-item');
+            session()->forget('metainfo');
             DB::commit();
             $this->emit('refreshPage', route('receipt', ['id' => $trx_elequent->id ]));
             $this->emit('showSuccessAlert', 'Berhasil Menambahkan Data!');

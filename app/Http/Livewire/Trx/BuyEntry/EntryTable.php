@@ -3,7 +3,9 @@
 namespace App\Http\Livewire\Trx\BuyEntry;
 
 use App\Models\Buy;
+use App\Models\Cash;
 use App\Models\Item;
+use App\Models\Supplier;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -52,6 +54,7 @@ class EntryTable extends Component{
                 'paid_date'         => $buyData['is_paid'] === "1" ? Carbon::now()->format('Y-m-d H:i:s') : null,
                 'is_arrived'        => $buyData['is_arrived']
             ]);
+            $total = 0;
             foreach ($this->items as $key => $item) {
                 $buy->details()->create([
                     'item_id'       => $item['id'],
@@ -61,7 +64,18 @@ class EntryTable extends Component{
                     'price'         => $item['price'],
                     'grand_price'   => $item['total_price']
                 ]);
+                $total += $item['total_price'];
             }
+            if($buyData['is_paid']){
+                Cash::create([
+                    'cabang_id'     => $buyData['cabang_id'],
+                    'date'          => Carbon::now()->format('Y-m-d H:i:s'),
+                    'flow'          => 'out',
+                    'total'         => $total,
+                    'name'          => "Pembelian Dari Supplier " . @Supplier::find(@$buyData['supplier_id'])->name
+                ]);
+            }
+
             DB::commit();
             session()->forget('buy');
             $this->reset('items');
