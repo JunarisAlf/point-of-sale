@@ -59,6 +59,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/in-out', [CashController::class, 'inOut'])->name('admin.cash.inOut');
         Route::get('/cash-in', [CashController::class, 'cashIn'])->name('admin.cash.cashIn');
         Route::get('/cash-out', [CashController::class, 'cashOut'])->name('admin.cash.cashOut');
+        Route::get('/setoran', [CashController::class, 'setoran'])->name('admin.cash.setoran');
+        Route::get('/setoran/{id}', [CashController::class, 'setoranDetail'])->name('admin.cash.setoranDetail');
         Route::get('/asset', [CashController::class, 'assets'])->name('admin.cash.assets');
     });
 

@@ -109,9 +109,9 @@
                             <span>Cash</span>
                         </a>
                         <ul>
-                            <li>
+                            {{-- <li>
                                 <a href="{{route('admin.cash.inOut')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Cash In/Out</a>
-                            </li>
+                            </li> --}}
                             <li>
                                 <a href="{{route('admin.cash.cashIn')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Cash In</a>
                             </li>
@@ -119,6 +119,9 @@
                                 <a href="{{route('admin.cash.cashOut')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Cash Out</a>
                             </li>
                             @if ($user->role == 'master' || $user->role == 'finance')
+                             <li>
+                                <a href="{{route('admin.cash.setoran')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Setoran</a>
+                            </li>
                             <li>
                                 <a href="{{route('admin.cash.assets')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Asset</a>
                             </li>

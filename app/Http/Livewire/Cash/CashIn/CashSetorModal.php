@@ -32,13 +32,14 @@ class CashSetorModal extends Component{
                 ->where('cabang_id', $this->cabang_id)
                 ->where('is_stor', false)
                 ->get();
-            $total_system = $details->where('flow', 'in')->sum('total') - $details->where('flow', 'out')->sum('total');
-            $datas = $details->toJson();
 
             $details->each(function ($item) {
                 $item->is_stor = true;
             });
             $details->each->save();
+
+            $total_system = $details->where('flow', 'in')->sum('total') - $details->where('flow', 'out')->sum('total');
+            $datas = $details->toJson();
 
             Deposit::create([
                 'cabang_id'     => $this->cabang_id ,

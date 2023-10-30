@@ -26,7 +26,7 @@ class BuyListTable extends Component{
         $this->resetPage();
         $this->data = $this->getData();
         $this->cabangSelect =  Cabang::all();
-
+        $this->dateRange['date'] =  Carbon::now();
         // dd($this->data->get());
     }
 
