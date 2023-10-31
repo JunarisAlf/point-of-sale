@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Gudang\Expired;
 use App\Models\Cabang;
 use App\Models\Category;
 use App\Models\Item;
+use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -29,6 +30,16 @@ class ExpiredTable extends Component{
         $this->mount();
     }
 
+    // CountDown
+    public $countdown = 0;
+    public $countDowns = [
+        ['name' => 'Semua Waktu', 'days'  => 0],
+        ['name' => '1 Minggu Akan Datang', 'days'  => 7],
+        ['name' => '1 Bulan Akan Datang', 'days'  => 30],
+        ['name' => '2 Bulan Akan Datang', 'days'  => 60],
+        ['name' => '3 Bulan Akan Datang', 'days'  => 90],
+        ['name' => '4 Bulan Akan Datang', 'days'  => 120],
+    ];
     public function mount(){
         $this->resetPage();
         $this->data = $this->getData();
@@ -71,19 +82,18 @@ class ExpiredTable extends Component{
         $cabangId = $this->cabang_id;
         $items =
             Item::
-                with(['stocks' => function($query) use ($cabangId){
-                    $query->where('cabang_id', $cabangId);
-                    // $query->where('quantity', '>', 0);
-                }])
-                ->whereHas('stocks', function($query) use ($cabangId){
-                    $query->where('cabang_id', $cabangId);
-                    // $query->where('quantity', '>', 0);
-                })
+                where('has_expired', true)
                 ->withSum(['stocks as quantity_sum' => function ($query) use ($cabangId) {
                     $query->where('cabang_id', $cabangId);
-                }], 'quantity')
-                ->where('has_expired', true);
-
+                }], 'quantity');
+        // countdown
+            $date = Carbon::now()->addDays(intval($this->countdown))->format('Y-m-d');
+            $items->with(['stocks' => function($query) use ($cabangId, $date){
+                $query->where('cabang_id', $cabangId);
+                if($this->countdown != 0){
+                    $query->whereDate('expired_date', '<=', $date);
+                }
+            }]);
         if($this->searchQuery !== null && $this->searchField !== null){
             $items->where($this->searchableField[$this->searchField]['value'], 'like', "%$this->searchQuery%");
         }
