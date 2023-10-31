@@ -83,6 +83,7 @@ class ExpiredTable extends Component{
                     $query->where('cabang_id', $cabangId);
                 }], 'quantity')
                 ->where('has_expired', true);
+
         if($this->searchQuery !== null && $this->searchField !== null){
             $items->where($this->searchableField[$this->searchField]['value'], 'like', "%$this->searchQuery%");
         }

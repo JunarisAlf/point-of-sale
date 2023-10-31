@@ -81,8 +81,8 @@ class SellListTable extends Component{
         $sells
             ->with(['details'])
             ->where('cabang_id', $cabangId)
-            ->where('note', 'LIKE', "%$keyword%");
-
+            ->where('note', 'LIKE', "%$keyword%")
+            ->orWhere('jenis', 'LIKE', "%$keyword%");
         //date
         if(isset($this->dateRange['date']) ){
             $sells->whereDate(DB::raw('DATE(date)'), $this->dateRange['date']);

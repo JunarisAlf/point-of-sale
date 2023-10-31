@@ -65,13 +65,12 @@
                             <a href="{{route('admin.trx.sellList')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Daftar Penjualan</a>
                         </li>
                     @endif
-                    @if ($user->role == 'master' || $user->role == 'finance')
-                        @if ($user->role == 'master')
+                    @if ($user->role == 'master' || $user->role == 'finance' || $user->role == 'gudang')
+                        @if ($user->role == 'master' || $user->role == 'gudang')
                         <li>
                             <a href="{{route('admin.trx.sellEntryOnline')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Entry Penjualan Online</a>
                         </li>
                         @endif
-
                         <li>
                             <a href="{{route('admin.trx.sellOnlineList')}}"  class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Daftar Penjualan Online</a>
                         </li>

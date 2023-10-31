@@ -7,7 +7,8 @@ use App\Models\Customer;
 use Livewire\Component;
 
 class MetaInfo extends Component{
-    public $cabangSelect, $cabang_id, $note, $is_paid;
+    public $user;
+    public $cabangSelect, $cabang_id, $note, $jenis;
     public $grand_price, $grand_discount, $sub_total;
     public $metainfo;
     protected $listeners = ['grandPriceUpdate', 'validateMetaInfo', 'customerChange'];
@@ -17,13 +18,15 @@ class MetaInfo extends Component{
     public function updatedNote(){
         session()->put('note', $this->note);
     }
+    public function updatedJenis(){
+        session()->put('jenis', $this->jenis);
+    }
     public function updatedCabangId(){
         $this->emit('cabangChange', $this->cabang_id);
         session()->put('cabang_id', $this->cabang_id);
     }
     public function grandPriceUpdate($val){
         $this->grand_price = $val['totalSum'];
-
         $this->metainfo = [
             'totalSum'      => $val['totalSum'],
         ];

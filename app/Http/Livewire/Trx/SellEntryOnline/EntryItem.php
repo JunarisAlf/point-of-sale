@@ -40,9 +40,9 @@ class EntryItem extends Component{
     }
     public function updatedQuantity(){
         $satuan_qty = QtyConverter::find($this->qtyAlias_id)->quantity;
-        $this->converted_qty = $this->quantity * $satuan_qty;
+        $this->converted_qty = intval($this->quantity) * $satuan_qty;
 
-        $this->total_price = $this->price * $this->quantity;
+        $this->total_price = intval($this->price) * intval($this->quantity);
         $this->dispatchBrowserEvent('total_price-updated');
     }
     public function updatedQtyAliasId(){

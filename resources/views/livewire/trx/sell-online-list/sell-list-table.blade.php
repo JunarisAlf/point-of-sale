@@ -69,6 +69,9 @@
                                     Tanggal Pembelian
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
+                                    Jenis
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-center">
                                    Keterangan
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
@@ -98,6 +101,9 @@
                                             <button type="button" class="btn text-gray-500 bg-gray-50 border-gray-50 hover:text-white hover:bg-gray-600 hover:border-gray-600 focus:text-white focus:bg-gray-600 focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 dark:bg-gray-500/20 dark:focus:ring-gray-500/10 dark:border-transparent w-full"> {{Carbon\Carbon::parse($sell->date)->format('d/m/Y H:i:s')}}</button>
                                         </td>
                                         <td class="w-4 p-4 text-center border-[1px] ">
+                                            {{$sell->jenis}}
+                                        </td>
+                                        <td class="w-4 p-4  border-[1px] ">
                                             {{$sell->note}}
                                         </td>
                                         <td class="w-4 p-4 text-center border-[1px] ">

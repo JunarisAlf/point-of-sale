@@ -28,10 +28,12 @@ class ConfirmModal extends Component {
         $online_trx = [
             'cabang_id'         => $cabang_id,
             'user_id'           => Auth::user()->id,
+            'jenis'             => session()->get('jenis', '-'),
             'note'              => session()->get('note', '-'),
             'date'              => Carbon::now()->format('Y-m-d H:i:s'),
             'total'             => $this->grand_total ,
         ];
+        session()->forget(['jenis', 'note']);
         $trx_details = [];
         foreach ($this->items as $key => $item) {
             array_push($trx_details, [

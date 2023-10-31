@@ -18,10 +18,14 @@
                         <select name="cabang_id"
                             class="@error('cabang_id') border-red-500 @enderror w-full rounded border-gray-100 p-2.5 text-sm text-gray-500 focus:border focus:border-violet-500 focus:ring-0 dark:border-zinc-700 dark:bg-zinc-800 dark:bg-zinc-700/50 dark:text-zinc-100"
                             wire:model="cabang_id">
-                            <option selected>Pilih Cabang</option>
-                            @foreach ($cabangSelect as $cabang)
-                                <option value="{{$cabang->id}}">{{$cabang->name}}</option>
-                            @endforeach
+                            @if ($user->role === 'master')
+                                <option selected>Pilih Cabang</option>
+                                @foreach ($cabangSelect as $cabang)
+                                    <option  value="{{$cabang->id}}">{{$cabang->name}}</option>
+                                @endforeach
+                                @else
+                                    <option  selected value="{{$user->cabang->id}}">{{$user->cabang->name}}</option>
+                            @endif
                         </select>
                         @error('cabang_id')
                             <div class="mt-2 text-xs text-red-500">{{ $message }}</div>
@@ -31,11 +35,31 @@
 
                 <div class="col-span-2  items-center ">
                     <label for="example-text-input"
+                        class="mb-2 block font-medium text-gray-700 dark:text-gray-100">Jenis Penjualan</label>
+                    <div class="relative">
+                        <select name="jenis"
+                            class="@error('jenis') border-red-500 @enderror w-full rounded border-gray-100 p-2.5 text-sm text-gray-500 focus:border focus:border-violet-500 focus:ring-0 dark:border-zinc-700 dark:bg-zinc-800 dark:bg-zinc-700/50 dark:text-zinc-100"
+                            wire:model="jenis">
+                                <option selected value="-">-- Pilih Jenis --</option>
+                                <option value="SHOPEE">SHOPEE</option>
+                                <option value="TOKOPEDIA">TOKOPEDIA</option>
+                                <option value="LAZADA">LAZADA</option>
+                                <option value="TIKTOK SHOP">TIKTOK SHOP</option>
+                                <option value="LAINNYA">LAINNYA</option>
+                        </select>
+                    </div>
+                    @error('jenis')
+                        <div class="mt-2 text-xs text-red-500">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="col-span-2  items-center ">
+                    <label for="example-text-input"
                         class="mb-2 block font-medium text-gray-700 dark:text-gray-100">Keterangan</label>
                     <div class="relative">
                         <input name="note"
                             class="@error('note') border-red-500 @enderror w-full rounded border-gray-100 placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:border-zinc-600 dark:bg-zinc-700/50 dark:text-zinc-100 dark:placeholder:text-zinc-100"
-                            wire:model="note" type="text">
+                            wire:model="note" type="text" placeholder="Faktur/Invoice/Resi">
                         @error('note')
                             <i class='bx bx-error-circle absolute top-2 text-xl text-red-500 ltr:right-2 rtl:left-2'></i>
                         @enderror

@@ -3,7 +3,7 @@
 @section('menu_title', 'Tambah Penjualan Online')
 
 @section('HTML_Main')
-    @livewire('trx.sell-entry-online.meta-info')
+    @livewire('trx.sell-entry-online.meta-info', ['user' => $user])
     @livewire('trx.sell-entry-online.entry-item')
     @livewire('trx.sell-entry-online.entry-table')
     @livewire('trx.sell-entry-online.confirm-modal')
@@ -27,18 +27,18 @@
                         element.addEventListener('wheel', handleHorizontalScroll, { passive: false });
                     }
                 },
-               
+
                 disableHorizontalScroll(element) {
                     element.removeEventListener('wheel', this.handleHorizontalScroll);
                 },
-                
+
             }));
         })
-        
+
     </script>
 @endsection
 @section('page_script')
-    
+
     <!-- form mask -->
     <script src="{{asset('mania/libs/imask/imask.min.js')}}"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>
@@ -47,9 +47,9 @@
         Livewire.on('refreshPage', function (url) {
             setTimeout(function () {
                 location.reload();
-            }, 200); 
+            }, 200);
         });
-     
+
         //  Customer
         $(document).ready(function() {
             $('#customer-select').select2({

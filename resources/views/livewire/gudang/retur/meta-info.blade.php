@@ -23,13 +23,13 @@
                         <select name="cabang_id"
                             class="@error('cabang_id') border-red-500 @enderror w-full rounded border-gray-100 p-2.5 text-sm text-gray-500 focus:border focus:border-violet-500 focus:ring-0 dark:border-zinc-700 dark:bg-zinc-800 dark:bg-zinc-700/50 dark:text-zinc-100"
                             wire:model="cabang_id">
-                            <option selected>Pilih Cabang</option>
                                 @if ($user->role === 'master')
+                                    <option selected>Pilih Cabang</option>
                                     @foreach ($cabangSelect as $cabang)
                                         <option  value="{{$cabang->id}}">{{$cabang->name}}</option>
                                     @endforeach
                                 @else
-                                    <option  selecdted value="{{$user->cabang->id}}">{{$user->cabang->name}}</option>
+                                    <option  selected value="{{$user->cabang->id}}">{{$user->cabang->name}}</option>
                                 @endif
                         </select>
                         @error('cabang_id')
@@ -44,7 +44,7 @@
                     <div class="relative">
                         <input name="note"
                             class="@error('note') border-red-500 @enderror w-full rounded border-gray-100 placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:border-zinc-600 dark:bg-zinc-700/50 dark:text-zinc-100 dark:placeholder:text-zinc-100"
-                            wire:model="note" type="text">
+                            wire:model="note" type="text" placeholder="Nama Supplier/Pelanggan - Invoice/Faktur">
                         @error('note')
                             <i class='bx bx-error-circle absolute top-2 text-xl text-red-500 ltr:right-2 rtl:left-2'></i>
                         @enderror

@@ -31,8 +31,8 @@
                                         <td class="w-4 p-4 text-center border-[1px] ">
                                             {{$key+1}}
                                         </td>
-                                        <td class="w-4 p-4 text-center border-[1px] ">
-                                            {{$item['name']}}
+                                        <td class="w-4 p-4  border-[1px] ">
+                                            {{App\Models\Item::find($item['id'])->barcode}} - {{$item['name']}}
                                         </td>
 
                                         <td class="w-4 p-4 text-center border-[1px] ">
