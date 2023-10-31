@@ -39,7 +39,7 @@
                         </select>
                     </div>
 
-                    <div class="mb-4 col-span-1 md:col-span-6" x-data='opt'>
+                    <div class="mb-4 col-span-1 md:col-span-4" x-data='opt'>
                         <div class="mb-3 @if($item_id == null && $quantity  == null) opacity-70 pointer-events-none @endif">
                             <label class="mb-2 block font-medium text-gray-700 dark:text-zinc-100">Harga</label>
                             <div class="relative rounded  @error('total_price') border-red-500 border-[0.5px]  @enderror">
@@ -56,7 +56,7 @@
                         </div>
                     </div>
 
-                    <div class="mb-4 col-span-1  md:col-span-6 opacity-70">
+                    <div class="mb-4 col-span-1  md:col-span-4 opacity-70">
                         <label for="example-text-input" class="block font-medium text-gray-700 dark:text-gray-100 mb-2">Modal Satuan</label>
                         <div class="relative">
                             <input disabled name="price" class="w-full rounded border-gray-100 @error('price') border-red-500 @enderror placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:bg-zinc-700/50 dark:border-zinc-600 dark:placeholder:text-zinc-100 dark:text-zinc-100" wire:model="price" type="text" >
@@ -65,6 +65,17 @@
                             @enderror
                         </div>
                         @error('price')
+                            <div class="text-xs text-red-500 mt-2">{{$message}}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-4 col-span-1  md:col-span-4 opacity-70">
+                        <label for="example-text-input" class="block font-medium text-gray-700 dark:text-gray-100 mb-2">Expired Date</label>
+                        <div class="relative">
+                            <input {{$has_exp ? '' : 'disabled'}} name="exp_date" class="w-full rounded border-gray-100 @error('exp_date') border-red-500 @enderror placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:bg-zinc-700/50 dark:border-zinc-600 dark:placeholder:text-zinc-100 dark:text-zinc-100" wire:model="exp_date" type="date" >
+
+                        </div>
+                        @error('exp_date')
                             <div class="text-xs text-red-500 mt-2">{{$message}}</div>
                         @enderror
                     </div>

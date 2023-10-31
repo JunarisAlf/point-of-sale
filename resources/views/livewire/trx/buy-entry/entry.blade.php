@@ -12,52 +12,50 @@
                     <input wire:model='date' class="w-full rounded border-gray-100 placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:bg-zinc-700/50 dark:border-zinc-600 dark:text-zinc-100" type="datetime-local" id="example-date-input">
                 </div>
 
-                <div class="col-span-1 items-center ">
-                    <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Cabang</label>
-                    <select id="countries" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" wire:model="cabang_id">
-                        <option  value="" selected>Pilih Cabang</option>
-                        @foreach ($cabangs as $cabang)
-                            <option  value="{{$cabang->id}}">{{$cabang->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="col-span-1 items-center " wire:ignore>
-                    <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Supplier</label>
-                    <select id="supplier-select"  class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" wire:model="supplier_id">
-                        <option  value="" selected>Pilih Supplier</option>
-                        @foreach ($suppliers as $supplier)
-                            <option  value="{{$supplier->id}}">{{$supplier->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="col-span-1 items-center">
-                    <label for="example-text-input" class="block font-medium text-gray-700 dark:text-gray-100 mb-2">Catatan</label>
-                    <div class="relative">
-                        <input name="note" class="w-full rounded border-gray-100 @error('note') border-red-500 @enderror placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:bg-zinc-700/50 dark:border-zinc-600 dark:placeholder:text-zinc-100 dark:text-zinc-100" wire:model="note" type="text" placeholder="catatan/nota/faktur">
-                        @error('note')
-                            <i class='bx bx-error-circle absolute text-xl text-red-500 ltr:right-2 rtl:left-2 top-2'></i>
-                        @enderror
+                <div class="col-span-1 grid grid-cols-1 sm:grid-cols-2 flex flex-row gap-8">
+                    <div class="col-span-1 items-center ">
+                        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Cabang</label>
+                        <select id="countries" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" wire:model="cabang_id">
+                            <option  value="" selected>Pilih Cabang</option>
+                            @foreach ($cabangs as $cabang)
+                                <option  value="{{$cabang->id}}">{{$cabang->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
-                    @error('note')
-                        <div class="text-xs text-red-500 mt-2">{{$message}}</div>
-                    @enderror
+
+                    <div class="col-span-1 items-center " wire:ignore>
+                        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Supplier</label>
+                        <select id="supplier-select"  class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" wire:model="supplier_id">
+                            <option  value="" selected>Pilih Supplier</option>
+                            @foreach ($suppliers as $supplier)
+                                <option  value="{{$supplier->id}}">{{$supplier->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
+
+
+
 
                 <div class="col-span-1 grid grid-cols-1 sm:grid-cols-2 flex flex-row gap-8">
+                    <div class="col-span-1 items-center">
+                        <label for="example-text-input" class="block font-medium text-gray-700 dark:text-gray-100 mb-2">Catatan</label>
+                        <div class="relative">
+                            <input name="note" class="w-full rounded border-gray-100 @error('note') border-red-500 @enderror placeholder:text-sm focus:border focus:border-violet-500 focus:ring-0 dark:bg-zinc-700/50 dark:border-zinc-600 dark:placeholder:text-zinc-100 dark:text-zinc-100" wire:model="note" type="text" placeholder="catatan/nota/faktur">
+                            @error('note')
+                                <i class='bx bx-error-circle absolute text-xl text-red-500 ltr:right-2 rtl:left-2 top-2'></i>
+                            @enderror
+                        </div>
+                        @error('note')
+                            <div class="text-xs text-red-500 mt-2">{{$message}}</div>
+                        @enderror
+                    </div>
+
                     <div class="col-span-1 items-center ">
                         <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Pembayaran</label>
                         <select id="countries" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" wire:model="is_paid">
                             <option  value="1">Lunas</option>
                             <option  value="0" >Terhutang</option>
-                        </select>
-                    </div>
-
-                    <div class="col-span-1 items-center ">
-                        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Status Barang</label>
-                        <select id="countries" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" wire:model="is_arrived">
-                            <option  value="0" >Belum Tiba</option>
                         </select>
                     </div>
                 </div>

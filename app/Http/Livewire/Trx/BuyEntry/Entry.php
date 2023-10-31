@@ -10,11 +10,11 @@ use Livewire\Component;
 class Entry extends Component{
     public $suppliers = [], $supplier_id;
     public $cabangs = [], $cabang_id;
-    public $is_paid = 0, $is_arrived = 0;
+    public $is_paid = 0, $is_arrived = 1;
     public $date, $grand_price = 0, $note;
     protected $listeners = ['grandPriceUpdate', 'submited', 'supplierChange'];
     public function submited(){
-        $this->reset();
+        $this->resetExcept('cabang', 'date');
     }
     public function grandPriceUpdate($val){
         $this->grand_price = $val;

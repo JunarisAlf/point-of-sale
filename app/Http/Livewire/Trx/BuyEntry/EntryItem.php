@@ -10,7 +10,7 @@ use Livewire\Component;
 class EntryItem extends Component {
     public $items = [];
     public $item_id, $price, $quantity, $total_price;
-    public  $qtyAliases = [], $qtyAlias_id, $converted_qty;
+    public  $qtyAliases = [], $qtyAlias_id, $converted_qty, $has_exp = false, $exp_date;
 
     protected $listeners = ['itemChange'];
     public function itemChange($id){
@@ -19,6 +19,7 @@ class EntryItem extends Component {
             $this->qtyAliases = QtyConverter::where('item_id', $id)->orderBy('quantity', 'ASC')->get();
             $this->qtyAlias_id = $this->qtyAliases?->first()?->id;
             $this->quantity = 1;
+            $this->has_exp = Item::find($id)->has_expired == 1 ? true : false;
             $this->getConvertedQty();
             $this->getPrice();
         }catch(\Exception $e){}
@@ -27,7 +28,7 @@ class EntryItem extends Component {
         // convert the qty
         try{
             $satuan_qty = QtyConverter::find($this->qtyAlias_id)->quantity;
-            $this->converted_qty = $this->quantity * $satuan_qty;
+            $this->converted_qty = intval($this->quantity) * $satuan_qty;
             $price = safeDivision($this->total_price, $this->converted_qty) ;
             $this->price = "Rp. " . number_format($price, 0, ',', '.');
         }catch(\Exception $e){}
@@ -56,13 +57,30 @@ class EntryItem extends Component {
         $this->getPrice();
     }
     public function submit(){
+        if($this->has_exp){
+            $this->validate([
+                'item_id'       => 'required',
+                'quantity'      => 'required',
+                'qtyAlias_id'   => 'required',
+                'total_price'   => 'required',
+                'exp_date'      => 'required'
+            ]);
+        }else{
+            $this->validate([
+                'item_id'       => 'required',
+                'quantity'      => 'required',
+                'qtyAlias_id'   => 'required',
+                'total_price'   => 'required',
+            ]);
+        }
         $item = [
             'id'            => $this->item_id,
             'converted_qty' => $this->converted_qty,
             'satuan_id'     => $this->qtyAlias_id,
             'quantity'      => $this->quantity,
             'total_price'   => $this->total_price,
-            'price'         => safeDivision($this->total_price, $this->converted_qty)
+            'price'         => safeDivision($this->total_price, $this->converted_qty),
+            'expired_date'  => $this->exp_date
         ];
         $this->emit('itemSubmit', $item);
         $this->dispatchBrowserEvent('itemSubmited');

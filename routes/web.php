@@ -46,7 +46,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/tambah-penjualan-old',  [SellController::class, 'entrySellOld'])->name('admin.trx.sellEntryOld')->middleware('admin');
         Route::get('/print/receipt',  [PrintController::class, 'receipt'])->name('receipt');
         Route::get('/daftar-penjualan',  [SellController::class, 'sellList'])->name('admin.trx.sellList');
-        Route::get('/tambah-pembelian',  [BuyController::class, 'entryBuy'])->name('admin.trx.buyEntry')->middleware('master');
+        Route::get('/tambah-pembelian',  [BuyController::class, 'entryBuy'])->name('admin.trx.buyEntry');
         Route::get('/daftar-pembelian',  [BuyController::class, 'buyList'])->name('admin.trx.buyList');
         Route::get('/tambah-penjualan-online',  [SellController::class, 'entrySellOnline'])->name('admin.trx.sellEntryOnline')->middleware('master');
         Route::get('/daftar-penjualan-online',  [SellController::class, 'sellOnlineList'])->name('admin.trx.sellOnlineList');
@@ -66,9 +66,9 @@ Route::middleware('auth')->group(function(){
 
     Route::prefix('/master-data')->middleware('master')->group(function(){
         Route::get('/cabang',  [CabangController::class, 'index'])->name('admin.master.cabang');
-        Route::get('/kategory',  [CategoryController::class, 'index'])->name('admin.master.category');
-        Route::get('/barang',  [ItemController::class, 'index'])->name('admin.master.item');
-        Route::get('/harga-multi',  [ItemController::class, 'multiPrice'])->name('admin.master.multiPrice');
+        Route::get('/kategory',  [CategoryController::class, 'index'])->name('admin.master.category')->withoutMiddleware('master');
+        Route::get('/barang',  [ItemController::class, 'index'])->name('admin.master.item')->withoutMiddleware('master');
+        Route::get('/harga-multi',  [ItemController::class, 'multiPrice'])->name('admin.master.multiPrice')->withoutMiddleware('master');
         Route::get('/supplier',  [SupplierController::class, 'index'])->name('admin.master.supplier')->withoutMiddleware('master');
         Route::get('/pelanggan',  [CustomerController::class, 'index'])->name('admin.master.customer')->withoutMiddleware('master');
     });
