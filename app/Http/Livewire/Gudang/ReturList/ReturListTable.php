@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Gudang\ReturList;
 
-use App\Models\Buy;
 use App\Models\Cabang;
 use App\Models\Retur;
 use Carbon\Carbon;
@@ -16,7 +15,7 @@ class ReturListTable extends Component{
     public $type = 'ke-supplier';
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
-    protected $listeners = ['refresh_buy_table' => 'mount', 'dateRangeChange'];
+    protected $listeners = ['refresh_retur_table' => 'mount', 'dateRangeChange'];
 
 
     public $paginate_count = 50, $data_count;

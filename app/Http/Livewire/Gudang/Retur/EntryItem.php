@@ -31,7 +31,7 @@ class EntryItem extends Component{
 
     public function updatedQuantity(){
         $satuan_qty = QtyConverter::find($this->qtyAlias_id)->quantity;
-        $this->converted_qty = $this->quantity * $satuan_qty;
+        $this->converted_qty = intval( $this->quantity) * $satuan_qty;
     }
     public function updatedQtyAliasId(){
         $this->updatedQuantity();
@@ -41,16 +41,25 @@ class EntryItem extends Component{
         if($type == 'ke-supplier'){
             $this->validate([
                 'quantity'      => 'required|integer|min:1|max:' . $this->maxQuantity,
+                'item_id'       => 'required|exists:items,id'
             ]);
+            $harga = Item::find($this->item_id)->stocks()->where('cabang_id', $this->cabang_id)->first()->buying_price;
+            $harga_total = $harga * intval($this->converted_qty);
+        }else{
+            $this->validate([
+                'item_id'       => 'required|exists:items,id',
+            ]);
+            $harga = Item::find($this->item_id)->selling_price;
+            $harga_total = $harga * intval($this->converted_qty);
         }
-        $this->validate([
-            'item_id'       => 'required|exists:items,id',
-        ]);
+
         $item = [
             'id'            => $this->item_id,
             'converted_qty' => $this->converted_qty,
             'satuan_id'     => $this->qtyAlias_id,
             'quantity'      => $this->quantity,
+            'harga'         => $harga,
+            'harga_total'   => $harga_total
         ];
         $this->emit('itemSubmit', $item);
         $this->dispatchBrowserEvent('itemSubmited');

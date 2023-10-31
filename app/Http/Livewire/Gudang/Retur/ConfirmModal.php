@@ -30,7 +30,9 @@ class ConfirmModal extends Component {
         foreach($this->items as $item){
             array_push($retur_details, [
                 'item_id'   => $item['id'],
-                'quantity'  => $item['converted_qty']
+                'quantity'  => $item['converted_qty'],
+                'harga'     => $item['harga'],
+                'harga_total' => $item['harga_total']
             ]);
         }
         DB::beginTransaction();
@@ -40,7 +42,9 @@ class ConfirmModal extends Component {
                 $retur = Retur::create([
                     'cabang_id'     => $cabang_id,
                     'type'          => $type,
-                    'note'          => session()->get('note')
+                    'note'          => session()->get('note'),
+                    'supplier_id'   => session()->get('supplier_id'),
+                    'customer_id'   => null
                 ]);
                 foreach ($retur_details as  $detail) {
                     $retur->details()->create($detail);
@@ -59,13 +63,13 @@ class ConfirmModal extends Component {
                         }
                     }
                 }
-
-            }
-            elseif($type == 'dari-customer'){
+            } elseif($type == 'dari-customer'){
                 $retur = Retur::create([
                     'cabang_id'     => $cabang_id,
                     'type'          => $type,
-                    'note'          => session()->get('note')
+                    'note'          => session()->get('note'),
+                    'supplier_id'   => null,
+                    'customer_id'   => session()->get('customer_id')
                 ]);
                 foreach ($retur_details as  $detail) {
                     $retur->details()->create($detail);
@@ -76,11 +80,12 @@ class ConfirmModal extends Component {
                 }
             }
             DB::commit();
+            session()->forget('supplier_id', 'customer_id', 'note');
             $this->emit('refreshPage');
             $this->emit('showSuccessAlert', 'Berhasil Menambahkan Data Retur!');
         } catch (Exception $e) {
-            DB::rollBack();
             dd($e);
+            DB::rollBack();
             $this->emit('showDangerAlert', 'Server ERROR!');
         }
     }

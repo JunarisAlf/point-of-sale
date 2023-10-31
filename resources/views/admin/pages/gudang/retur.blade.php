@@ -50,17 +50,6 @@
             }, 200);
         });
 
-        //  Customer
-        $(document).ready(function() {
-            $('#customer-select').select2({
-                width: '100%'
-            });
-        });
-        $('#customer-select').on('change', function() {
-            let selectedValue = $(this).val();
-            console.log(selectedValue)
-            Livewire.emit('customerChange', selectedValue)
-        });
 
         //  Item
         $(document).ready(function() {

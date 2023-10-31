@@ -112,11 +112,9 @@
                                 <th scope="col" class="px-6 py-3 text-center">
                                     Stock
                                 </th>
-                                @if ($user == 'master' || $user == 'gudang')
                                 <th scope="col" class="px-6 py-3 text-center">
                                     Modal
                                 </th>
-                                @endif
                                 <th scope="col" class="px-6 py-3 text-center">
                                     Harga Jual
                                 </th>

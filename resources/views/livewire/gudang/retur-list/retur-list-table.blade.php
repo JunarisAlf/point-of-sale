@@ -54,8 +54,17 @@
                                     Jenis
                                 </th>
                                 <th scope="col" class="p-4 text-center">
-                                   Catatan
+                                    Supplier/Customer
+                                 </th>
+                                <th scope="col" class="p-4 text-center">
+                                   Keterangan
                                 </th>
+                                <th scope="col" class="p-4 text-center">
+                                    Item
+                                </th>
+                                <th scope="col" class="p-4 text-center">
+                                    Total
+                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
                                    Tanggal
                                 </th>
@@ -87,7 +96,29 @@
                                             @endif
                                         </td>
                                         <td class="w-4 p-4 text-center border-[1px] ">
+
+                                            @if($retur->type == 'ke-supplier')
+                                                {{@$retur->supplier->name}}
+                                            @else
+                                                {{@$retur->customer->name}}
+                                            @endif
+                                        </td>
+                                        <td class="w-4 p-4  border-[1px] ">
                                             {{$retur->note}}
+                                        </td>
+                                        <td class="w-[200px]  p-4 pl-6 border-[1px] text-xs">
+                                            <ul class="list-disc">
+                                                @foreach ($retur->details as $detail)
+                                                    <li>
+                                                        <span class="font-bold">{{$detail->quantity}}X</span>
+                                                        {{$detail->item->barcode}} - {{$detail->item->name}}
+                                                        <span class="font-bold"> [Rp. {{number_format($detail->harga)}}]</span>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
+                                        <td class="w-4 p-4  border-[1px] ">
+                                            Rp. {{number_format($retur->details->sum('harga_total'))}}
                                         </td>
                                         <td class="w-4 p-4 text-center border-[1px] ">
                                             <button type="button" class="btn text-gray-500 bg-gray-50 border-gray-50 hover:text-white hover:bg-gray-600 hover:border-gray-600 focus:text-white focus:bg-gray-600 focus:border-gray-600 focus:ring focus:ring-gray-500/30 active:bg-gray-600 active:border-gray-600 dark:bg-gray-500/20 dark:focus:ring-gray-500/10 dark:border-transparent w-full"> {{Carbon\Carbon::parse($retur->created_at)->format('d/m/Y H:i')}}</button>
@@ -96,11 +127,9 @@
                                             {{$retur->cabang->name}}
                                         </td>
 
-
-
                                         <td class="w-4 p-4 text-center border-[1px] print:hidden">
                                             <div class="flex flex-row gap-2 min-w-max">
-                                                <button wire:click="$emit('openDetailModal', {{$retur->id}})" type="button" class="btn text-white bg-violet-500 border-violet-500 hover:bg-violet-600 hover:border-violet-600 focus:bg-violet-600 focus:border-violet-600 focus:ring focus:ring-violet-500/30 active:bg-violet-600 active:border-violet-600"><i class="mdi mdi-eye-outline text-22 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Detail</span></button>
+                                                <button wire:click="$emit('openDeleteModal', {{$retur->id}})" type="button" class="btn text-white bg-red-500 border-red-500 hover:bg-red-600 hover:border-red-600 focus:bg-red-600 focus:border-red-600 focus:ring focus:ring-red-500/30 active:bg-red-600 active:border-red-600"><i class="mdi mdi-delete text-22 align-middle ltr:mr-1 rtl:ml-1 "></i><span class="align-middle">Hapus</span></button>
                                             </div>
                                         </td>
                                     </tr>

@@ -3,6 +3,7 @@
 @section('menu_title', 'Daftar Retur')
 
 @section('HTML_Main')
+   @livewire('gudang.retur-list.delete-retur-modal')
    @livewire('gudang.retur-list.detail-modal')
    @livewire('gudang.retur-list.retur-list-table', ['user' => $user])
 @endsection
