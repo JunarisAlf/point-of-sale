@@ -134,7 +134,7 @@
 
 
                  {{-- START MASTER DATA --}}
-                @if ($user->role === 'master' || $user->role === 'admin' || $user->role === 'finance')
+                @if ($user->role != 'finance')
                     <li >
                         <a href="javascript: void(0);" class="nav-menu pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
                             <i data-feather="list"></i>
@@ -154,14 +154,18 @@
                             <li>
                                 <a href="{{route('admin.master.multiPrice')}}" class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Harga Multi & Satuan</a>
                             </li>
+                        @endif
+                        @if ($user->role === 'master' || $user->role === 'admin')
+                            <li>
+                                <a href="{{route('admin.master.customer')}}" class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Nama Pelanggan</a>
+                            </li>
+                        @endif
+                        @if ($user->role === 'master' || $user->role === 'gudang')
                             <li>
                                 <a href="{{route('admin.master.supplier')}}" class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Supplier</a>
                             </li>
                         @endif
-                            <li>
-                                <a href="{{route('admin.master.customer')}}" class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Nama Pelanggan</a>
-                            </li>
-                        </ul>
+                    </ul>
                     </li>
                 @endif
 

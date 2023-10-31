@@ -47,7 +47,7 @@
                                     Nomor
                                 </th>
                                 <th scope="col" class="p-4 text-center">
-                                    Nama Supplier
+                                    Nama Perusahaan - Sales
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
                                     Telp.
@@ -80,7 +80,7 @@
                                         </td>
 
                                         <td class="px-6 py-4 dark:text-zinc-100/80 ">
-                                            {{$supplier->name}}
+                                            {{$supplier->name}} -  {{$supplier->sales}}
                                         </td>
                                         <td class="px-6 py-4 dark:text-zinc-100/80 text-center">
                                             <button type="button" class="btn text-sky-500 bg-sky-50 border-sky-50 hover:text-white hover:bg-sky-600 hover:border-sky-600 focus:text-white focus:bg-sky-600 focus:border-sky-600 focus:ring focus:ring-sky-500/30 active:bg-sky-600 active:border-sky-600 dark:focus:ring-sky-500/10 dark:bg-sky-500/20 dark:border-transparent">{{$supplier->telp}}</button>

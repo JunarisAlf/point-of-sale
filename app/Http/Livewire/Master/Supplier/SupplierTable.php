@@ -33,7 +33,8 @@ class SupplierTable extends Component{
                     where('name', 'like', "%$this->searchQuery%")
                     ->orWhere('address', 'like', "%$this->searchQuery%")
                     ->orWhere('telp', 'like', "%$this->searchQuery%")
-                    ->orWhere('address', 'like', "%$this->searchQuery%");
+                    ->orWhere('address', 'like', "%$this->searchQuery%")
+                    ->orderBy('id', 'DESC');
         $this->data_count = $suppliers->count();
         return $suppliers;
     }

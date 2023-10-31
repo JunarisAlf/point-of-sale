@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class CreateSupplierModal extends Component{
     public $show = false;
-    public $name, $address, $telp;
+    public $name, $address, $telp, $sales;
     protected $listeners = ['openCreateModal' => 'openModal'];
     public function openModal(){
         $this->show = true;
@@ -27,7 +27,8 @@ class CreateSupplierModal extends Component{
             'name'          => 'required|string',
             'address'       => 'required|string',
             'telp'          => 'required|string',
-            'rekening'      => 'required|array|min:1'
+            'rekening'      => 'required|array|min:1',
+            'sales'         => 'nullable'
         ];
     }
     public function store(){

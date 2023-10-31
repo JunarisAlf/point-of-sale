@@ -8,9 +8,9 @@ use Livewire\Component;
 
 class EditSupplierModal extends Component{
     public $show = false;
-    public $data_id, $name, $address, $telp;
+    public $data_id, $name, $address, $telp, $sales;
     protected $listeners = ['openEditModal' => 'openModal'];
-    
+
     public $rekening = [''];
     public function deleteRek($index){
        unset($this->rekening[$index]);
@@ -25,7 +25,7 @@ class EditSupplierModal extends Component{
             $supplier = Supplier::find($id);
             $this->data_id = $supplier->id;
             $this->fill($supplier);
-            $this->rekening = json_decode($supplier->rekening);
+            $this->rekening = json_decode($supplier->rekening == null ? '[]' : $supplier->rekening);
             $this->show = true;
         } catch (Exception $e) {
             $this->emit('showDangerAlert', 'Server ERROR!');
@@ -36,7 +36,8 @@ class EditSupplierModal extends Component{
             'name'          => 'required|string',
             'address'       => 'required|string',
             'telp'          => 'required|string',
-            'rekening'      => 'required|array|min:1'
+            'rekening'      => 'required|array|min:1',
+            'sales'         => 'nullable'
         ];
     }
     public function update($id){

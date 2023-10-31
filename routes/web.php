@@ -69,7 +69,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/kategory',  [CategoryController::class, 'index'])->name('admin.master.category');
         Route::get('/barang',  [ItemController::class, 'index'])->name('admin.master.item');
         Route::get('/harga-multi',  [ItemController::class, 'multiPrice'])->name('admin.master.multiPrice');
-        Route::get('/supplier',  [SupplierController::class, 'index'])->name('admin.master.supplier');
+        Route::get('/supplier',  [SupplierController::class, 'index'])->name('admin.master.supplier')->withoutMiddleware('master');
         Route::get('/pelanggan',  [CustomerController::class, 'index'])->name('admin.master.customer')->withoutMiddleware('master');
     });
 
