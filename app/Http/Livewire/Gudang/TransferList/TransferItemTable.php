@@ -18,7 +18,7 @@ class TransferItemTable extends Component{
     public $paginate_count = 50, $data_count;
     public $page = 1; // for page number
 
-    public $is_acc = false;
+    public $status = '0';
     public function mount(){
         $this->resetPage();
         $this->data = $this->getData();
@@ -41,6 +41,9 @@ class TransferItemTable extends Component{
     public function openAccModal($id){
         $this->emit('openAccModal', $id);
     }
+    public function openRejectModal($id){
+        $this->emit('openRejectModal', $id);
+    }
     // pagging
     protected $data;
     public function updatingPaginateCount() {
@@ -48,9 +51,16 @@ class TransferItemTable extends Component{
     }
     public function getData(){
         $items = TransferStock::query();
-        $items =
-            $items->where('to_cabang_id', $this->cabang_id);
-            $items->where('is_acc', $this->is_acc);
+        $items = $items->where('to_cabang_id', $this->cabang_id);
+        if($this->status == '0'){
+            $items->where('is_acc', false)->where('is_reject', false);
+        }
+        if($this->status == '1'){
+            $items->where('is_acc', true)->where('is_reject', false);
+        }
+        if($this->status == '2'){
+            $items->where('is_acc', false)->where('is_reject', true);
+        }
         $this->data_count = $items->count();
         return $items;
     }

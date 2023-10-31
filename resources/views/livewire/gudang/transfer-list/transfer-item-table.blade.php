@@ -22,9 +22,11 @@
                                 Transfer</label>
                             <select id="countries"
                                 class="block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-zinc-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                                wire:model="is_acc">
-                                <option value="0">Belum Diterima</option>
+                                wire:model="status">
+                                <option value="0">Belum Di Proses</option>
                                 <option value="1">Sudah Diterima</option>
+                                <option value="2">Sudah Ditolak</option>
+
                             </select>
                         </div>
 
@@ -71,7 +73,13 @@
                                     Di Transfer
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
-                                    Di Terima
+                                    Dari
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-center">
+                                    Ke
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-center">
+                                    Di Terima/Di Tolak
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-center">
                                     Aksi
@@ -82,7 +90,7 @@
                             @if ($items->isEmpty())
                                 <tr
                                     class="border-b border-zinc-100 bg-white hover:bg-zinc-100/50 dark:border-zinc-600 dark:bg-zinc-700/50">
-                                    <td colspan="6" class="w-4 p-4 text-center">Tidak ada data</td>
+                                    <td colspan="9" class="w-4 p-4 text-center">Tidak ada data</td>
                                 </tr>
                             @else
                                 @foreach ($items as $key => $item)
@@ -112,22 +120,48 @@
                                             {{ Carbon\Carbon::parse($item->created_at)->format('d/m/Y ')}}
                                         </td>
                                         <td class="border-[1px] px-6 py-4 text-center dark:text-zinc-100/80">
+                                            {{ $item->fromCabang->name}}
+                                        </td>
+                                        <td class="border-[1px] px-6 py-4 text-center dark:text-zinc-100/80">
+                                            {{ $item->toCabang->name}}
+                                        </td>
+                                        <td class="border-[1px] px-6 py-4 text-center dark:text-zinc-100/80">
                                             {{ $item->is_acc ? Carbon\Carbon::parse($item->updated_at)->format('d/m/Y ') : '-'}}
                                         </td>
                                         <td class="border-[1px] px-6 py-4 text-center dark:text-zinc-100/80">
-                                            @if(!$item->is_acc)
-                                                <button wire:click="openAccModal({{ $item->id }})"
-                                                    type="button"
-                                                    class="btn border-green-500 bg-green-500 text-white hover:border-green-600 hover:bg-green-600 focus:border-green-600 focus:bg-green-600 focus:ring focus:ring-green-500/30 active:border-green-600 active:bg-green-600">
-                                                    <i class="bx bx-check text-16 align-middle ltr:mr-1 rtl:ml-1"></i>
-                                                    <span class="align-middle">Terima</span>
-                                                </button>
+                                            @if($item->is_acc == false)
+                                                @if ($item->is_reject == false)
+                                                    <button wire:click="openAccModal({{ $item->id }})"
+                                                        type="button"
+                                                        class="btn border-green-500 bg-green-500 text-white hover:border-green-600 hover:bg-green-600 focus:border-green-600 focus:bg-green-600 focus:ring focus:ring-green-500/30 active:border-green-600 active:bg-green-600">
+                                                        <i class="bx bx-check text-16 align-middle ltr:mr-1 rtl:ml-1"></i>
+                                                        <span class="align-middle">Terima</span>
+                                                    </button>
+                                                @endif
                                             @else
                                                 <button
                                                     type="button"
                                                     class="btn border-green-300 bg-green-300 text-white hover:border-green-300 hover:bg-green-300 focus:border-green-300 focus:bg-green-300 focus:ring focus:ring-green-300/30 active:border-green-300 active:bg-green-300">
                                                     <i class="bx bx-check text-16 align-middle ltr:mr-1 rtl:ml-1"></i>
                                                     <span class="align-middle">Sudah Diterima</span>
+                                                </button>
+                                            @endif
+
+                                            @if($item->is_reject == false)
+                                                @if ($item->is_acc == false)
+                                                    <button wire:click="openRejectModal({{ $item->id }})"
+                                                        type="button"
+                                                        class="btn border-red-500 bg-red-500 text-white hover:border-red-600 hover:bg-red-600 focus:border-red-600 focus:bg-red-600 focus:ring focus:ring-red-500/30 active:border-red-600 active:bg-red-600">
+                                                        <i class="bx bx-x-circle text-16 align-middle ltr:mr-1 rtl:ml-1"></i>
+                                                        <span class="align-middle">Tolak</span>
+                                                    </button>
+                                                @endif
+                                            @else
+                                                <button
+                                                    type="button"
+                                                    class="btn border-red-300 bg-red-300 text-white hover:border-red-300 hover:bg-red-300 focus:border-red-300 focus:bg-red-300 focus:ring focus:ring-red-300/30 active:border-red-300 active:bg-red-300">
+                                                    <i class="bx bx-x-circle text-16 align-middle ltr:mr-1 rtl:ml-1"></i>
+                                                    <span class="align-middle">Sudah Ditolak</span>
                                                 </button>
                                             @endif
 

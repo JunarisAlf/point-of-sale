@@ -5,6 +5,7 @@
 @section('HTML_Main')
     @livewire('gudang.transfer-list.transfer-item-table', ['user' => $user])
     @livewire('gudang.transfer-list.confirm-modal')
+    @livewire('gudang.transfer-list.reject-modal')
 
 @endsection
 

@@ -52,7 +52,7 @@ class TransferItemModal extends Component{
                 'item_id'           => $item_id,
                 'from_cabang_id'    => $old_stock->cabang_id,
                 'to_cabang_id'      => $this->cabang_id,
-                'stock_id'          => $this->stock_id,
+                'stock_id'          => $this->stock_id, //stock_id sumber
                 'quantity'          => $validated['quantity'],
                 'is_acc'            => false
             ]);
