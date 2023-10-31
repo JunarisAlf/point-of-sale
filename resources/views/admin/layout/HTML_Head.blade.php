@@ -49,4 +49,4 @@
 
 </head>
 
-<body data-mode="light" data-sidebar-size="lg">
+<body id='body' data-mode="light" data-sidebar-size="sm" class="sidebar-enabled">
