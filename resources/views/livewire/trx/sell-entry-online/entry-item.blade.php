@@ -8,11 +8,7 @@
                         <label for="category-select" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Barang</label>
                         <div class="rounded @error('item_id') border-red-500 border-[0.5px] @enderror" >
                             <div wire:ignore>
-                                <select  class="" data-trigger name="item_id" placeholder="This is a search placeholder" id="item-select" wire:model="item_id">
-                                    <option selected>Pilih Barang</option>
-                                    @foreach ($items as $item)
-                                        <option  value="{{$item->id}}">{{$item->barcode}} - {{$item->name}}</option>
-                                    @endforeach
+                                <select  data-trigger name="item_id" placeholder="This is a search placeholder" id="item-select" wire:model="item_id">
                                 </select>
                             </div>
                         </div>

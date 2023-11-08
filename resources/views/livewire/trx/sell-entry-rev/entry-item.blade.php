@@ -1,18 +1,17 @@
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 ">
     <div class="col-span-12 ">
         <div class="card dark:bg-zinc-800 dark:border-zinc-600">
-            <div class="card-body">
+            <div class="card-body p-0">
                 <div class="card-body flex flex-row gap-4 grid grid-cols-1 md:grid-cols-12">
-
                     <div class="col-span-12 items-center ">
                         <label for="category-select" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Barang</label>
                         <div class="rounded @error('item_id') border-red-500 border-[0.5px] @enderror" >
                             <div wire:ignore>
-                                <select  class="" data-trigger name="item_id" placeholder="This is a search placeholder" id="item-select" wire:model="item_id">
-                                    <option selected>Pilih Barang</option>
-                                    @foreach ($items as $item)
+                                <select  data-trigger name="item_id"  id="item-select" wire:model="item_id">
+                                    {{-- <option selected>Pilih Barang</option> --}}
+                                    {{-- @foreach ($items as $item)
                                         <option  value="{{$item->id}}">{{$item->barcode}} - {{$item->name}}</option>
-                                    @endforeach
+                                    @endforeach --}}
                                 </select>
                             </div>
                         </div>

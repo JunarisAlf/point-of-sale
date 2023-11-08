@@ -8,10 +8,10 @@
                         <label for="category-select" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mr-3">Barang</label>
                         <div wire:ignore>
                             <select  class="" data-trigger name="supplier_id" placeholder="This is a search placeholder" id="item-select" wire:model="supplier_id">
-                                <option value="" selected>Pilih Barang</option>
+                                {{-- <option value="" selected>Pilih Barang</option>
                                 @foreach ($items as $item)
                                     <option  value="{{$item->id}}">{{$item->barcode}} - {{$item->name}}</option>
-                                @endforeach
+                                @endforeach --}}
                             </select>
                         </div>
                     </div>

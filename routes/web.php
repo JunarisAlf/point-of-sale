@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('ajax/get-item', [ItemController::class, 'ajaxItemSearch']);
+
 Route::middleware('guest')->group(function(){
     Route::get('/login', [AuthController::class, 'login'])->name('login_page');
 });

@@ -33,7 +33,7 @@ class EntryItem extends Component{
     }
 
     public function mount(){
-        $this->items = Item::all();
+        // $this->items = Item::all();
     }
 
     public function submit(){

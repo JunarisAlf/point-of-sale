@@ -42,7 +42,7 @@
 
     <!-- form mask -->
     <script src="{{asset('mania/libs/imask/imask.min.js')}}"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         Livewire.on('refreshPage', function (url) {
@@ -75,7 +75,19 @@
         //  Item
         $(document).ready(function() {
             $('#item-select').select2({
-                width: '100%'
+                width: '100%',
+                placeholder: 'Input Barcode atau Nama Barang'
+                ajax: {
+                    url: '/ajax/get-item',
+                    dataType: 'json',
+                    delay: 100,
+                    processResults: function (data) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                }
             });
         });
         $('#item-select').on('change', function() {

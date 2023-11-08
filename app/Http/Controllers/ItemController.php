@@ -2,10 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller{
+    public function ajaxItemSearch(Request $request){
+        if($request->term == null || $request->term == ''){
+            return response()->json([]);
+        }
+        $items = Item::
+            where('name', 'like', "$request->term%")
+            ->orWhere('barcode', 'like', "$request->term%")
+            ->limit(50)
+            ->get(['id', 'name', 'barcode']);
+        $results = $items->map(function ($item) {
+            return [
+                'id'    => $item->id,
+                'text'  => $item->barcode . ' - ' . $item->name,
+            ];
+        });
+        return response()->json($results);
+    }
     public function index(){
         $user = Auth::user();
         return view('admin.pages.master.item', compact('user'));
