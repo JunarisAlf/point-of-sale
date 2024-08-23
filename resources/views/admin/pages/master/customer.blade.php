@@ -10,8 +10,8 @@
 @endsection
 
 @section('page_css')
-    <script src="//unpkg.com/alpinejs" defer></script>
-    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+    <script src="{{asset('js/alphine.js')}}" defer></script>
+    <script type="text/javascript" src="{{asset('js/xlsx.full.min.js')}}"></script>
     <script>
         document.addEventListener('alpine:init', () => {
 

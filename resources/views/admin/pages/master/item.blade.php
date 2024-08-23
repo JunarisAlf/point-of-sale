@@ -10,9 +10,9 @@
 @endsection
 
 @section('page_css')
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
-    <script src="//unpkg.com/alpinejs" defer></script>
+    <link href="{{asset('css/select2.css')}}" rel="stylesheet" />
+    <script type="text/javascript" src="{{asset('js/xlsx.full.min.js')}}"></script>
+    <script src="{{asset('js/alphine.js')}}" defer></script>
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('opt', () => ({
@@ -69,12 +69,12 @@
     </script>
 @endsection
 @section('page_script')
-    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js" ></script>
+    <script src="{{asset('js/jsbarcode.js')}}" ></script>
     <script>JsBarcode(".barcode").init();</script>
     <!-- form mask -->
     <script src="{{asset('mania/libs/imask/imask.min.js')}}"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{asset('js/jquery.js')}}"></script>
+    <script src="{{asset('js/select2.js')}}"></script>
     <script>
         $(document).ready(function() {
             $('#category-select').select2({

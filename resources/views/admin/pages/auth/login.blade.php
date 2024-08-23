@@ -5,7 +5,7 @@
 @endsection
 
 @section('page_script')
-    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="{{asset('js/alphine.js')}}" defer></script>
 @endsection
 
 @section('HTML_Main')

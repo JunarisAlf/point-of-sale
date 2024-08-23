@@ -15,7 +15,7 @@
 @section('page_script')
     <script src="{{asset('mania/libs/imask/imask.min.js')}}"></script>
     <script src="{{asset('mania/libs/flatpickr/flatpickr.min.js')}}"></script>
-    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+    <script type="text/javascript" src="{{asset('js/xlsx.full.min.js')}}"></script>
     <script>
         const dateRange = flatpickr('#datepicker-range', {
             mode: "range",

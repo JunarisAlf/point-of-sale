@@ -10,7 +10,7 @@
 @endsection
 
 @section('page_css')
-    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="{{asset('js/alphine.js')}}" defer></script>
     <script>
         document.addEventListener('alpine:init', () => {
            
